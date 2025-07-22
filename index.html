@@ -24,6 +24,16 @@
     <a href="dashboard4.html">Dashboard 4</a>
   </div>
 
+  <button onclick="logout()">Logout</button>
+
+<script>
+  function logout() {
+    localStorage.removeItem("authenticated");
+    window.location.href = "login.html";
+  }
+</script>
+
+
   <script>
   if (localStorage.getItem("authenticated") !== "true") {
     window.location.href = "login.html";
