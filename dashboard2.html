@@ -9,5 +9,12 @@
   <h1>Dashboard 2</h1>
   <p>Update your data here manually...</p>
   <a href="index.html">Back</a>
+
+  <script>
+  if (localStorage.getItem("authenticated") !== "true") {
+    window.location.href = "login.html";
+  }
+</script>
+
 </body>
 </html>
