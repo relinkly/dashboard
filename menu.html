@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Company Dashboard</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <h1>Company Dashboards</h1>
+  <div class="buttons">
+    <a href="dashboard1.html">Dashboard 1</a>
+    <a href="dashboard2.html">Dashboard 2</a>
+    <a href="dashboard3.html">Dashboard 3</a>
+    <a href="dashboard4.html">Dashboard 4</a>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+</body>
+</html>
