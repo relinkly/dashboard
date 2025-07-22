@@ -2,48 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Company Dashboard</title>
-  <link rel="manifest" href="manifest.json">
+  <title>Login - Company Dashboard</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="icon-192.png">
-
-  <!-- iOS support -->
-  <link rel="apple-touch-icon" href="icon-192.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Company Dashboard">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <h1>Company Dashboards</h1>
-  <div class="buttons">
-    <a href="dashboard1.html">Dashboard 1</a>
-    <a href="dashboard2.html">Dashboard 2</a>
-    <a href="dashboard3.html">Dashboard 3</a>
-    <a href="dashboard4.html">Dashboard 4</a>
-  </div>
-
-  <button onclick="logout()">Logout</button>
-
-<script>
-  function logout() {
-    localStorage.removeItem("authenticated");
-    window.location.href = "login.html";
-  }
-</script>
-
+  <h2>Login</h2>
+  <form id="login-form">
+    <input type="text" id="username" placeholder="Username" required><br><br>
+    <input type="password" id="password" placeholder="Password" required><br><br>
+    <button type="submit">Login</button>
+    <p id="error" style="color: red;"></p>
+  </form>
 
   <script>
-  if (localStorage.getItem("authenticated") !== "true") {
-    window.location.href = "login.html";
-  }
-</script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
+      // Simple check — you can add multiple users here
+      if (user === "employee" && pass === "1234") {
+        localStorage.setItem("authenticated", "true");
+        window.location.href = "index.html";
+      } else {
+        document.getElementById('error').textContent = "Invalid credentials.";
+      }
+    });
   </script>
 </body>
 </html>
