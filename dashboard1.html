@@ -2,106 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ZL & BVS Active Retail</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="icon-192.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <title>Embedded Google Sheet</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 1.5rem;
-      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
     }
-
-    h1 {
-      color: #007bff;
-      font-size: 1.6rem;
-      margin-bottom: 0.5rem;
+    .container {
+      padding: 20px;
     }
-
-    .tag {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 1rem;
-    }
-
-    .excel-container {
+    iframe {
       width: 100%;
-      height: 75vh;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .excel-container iframe {
-      width: 100%;
-      height: 100%;
+      height: 600px;
       border: none;
     }
 
-    .buttons {
-      margin-top: 1.5rem;
-    }
-
-    .buttons a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
-    }
-
+    /* Optional: Make iframe responsive on smaller screens */
     @media (max-width: 768px) {
-      h1 {
-        font-size: 1.3rem;
-      }
-
-      .tag {
-        font-size: 0.8rem;
+      iframe {
+        height: 400px;
       }
     }
   </style>
 </head>
 <body>
-
-  <h1>ZL & BVS Active Retail</h1>
-  <p class="tag">📅 Updated till <strong>23/07/2025</strong></p>
-
-  <!-- Excel Embed Container -->
-  <div class="excel-container" id="iframe-container">
+  <div class="container">
+    <h1>My Google Sheet</h1>
     <iframe 
-      src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSMHAb751krVZ6NuE0xMWrk5WFEhSTz4GjicxloqA6mezDwvxdaaKfrilLsjhRt2w/pubhtml?widget=true&amp;headers=false" 
-      allowfullscreen 
-      loading="lazy">
+      src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSMHAb751krVZ6NuE0xMWrk5WFEhSTz4GjicxloqA6mezDwvxdaaKfrilLsjhRt2w/pubhtml?widget=true&headers=false" 
+      allowfullscreen>
     </iframe>
   </div>
-
-  <!-- Fallback for mobile users -->
-  <div id="mobile-fallback" style="display:none; margin-top: 1rem;">
-    <p style="color: #444;">
-      📱 Having trouble viewing the report?  
-      <a href="https://docs.google.com/spreadsheets/d/1Jz4D5JHcjZOyRpu2xJrQLdR7QEw7r5JH/edit?usp=sharing" target="_blank">
-        Tap here to open it directly in Google Sheets.
-      </a>
-    </p>
-  </div>
-
-  <div class="buttons">
-    <a href="menu.html">🔙 Back to Menu</a>
-  </div>
-
-  <script>
-    // Login protection
-    if (localStorage.getItem("authenticated") !== "true") {
-      window.location.href = "index.html";
-    }
-
-    // Fallback for mobile devices
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      document.getElementById("iframe-container").style.display = "none";
-      document.getElementById("mobile-fallback").style.display = "block";
-    }
-  </script>
-
 </body>
 </html>
