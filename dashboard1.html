@@ -3,35 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Filterable Google Sheet Data</title>
+  <title>Two Google Sheets Tables</title>
 
   <!-- DataTables CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
-  />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
       background: #f9f9f9;
     }
+
     h1 {
       text-align: center;
-      margin-bottom: 20px;
+      font-size: 20px;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      color: #333;
     }
+
     table.dataTable {
       width: 100% !important;
+      margin-bottom: 40px;
     }
 
-    /* Reduce font size in DataTable */
-    table.dataTable,
-    table.dataTable th,
-    table.dataTable td {
-      font-size: 12px; /* smaller font */
+    table.dataTable, table.dataTable th, table.dataTable td {
+      font-size: 12px; /* smaller font for better mobile fit */
     }
 
-    /* Responsive tweaks */
     @media (max-width: 600px) {
       body {
         margin: 10px;
@@ -40,8 +40,15 @@
   </style>
 </head>
 <body>
-  <h1>Filterable Google Sheet Data</h1>
-  <table id="sheetTable" class="display" style="width:100%">
+
+  <h1>Sheet 1 Data</h1>
+  <table id="sheetTable1" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <h1>Sheet 2 Data</h1>
+  <table id="sheetTable2" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
@@ -54,37 +61,42 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    const csvUrl =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?output=csv";
+    const csvUrl1 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=0&single=true&output=csv";
+    const csvUrl2 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=864206039&single=true&output=csv";
 
-    Papa.parse(csvUrl, {
-      download: true,
-      header: true,
-      complete: function (results) {
-        const data = results.data.filter(row => Object.values(row).some(val => val !== ""));
+    function loadTable(csvUrl, tableId) {
+      Papa.parse(csvUrl, {
+        download: true,
+        header: true,
+        complete: function (results) {
+          const data = results.data.filter(row => Object.values(row).some(val => val.trim() !== ""));
 
-        if (data.length === 0) {
-          document.body.innerHTML = "<h2>No data found in the sheet.</h2>";
-          return;
+          if (data.length === 0) {
+            document.getElementById(tableId).outerHTML = `<h2>No data found in ${tableId}.</h2>`;
+            return;
+          }
+
+          const columns = Object.keys(data[0]).map(key => ({
+            title: key,
+            data: key,
+          }));
+
+          $('#' + tableId).DataTable({
+            data: data,
+            columns: columns,
+            paging: true,
+            searching: true,
+            responsive: true,
+          });
+        },
+        error: function () {
+          document.getElementById(tableId).outerHTML = `<h2>Failed to load data for ${tableId}.</h2>`;
         }
+      });
+    }
 
-        const columns = Object.keys(data[0]).map(key => ({
-          title: key,
-          data: key,
-        }));
-
-        $('#sheetTable').DataTable({
-          data: data,
-          columns: columns,
-          paging: true,
-          searching: true,
-          responsive: true,
-        });
-      },
-      error: function () {
-        document.body.innerHTML = "<h2>Failed to load the sheet data.</h2>";
-      }
-    });
+    loadTable(csvUrl1, "sheetTable1");
+    loadTable(csvUrl2, "sheetTable2");
   </script>
 </body>
 </html>
