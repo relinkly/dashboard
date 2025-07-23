@@ -10,188 +10,197 @@
 
   <style>
     body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 20px auto;
-  max-width: 1200px;
-  background: #fafafa;
-  font-size: 14px;  /* increased font size for readability */
-  padding: 0 15px;
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1100px;
+  margin: 30px auto;
+  background: #fff;
+  font-size: 15px;
+  color: #333;
+  padding: 0 20px;
   box-sizing: border-box;
-  color: #222;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 h1 {
-  text-align: center;
-  font-size: 20px;
-  margin: 40px 0 15px;
+  font-weight: 600;
+  font-size: 22px;
+  margin: 40px 0 20px;
   color: #222;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border-bottom: 2px solid #2196F3;
-  padding-bottom: 8px;
+  border-bottom: 2px solid #0073e6;
+  padding-bottom: 6px;
   max-width: 320px;
   margin-left: auto;
   margin-right: auto;
+  letter-spacing: 0.02em;
 }
 
 .tabs {
   display: flex;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   gap: 16px;
   flex-wrap: wrap;
 }
 
 .tab-button {
   cursor: pointer;
-  padding: 12px 28px;
-  background: #e1e8f0;
-  border: 1.8px solid transparent;
-  font-weight: 600;
+  padding: 10px 24px;
+  background: #f8f9fa;
+  border: 1.5px solid #d1d5db;
+  font-weight: 500;
   font-size: 15px;
-  border-radius: 8px 8px 0 0;
+  border-radius: 6px 6px 0 0;
+  color: #555;
+  transition: all 0.25s ease;
   user-select: none;
-  transition: background-color 0.25s, border-color 0.25s, color 0.25s;
-  box-shadow: 0 2px 5px rgb(0 0 0 / 0.07);
-  color: #374151;
-}
-.tab-button:hover:not(.active) {
-  background-color: #c7d4eb;
-  color: #1e40af;
-}
-.tab-button.active {
-  background: #ffffff;
-  border: 2px solid #2196F3;
-  border-bottom: 2px solid #fff;
-  color: #0b60d9;
-  font-weight: 700;
-  box-shadow: inset 0 -3px 0 #2196F3;
+  box-shadow: none;
 }
 
-/* Tab content containers */
+.tab-button:hover:not(.active) {
+  background-color: #e2e6ef;
+  border-color: #a0aec0;
+  color: #222;
+}
+
+.tab-button.active {
+  background: #ffffff;
+  border-bottom: 2px solid white;
+  border-color: #0073e6;
+  font-weight: 600;
+  color: #0073e6;
+}
+
 .tab-content {
   display: none;
   background: #fff;
-  padding: 25px 30px 30px;
-  border: 2px solid #2196F3;
-  border-radius: 0 12px 12px 12px;
-  box-shadow: 0 4px 12px rgb(33 150 243 / 0.12);
+  padding: 30px 30px 40px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 0 8px 8px 8px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.06);
 }
+
 .tab-content.active {
   display: block;
 }
 
 table.dataTable {
   width: 100% !important;
-  margin-bottom: 50px;
-  font-size: 13px;
-  box-sizing: border-box;
-  overflow-x: auto;
-  display: block;
   border-collapse: separate !important;
-  border-spacing: 0 6px;
+  border-spacing: 0 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin-bottom: 50px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.05);
+  overflow-x: auto;
   background-color: #fff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
 }
 
-/* Table header styling */
 table.dataTable thead th {
-  background-color: #2196F3;
-  color: white !important;
+  background-color: #f1f5f9;
+  color: #555 !important;
   font-weight: 600 !important;
-  padding: 12px 14px !important;
-  border: none !important;
+  padding: 12px 16px !important;
+  border-bottom: 2px solid #cbd5e1 !important;
   text-align: left;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  box-shadow: inset 0 -3px 6px rgb(0 0 0 / 0.12);
+  border-radius: 8px 8px 0 0;
 }
 
-/* Table cells styling */
 table.dataTable tbody td {
-  padding: 10px 14px !important;
-  background: #fefefe;
+  padding: 12px 16px !important;
+  background-color: #ffffff;
+  color: #444;
   border-bottom: 8px solid transparent;
   white-space: nowrap;
-  color: #444;
   border-radius: 6px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
+
 table.dataTable tbody tr:hover td {
-  background-color: #e8f0fe;
-  color: #111;
-}
-
-/* Pagination and info styling */
-.dataTables_wrapper .dataTables_paginate {
-  margin-top: 10px;
-}
-.dataTables_wrapper .dataTables_paginate a {
-  color: #2196F3 !important;
-  font-weight: 600;
-  border-radius: 4px;
-  padding: 4px 10px;
-  border: 1.5px solid transparent;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-.dataTables_wrapper .dataTables_paginate a:hover {
-  background-color: #2196F3;
-  color: white !important;
-  border-color: #1b7ddb;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-  background-color: #0b60d9 !important;
-  color: white !important;
-  border-color: #0b60d9 !important;
-}
-
-/* Container for the Grid ID filter buttons */
-#grid-filter-container {
-  max-width: 1200px;
-  margin: 0 auto 30px auto;
-  text-align: center;
-}
-#grid-filter-container button {
-  margin: 4px 8px 4px 0;
-  padding: 8px 14px;
-  font-size: 13px;
-  cursor: pointer;
-  border: 2px solid #888;
-  border-radius: 5px;
-  background-color: #f5f7fa;
-  color: #444;
-  font-weight: 600;
-  user-select: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 0.05);
-}
-#grid-filter-container button:hover {
-  background-color: #e1e8f0;
-  border-color: #555;
+  background-color: #f8fafc;
   color: #222;
 }
-#grid-filter-container button.active {
-  background-color: #2196F3;
-  color: white;
-  border-color: #0b7dda;
-  box-shadow: 0 0 8px #2196F3aa;
+
+/* Pagination & controls styling */
+.dataTables_wrapper .dataTables_paginate {
+  margin-top: 12px;
+  text-align: right;
 }
 
-/* Clear button standout */
-#grid-filter-clear {
-  font-weight: 700;
-  border-color: #333;
-  background-color: #ddd;
-  color: #333;
+.dataTables_wrapper .dataTables_paginate a {
+  color: #0073e6 !important;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 5px 11px;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  margin-left: 4px;
+  user-select: none;
 }
-#grid-filter-clear.active {
-  background-color: #2196F3;
+
+.dataTables_wrapper .dataTables_paginate a:hover {
+  background-color: #0073e6;
+  color: white !important;
+  border-color: #005bb5;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background-color: #005bb5 !important;
+  color: white !important;
+  border-color: #005bb5 !important;
+}
+
+/* Grid Filter Buttons Container */
+#grid-filter-container {
+  max-width: 1100px;
+  margin: 0 auto 30px auto;
+  text-align: center;
+  padding: 10px 0;
+}
+
+#grid-filter-container button {
+  margin: 6px 6px 6px 0;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1.5px solid #b0b7c3;
+  border-radius: 5px;
+  background-color: #f5f7fa;
+  color: #555;
+  font-weight: 500;
+  user-select: none;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+  min-width: 90px;
+  white-space: nowrap;
+}
+
+#grid-filter-container button:hover {
+  background-color: #e0e6f0;
+  border-color: #8f9bb9;
+  color: #222;
+}
+
+#grid-filter-container button.active {
+  background-color: #0073e6;
   color: white;
-  border-color: #0b7dda;
-  box-shadow: 0 0 10px #2196F3bb;
+  border-color: #005bb5;
+  box-shadow: 0 0 8px rgb(0 115 230 / 0.3);
+}
+
+#grid-filter-clear {
+  font-weight: 600;
+  border-color: #444;
+  background-color: #e2e8f0;
+  color: #444;
+  min-width: 100px;
+}
+
+#grid-filter-clear.active {
+  background-color: #0073e6;
+  color: white;
+  border-color: #005bb5;
+  box-shadow: 0 0 10px rgb(0 115 230 / 0.4);
 }
 
 /* Watermark */
@@ -207,25 +216,25 @@ table.dataTable tbody tr:hover td {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.07;
+  opacity: 0.05;
   color: #000;
   font-size: 18vw;
   font-weight: 900;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   white-space: nowrap;
   text-align: center;
   transform: translate(-50%, -50%) rotate(68deg);
 }
 
-/* Responsive tweaks */
+/* Responsive */
 @media (max-width: 768px) {
   body {
-    padding: 0 10px;
-    font-size: 13px;
+    padding: 0 15px;
+    font-size: 14px;
   }
 
   h1 {
-    font-size: 18px;
+    font-size: 20px;
     max-width: 100%;
   }
 
@@ -236,10 +245,12 @@ table.dataTable tbody tr:hover td {
 
   #grid-filter-container button {
     margin: 5px 6px 5px 0;
-    padding: 6px 12px;
-    font-size: 12px;
+    padding: 7px 14px;
+    font-size: 13px;
+    min-width: auto;
   }
 }
+
 
   </style>
 </head>
