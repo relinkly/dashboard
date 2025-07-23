@@ -3,116 +3,176 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ZL & BVS Active Retail</title>
+  <title>Multiple Google Sheets Tables with Tabs</title>
 
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
   <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px auto;
-  max-width: 1200px;      /* constrain width on desktop */
-  background: #f9f9f9;
-  font-size: 11px;        /* base font size */
-  padding: 0 10px;        /* side padding */
-  box-sizing: border-box;
-}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px auto;
+      max-width: 1200px;
+      background: #f9f9f9;
+      font-size: 11px;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
 
-h1 {
-  text-align: center;
-  font-size: 16px;
-  margin-top: 40px;
-  margin-bottom: 10px;
-  color: #333;
-}
+    h1 {
+      text-align: center;
+      font-size: 16px;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      color: #333;
+    }
 
-table.dataTable {
-  width: 100% !important;
-  margin-bottom: 40px;
-  font-size: 11px;
-  box-sizing: border-box;
-  /* add overflow for small devices */
-  overflow-x: auto;
-  display: block;  /* makes horizontal scrolling possible */
-}
+    /* Tabs container */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
 
-table.dataTable th,
-table.dataTable td {
-  font-size: 11px !important;
-  white-space: nowrap;  /* prevent weird wrapping */
-}
+    .tab-button {
+      cursor: pointer;
+      padding: 10px 20px;
+      background: #eee;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 5px 5px 0 0;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
+    .tab-button.active {
+      background: white;
+      border-bottom: 2px solid white;
+      color: #333;
+    }
 
-/* DataTables control elements */
-.dataTables_wrapper .dataTables_paginate,
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dataTables_filter label {
-  font-size: 11px;
-}
+    /* Tab content containers */
+    .tab-content {
+      display: none;
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 0 5px 5px 5px;
+    }
+    .tab-content.active {
+      display: block;
+    }
 
+    table.dataTable {
+      width: 100% !important;
+      margin-bottom: 40px;
+      font-size: 11px;
+      box-sizing: border-box;
+      overflow-x: auto;
+      display: block;
+    }
 
-    /* Add separator line below each DataTable wrapper (which includes pagination) */
-.dataTables_wrapper {
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 20px;
-  margin-bottom: 40px;
-}
+    table.dataTable th,
+    table.dataTable td {
+      font-size: 11px !important;
+      white-space: nowrap;
+    }
 
-/* Responsive tweaks */
-@media (max-width: 800px) {
-  body {
-    margin: 10px auto;
-    font-size: 9px;   /* slightly bigger than 8 for readability */
-    max-width: 100%;
-    padding: 0 5px;
-  }
-  h1 {
-    font-size: 12px;
-    margin-top: 20px;
-    margin-bottom: 8px;
-  }
-  table.dataTable {
-    font-size: 9px !important;
-  }
-  table.dataTable th,
-  table.dataTable td {
-    font-size: 9px !important;
-  }
-  .dataTables_wrapper .dataTables_paginate,
-  .dataTables_wrapper .dataTables_info,
-  .dataTables_wrapper .dataTables_filter label {
-    font-size: 9px;
-  }
-}
+    .dataTables_wrapper {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 20px;
+      margin-bottom: 40px;
+    }
 
-</style>
+    .dataTables_wrapper .dataTables_paginate,
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_filter label {
+      font-size: 11px;
+    }
 
+    @media (max-width: 800px) {
+      body {
+        margin: 10px auto;
+        font-size: 9px;
+        max-width: 100%;
+        padding: 0 5px;
+      }
+      h1 {
+        font-size: 12px;
+        margin-top: 20px;
+        margin-bottom: 8px;
+      }
+      table.dataTable,
+      table.dataTable th,
+      table.dataTable td,
+      .dataTables_wrapper .dataTables_paginate,
+      .dataTables_wrapper .dataTables_info,
+      .dataTables_wrapper .dataTables_filter label {
+        font-size: 9px !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <h1>Subregion Level</h1>
-  <table id="sheetTable1" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
+  <div class="tabs">
+    <div class="tab-button active" data-tab="etop">etop</div>
+    <div class="tab-button" data-tab="zl">zl</div>
+  </div>
 
-  <h1>RSM Level</h1>
-  <table id="sheetTable2" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
+  <div id="etop" class="tab-content active">
+    <h1>Subregion Level</h1>
+    <table id="sheetTable1" class="display" style="width:100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
 
-  <h1>Grid Level</h1>
-  <table id="sheetTable3" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
+    <h1>RSM Level</h1>
+    <table id="sheetTable2" class="display" style="width:100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
 
-  <h1>Franchise Level</h1>
-  <table id="sheetTable4" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
+    <h1>Grid Level</h1>
+    <table id="sheetTable3" class="display" style="width:100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+
+    <h1>Franchise Level</h1>
+    <table id="sheetTable4" class="display" style="width:100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="zl" class="tab-content">
+    <h1>Sheet 5 Level</h1>
+    <table id="sheetTable5" class="display" style="width:100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+
+    <h1>Sheet 6 Level</h1>
+    <table id="sheetTable6" class="display" style="width:100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+
+    <h1>Sheet 7 Level</h1>
+    <table id="sheetTable7" class="display" style="width:100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+
+    <h1>Sheet 8 Level</h1>
+    <table id="sheetTable8" class="display" style="width:100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -122,8 +182,25 @@ table.dataTable td {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    // Spreadsheet publish URLs with gid & output=csv
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active from all tabs and contents
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+
+        // Activate clicked tab and corresponding content
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Sheets config for both tabs
     const sheets = [
+      // etop sheets 1-4
       {
         url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=0&single=true&output=csv",
         tableId: "sheetTable1",
@@ -137,15 +214,38 @@ table.dataTable td {
       {
         url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=206508914&single=true&output=csv",
         tableId: "sheetTable3",
-        pagination: false
+        pagination: true
       },
       {
         url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=1057703911&single=true&output=csv",
         tableId: "sheetTable4",
+        pagination: true
+      },
+
+      // zl sheets 5-8
+      {
+        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?output=csv",
+        tableId: "sheetTable5",
         pagination: false
+      },
+      {
+        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?output=csv",
+        tableId: "sheetTable6",
+        pagination: false
+      },
+      {
+        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?output=csv",
+        tableId: "sheetTable7",
+        pagination: true
+      },
+      {
+        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?output=csv",
+        tableId: "sheetTable8",
+        pagination: true
       }
     ];
 
+    // Function to load data into a table using PapaParse and DataTables
     function loadTable(csvUrl, tableId, pagination) {
       Papa.parse(csvUrl, {
         download: true,
