@@ -238,15 +238,15 @@
     }
   ];
 
-  let dataTables = {}; // store DataTables instances and columns by tableId
+  let dataTables = {}; // Store DataTables instances and columns by tableId
 
   // Load each sheet CSV, build table and initialize DataTables
-  sheets.forEach(({url, tableId}) => {
+  sheets.forEach(({ url, tableId }) => {
     Papa.parse(url, {
       download: true,
       header: true,
       skipEmptyLines: true,
-      complete: function(results) {
+      complete: function (results) {
         const data = results.data;
         if (!data.length) {
           console.warn("No data found for", tableId);
@@ -321,6 +321,14 @@
   // Global variable for current grid filter
   window.currentGridFilter = "";
 
+  // Set up buttons to filter tables
+  document.querySelectorAll("#grid-filter-container button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const gridId = btn.getAttribute("data-gridid");
+      filterAllTables(gridId);
+    });
+  });
+
   // Filter all tables by grid ID
   function filterAllTables(gridId) {
     window.currentGridFilter = gridId;
@@ -336,20 +344,11 @@
     });
   }
 
-  // Set up buttons to filter tables
-  document.querySelectorAll("#grid-filter-container button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const gridId = btn.getAttribute("data-gridid");
-      filterAllTables(gridId);
-    });
-  });
-
   // Custom DataTables filter to filter by Grid column matching currentGridFilter
-  $.fn.dataTable.ext.search.push(function(settings, dataRow) {
-    const gridIdFilter = window.currentGridFilter || "";
+  $.fn.dataTable.ext.search.push(function (settings, dataRow) {
+    const gridIdFilter = (window.currentGridFilter || "").trim();
     if (!gridIdFilter) return true; // no filter, show all
 
-    // Find the columns for this table from dataTables mapping
     const tableId = settings.nTable.getAttribute('id');
     if (!tableId || !dataTables[tableId]) return true;
 
@@ -357,12 +356,12 @@
     const gridColIndex = columns.indexOf("Grid");
     if (gridColIndex === -1) return true;
 
-    const cellValue = dataRow[gridColIndex] || "";
+    const cellValue = (dataRow[gridColIndex] || "").trim();
 
-    // Show row only if Grid column matches the selected grid ID
     return cellValue === gridIdFilter;
   });
 </script>
+
 
 </body>
 </html>
