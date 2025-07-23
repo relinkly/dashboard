@@ -9,49 +9,74 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
   <style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px auto;
+  max-width: 1200px;      /* constrain width on desktop */
+  background: #f9f9f9;
+  font-size: 11px;        /* base font size */
+  padding: 0 10px;        /* side padding */
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+table.dataTable {
+  width: 100% !important;
+  margin-bottom: 40px;
+  font-size: 11px;
+  box-sizing: border-box;
+  /* add overflow for small devices */
+  overflow-x: auto;
+  display: block;  /* makes horizontal scrolling possible */
+}
+
+table.dataTable th,
+table.dataTable td {
+  font-size: 11px !important;
+  white-space: nowrap;  /* prevent weird wrapping */
+}
+
+/* DataTables control elements */
+.dataTables_wrapper .dataTables_paginate,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_filter label {
+  font-size: 11px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 800px) {
   body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f9f9f9;
-    font-size: 11px; /* smaller base font */
+    margin: 10px auto;
+    font-size: 9px;   /* slightly bigger than 8 for readability */
+    max-width: 100%;
+    padding: 0 5px;
   }
-
   h1 {
-    text-align: center;
-    font-size: 16px;  /* smaller headings */
-    margin-top: 40px;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 12px;
+    margin-top: 20px;
+    margin-bottom: 8px;
   }
-
   table.dataTable {
-    width: 100% !important;
-    margin-bottom: 40px;
-    font-size: 11px;  /* smaller table text */
+    font-size: 9px !important;
   }
-
-  /* specifically target all table elements */
   table.dataTable th,
   table.dataTable td {
-    font-size: 11px !important;
+    font-size: 9px !important;
   }
-
-  /* DataTables control elements (pagination, search, info) */
   .dataTables_wrapper .dataTables_paginate,
   .dataTables_wrapper .dataTables_info,
   .dataTables_wrapper .dataTables_filter label {
-    font-size: 11px;
+    font-size: 9px;
   }
+}
 
-  @media (max-width: 800px) {
-    body {
-      margin: 10px;
-      font-size: 8px; /* even smaller on small screens */
-    }
-    h1 {
-      font-size: 10px;
-    }
-  }
 </style>
 
 </head>
