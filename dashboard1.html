@@ -168,12 +168,18 @@ gridIds.forEach(gridId => {
   gridFilterContainer.insertBefore(btn, document.getElementById('grid-filter-clear'));
 });
 
+// ... your existing button creation code ...
+
 // Highlight active button styling
 function setActiveButton(activeBtn) {
   const buttons = gridFilterContainer.querySelectorAll('button');
   buttons.forEach(btn => btn.classList.remove('active'));
   if (activeBtn) activeBtn.classList.add('active');
 }
+
+// Set the "Clear" button active by default when page loads
+setActiveButton(document.getElementById('grid-filter-clear'));
+
 
 // Clear filter button behavior
 document.getElementById('grid-filter-clear').addEventListener('click', () => {
