@@ -132,7 +132,6 @@
 
 <div id="watermark"></div>
 
-  <!-- Add this above the tabs -->
 <div id="grid-filter-container">
   <input
     type="text"
@@ -142,6 +141,26 @@
   />
   <button id="grid-filter-clear">Clear</button>
 </div>
+
+<script>
+  // function to filter all tables by grid value
+  function applyGridFilter(value) {
+    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
+      if (gridColIndex === -1) return; // skip if no Grid column found
+      dt.columns(gridColIndex).search(value, true, false, true).draw();
+    });
+  }
+
+  document.getElementById('grid-filter-input').addEventListener('input', e => {
+    applyGridFilter(e.target.value.trim());
+  });
+
+  document.getElementById('grid-filter-clear').addEventListener('click', () => {
+    document.getElementById('grid-filter-input').value = '';
+    applyGridFilter('');
+  });
+</script>
+
   
 <div class="tabs">
   <div class="tab-button active" data-tab="etop">etop</div>
@@ -300,31 +319,7 @@
       }
     });
   });
-// Wait for all DataTables to initialize
-  function applyGridFilter(value) {
-    // For each DataTable instance:
-    Object.values(dataTables).forEach(({ dt, columns, gridColIndex }) => {
-      if (gridColIndex === -1) {
-        // No "Grid" column found, skip filtering for this table
-        dt.search('').draw();
-        return;
-      }
 
-      // Custom search on Grid column only
-      // DataTables API: column().search() filters that column
-      dt.columns(gridColIndex).search(value, true, false, true).draw();
-    });
-  }
-
-  document.getElementById('grid-filter-input').addEventListener('input', (e) => {
-    const val = e.target.value.trim();
-    applyGridFilter(val);
-  });
-
-  document.getElementById('grid-filter-clear').addEventListener('click', () => {
-    document.getElementById('grid-filter-input').value = '';
-    applyGridFilter('');
-  });
 </script>
 
 </body>
