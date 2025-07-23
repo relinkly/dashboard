@@ -66,9 +66,10 @@
   <h1>ZL & BVS Active Retail</h1>
   <p class="tag">📅 Updated till <strong>23/07/2025</strong></p>
 
+  <!-- Excel Embed Container -->
   <div class="excel-container" id="iframe-container">
     <iframe 
-      src="https://docs.google.com/spreadsheets/d/1Jz4D5JHcjZOyRpu2xJrQLdR7QEw7r5JH/preview" 
+      src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSMHAb751krVZ6NuE0xMWrk5WFEhSTz4GjicxloqA6mezDwvxdaaKfrilLsjhRt2w/pubhtml?widget=true&amp;headers=false" 
       allowfullscreen 
       loading="lazy">
     </iframe>
@@ -77,9 +78,9 @@
   <!-- Fallback for mobile users -->
   <div id="mobile-fallback" style="display:none; margin-top: 1rem;">
     <p style="color: #444;">
-      📱 Excel
+      📱 Having trouble viewing the report?  
       <a href="https://docs.google.com/spreadsheets/d/1Jz4D5JHcjZOyRpu2xJrQLdR7QEw7r5JH/edit?usp=sharing" target="_blank">
-        Tap here to open it in Google Sheets.
+        Tap here to open it directly in Google Sheets.
       </a>
     </p>
   </div>
@@ -94,7 +95,7 @@
       window.location.href = "index.html";
     }
 
-    // Fallback detection for mobile
+    // Fallback for mobile devices
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
       document.getElementById("iframe-container").style.display = "none";
