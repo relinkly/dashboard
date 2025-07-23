@@ -124,10 +124,34 @@
   background-color: #c8e6c9 !important; /* light green */
 }
 
+    #watermark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.1;
+  font-size: 5vw;
+  color: #555;
+  user-select: none;
+  white-space: nowrap;
+  overflow: visible;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(-45deg);
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
   </style>
 </head>
 <body>
   
+<div id="watermark"></div>
 
   <div class="tabs">
     <div class="tab-button active" data-tab="etop">etop</div>
@@ -296,6 +320,22 @@ $(document).ready(() => {
     setupHighlighting(tableId);
   });
 });
+
+
+    const whitelist = ["sameenyaser", "naumanzaheer"];
+const currentUsername = localStorage.getItem("username");  // get stored username
+const watermarkDiv = document.getElementById('watermark');
+
+if (currentUsername && whitelist.includes(currentUsername)) {
+  watermarkDiv.textContent = currentUsername.repeat(15).split('').join(' ');
+  watermarkDiv.style.display = 'flex';
+} else {
+  watermarkDiv.style.display = 'none';
+}
+
+    if (localStorage.getItem("authenticated") !== "true") {
+  window.location.href = "index.html"; // or wherever your login page is
+}
 
     // Function to load data into a table using PapaParse and DataTables
     function loadTable(csvUrl, tableId, pagination) {
