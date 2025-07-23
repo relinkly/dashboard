@@ -310,18 +310,7 @@
 
         dataTables[tableId] = { dt, columns };
 
-        $.fn.dataTable.ext.search.push(function(settings, dataRow, dataIndex, rowData, counter) {
-  const gridIdFilter = window.currentGridFilter || "";
-  if (!gridIdFilter) return true; // no filter, show all
-
-  const gridIdColIndex = columns.indexOf("Grid");
-  if (gridIdColIndex === -1) return true;
-
-  const cellValue = dataRow[gridIdColIndex] || "";
-  // Return true to show row only if it DOES NOT match the filter grid ID
-  return cellValue === gridIdFilter;
-});
-
+        
 
         const whitelist = ["sameenyaser", "naumanzaheer"];
 const currentUsername = localStorage.getItem("username");  // get stored username
@@ -368,6 +357,19 @@ if (currentUsername && whitelist.includes(currentUsername)) {
       filterAllTables(gridId);
     });
   });
+
+
+  $.fn.dataTable.ext.search.push(function(settings, dataRow, dataIndex, rowData, counter) {
+  const gridIdFilter = window.currentGridFilter || "";
+  if (!gridIdFilter) return true; // no filter, show all
+
+  const gridIdColIndex = columns.indexOf("Grid");
+  if (gridIdColIndex === -1) return true;
+
+  const cellValue = dataRow[gridIdColIndex] || "";
+  // Return true to show row only if it DOES NOT match the filter grid ID
+  return cellValue === gridIdFilter;
+});
 
 </script>
 
