@@ -137,9 +137,8 @@
   <button id="grid-filter-clear">Clear</button>
 </div>
 
-
 <script>
-  // function to filter all tables by grid value
+  // Function to filter all tables by grid value (regex search)
   function applyGridFilter(value) {
     Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
       if (gridColIndex === -1) return; // skip if no Grid column found
@@ -147,46 +146,74 @@
     });
   }
 
-
   const gridIds = [
-  "Grid 101", "Grid 105", "Grid 106", "Grid 102", "Grid 104", "Grid 103",
-  "Grid 401", "Grid 402", "Grid 403", "Grid 404", "Grid 405",
-  "Grid 501", "Grid 502", "Grid 503", "Grid 504", "Grid 505", "Grid 506", "Grid 507", "Grid 508", "Grid 509",
-  "Grid 601", "Grid 602", "Grid 603", "Grid 604", "Grid 605"
-];
+    "Grid 101", "Grid 105", "Grid 106", "Grid 102", "Grid 104", "Grid 103",
+    "Grid 401", "Grid 402", "Grid 403", "Grid 404", "Grid 405",
+    "Grid 501", "Grid 502", "Grid 503", "Grid 504", "Grid 505", "Grid 506", "Grid 507", "Grid 508", "Grid 509",
+    "Grid 601", "Grid 602", "Grid 603", "Grid 604", "Grid 605"
+  ];
 
-const gridFilterContainer = document.getElementById('grid-filter-container');
+  const gridFilterContainer = document.getElementById('grid-filter-container');
+  const clearBtn = document.getElementById('grid-filter-clear');
 
-// Create a button for each gridId
-gridIds.forEach(gridId => {
-  const btn = document.createElement('button');
-  btn.textContent = gridId;
-  btn.addEventListener('click', () => {
-    applyGridFilter(gridId);
-    setActiveButton(btn);
+  // Use a Set to track selected grids for easy add/remove and lookup
+  const selectedGrids = new Set();
+
+  // Create a button for each gridId and insert before Clear button
+  gridIds.forEach(gridId => {
+    const btn = document.createElement('button');
+    btn.textContent = gridId;
+
+    btn.addEventListener('click', () => {
+      if (selectedGrids.has(gridId)) {
+        selectedGrids.delete(gridId); // Deselect if already selected
+      } else {
+        selectedGrids.add(gridId);    // Select if not selected
+      }
+
+      updateFilter();
+      updateButtonStyles();
+    });
+
+    gridFilterContainer.insertBefore(btn, clearBtn);
   });
-  gridFilterContainer.insertBefore(btn, document.getElementById('grid-filter-clear'));
-});
 
-// ... your existing button creation code ...
+  // Clear button clears all selections and resets filter
+  clearBtn.addEventListener('click', () => {
+    selectedGrids.clear();
+    updateFilter();
+    updateButtonStyles();
+  });
 
-// Highlight active button styling
-function setActiveButton(activeBtn) {
-  const buttons = gridFilterContainer.querySelectorAll('button');
-  buttons.forEach(btn => btn.classList.remove('active'));
-  if (activeBtn) activeBtn.classList.add('active');
-}
+  // Update filter to search for any selected grid IDs (regex OR)
+  function updateFilter() {
+    if (selectedGrids.size === 0) {
+      // No filter, show all
+      applyGridFilter('');
+    } else {
+      // Escape special regex chars and join by |
+      const regex = Array.from(selectedGrids)
+        .map(g => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .join('|');
+      applyGridFilter(regex);
+    }
+  }
 
-// Set the "Clear" button active by default when page loads
-setActiveButton(document.getElementById('grid-filter-clear'));
+  // Update button styles for selected/deselected state
+  function updateButtonStyles() {
+    const buttons = gridFilterContainer.querySelectorAll('button');
+    buttons.forEach(btn => {
+      if (btn === clearBtn) {
+        btn.classList.toggle('active', selectedGrids.size === 0);
+      } else {
+        btn.classList.toggle('active', selectedGrids.has(btn.textContent));
+      }
+    });
+  }
 
-
-// Clear filter button behavior
-document.getElementById('grid-filter-clear').addEventListener('click', () => {
+  // Initialize with Clear button active and no filter on page load
+  updateButtonStyles();
   applyGridFilter('');
-  setActiveButton(null);
-});
-
 </script>
 
   
