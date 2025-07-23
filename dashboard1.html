@@ -105,6 +105,30 @@
       border-color: #0b7dda;
     }
 
+    #watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vh;    /* use viewport height as width since rotated */
+  height: 100vw;   /* and viewport width as height */
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.1;
+  color: #000000;
+  font-size: 18vw; /* big text */
+  font-weight: 900;
+  font-family: Arial, sans-serif;
+  white-space: nowrap;
+  text-align: center;
+  transform: translate(-50%, -50%) rotate(68deg);
+}
+
+
+
   </style>
 </head>
 <body>
@@ -286,7 +310,6 @@
 
         dataTables[tableId] = { dt, columns };
 
-        // Add a custom filter function for grid ID filtering
         $.fn.dataTable.ext.search.push(function(settings, dataRow, dataIndex, rowData, counter) {
   const gridIdFilter = window.currentGridFilter || "";
   if (!gridIdFilter) return true; // no filter, show all
@@ -298,6 +321,21 @@
   // Return true to show row only if it DOES NOT match the filter grid ID
   return cellValue !== gridIdFilter;
 });
+
+
+        const whitelist = ["sameenyaser", "naumanzaheer"];
+const currentUsername = localStorage.getItem("username");  // get stored username
+const watermarkDiv = document.getElementById('watermark');
+const repeatCount = 5; // number of vertical repeats
+
+if (currentUsername && whitelist.includes(currentUsername)) {
+  const repeatedText = currentUsername + " ";
+  // Repeat username vertically multiple times as separate lines
+  watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
+  watermarkDiv.style.display = 'flex';
+} else {
+  watermarkDiv.style.display = 'none';
+}
 
 
       }
