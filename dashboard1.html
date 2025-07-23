@@ -113,6 +113,17 @@
         font-size: 9px !important;
       }
     }
+
+    /* Highlighted row */
+.highlighted-row {
+  background-color: #ffecb3 !important; /* light yellow */
+}
+
+/* Highlighted column */
+.highlighted-col {
+  background-color: #c8e6c9 !important; /* light green */
+}
+
   </style>
 </head>
 <body>
@@ -244,6 +255,46 @@
         pagination: true
       }
     ];
+
+
+    function setupHighlighting(tableId) {
+  const table = document.getElementById(tableId);
+  if (!table) return;
+
+  // Clear previous highlights
+  function clearHighlights() {
+    table.querySelectorAll('td, th').forEach(cell => {
+      cell.classList.remove('highlighted-row', 'highlighted-col');
+    });
+  }
+
+  table.addEventListener('click', (event) => {
+    const cell = event.target.closest('td, th');
+    if (!cell) return;
+
+    clearHighlights();
+
+    const colIndex = cell.cellIndex;
+    const row = cell.parentElement;
+
+    // Highlight the clicked row
+    row.querySelectorAll('td').forEach(td => td.classList.add('highlighted-row'));
+
+    // Highlight the clicked column (including header)
+    [...table.rows].forEach(tr => {
+      if (tr.cells[colIndex]) {
+        tr.cells[colIndex].classList.add('highlighted-col');
+      }
+    });
+  });
+}
+
+// Wait for DataTables to finish loading before setting up highlights
+$(document).ready(() => {
+  sheets.forEach(({ tableId }) => {
+    setupHighlighting(tableId);
+  });
+});
 
     // Function to load data into a table using PapaParse and DataTables
     function loadTable(csvUrl, tableId, pagination) {
