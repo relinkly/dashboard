@@ -251,6 +251,36 @@ table.dataTable tbody tr:hover td {
   }
 }
 
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  /* Optional: add some padding or margin */
+  margin-bottom: 40px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+/* Table styling inside wrapper */
+.table-wrapper table.dataTable {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 8px;
+  overflow: visible !important; /* override DataTables overflow */
+  /* You can use fixed layout for better alignment */
+  table-layout: auto; /* or try fixed */
+}
+
+/* Remove display:block and overflow-x:auto from the table */
+table.dataTable {
+  display: table !important;
+  overflow-x: visible !important;
+}
 
   </style>
 </head>
