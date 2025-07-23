@@ -124,28 +124,29 @@
   background-color: #c8e6c9 !important; /* light green */
 }
 
-    #watermark {
+  #watermark {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 0;
-  opacity: 0.1;
-  font-size: 5vw;
-  color: #555;
   user-select: none;
-  white-space: nowrap;
-  overflow: visible;
-
+  z-index: 9999;
   display: flex;
+  flex-wrap: wrap;
+  align-content: center;
   justify-content: center;
-  align-items: center;
-  transform: rotate(-45deg);
-  font-weight: bold;
+  opacity: 0.15;
+  color: #000000;
+  font-size: 12vw; /* very large text */
+  font-weight: 900;
   font-family: Arial, sans-serif;
+  transform: rotate(-30deg);
+  line-height: 1;
+  white-space: nowrap;
 }
+
 
   </style>
 </head>
@@ -325,13 +326,18 @@ $(document).ready(() => {
     const whitelist = ["sameenyaser", "naumanzaheer"];
 const currentUsername = localStorage.getItem("username");  // get stored username
 const watermarkDiv = document.getElementById('watermark');
+const repeatCount = 30; // adjust for coverage
 
 if (currentUsername && whitelist.includes(currentUsername)) {
-  watermarkDiv.textContent = currentUsername.repeat(15).split('').join(' ');
+  // Repeat username with spaces, multiple times to fill watermark
+  const repeatedText = (currentUsername + "   ").repeat(repeatCount);
+  // Repeat it multiple lines for vertical coverage
+  watermarkDiv.textContent = (repeatedText + "\n").repeat(15);
   watermarkDiv.style.display = 'flex';
 } else {
   watermarkDiv.style.display = 'none';
 }
+
 
     if (localStorage.getItem("authenticated") !== "true") {
   window.location.href = "index.html"; // or wherever your login page is
