@@ -132,6 +132,17 @@
 
 <div id="watermark"></div>
 
+  <!-- Add this above the tabs -->
+<div id="grid-filter-container">
+  <input
+    type="text"
+    id="grid-filter-input"
+    placeholder="Filter by Grid..."
+    style="padding:6px 10px; font-size: 12px; width: 200px; margin-right: 10px;"
+  />
+  <button id="grid-filter-clear">Clear</button>
+</div>
+  
 <div class="tabs">
   <div class="tab-button active" data-tab="etop">etop</div>
   <div class="tab-button" data-tab="zl">zl</div>
@@ -289,7 +300,31 @@
       }
     });
   });
+// Wait for all DataTables to initialize
+  function applyGridFilter(value) {
+    // For each DataTable instance:
+    Object.values(dataTables).forEach(({ dt, columns, gridColIndex }) => {
+      if (gridColIndex === -1) {
+        // No "Grid" column found, skip filtering for this table
+        dt.search('').draw();
+        return;
+      }
 
+      // Custom search on Grid column only
+      // DataTables API: column().search() filters that column
+      dt.columns(gridColIndex).search(value, true, false, true).draw();
+    });
+  }
+
+  document.getElementById('grid-filter-input').addEventListener('input', (e) => {
+    const val = e.target.value.trim();
+    applyGridFilter(val);
+  });
+
+  document.getElementById('grid-filter-clear').addEventListener('click', () => {
+    document.getElementById('grid-filter-input').value = '';
+    applyGridFilter('');
+  });
 </script>
 
 </body>
