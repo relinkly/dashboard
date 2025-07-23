@@ -314,7 +314,7 @@
   const gridIdFilter = window.currentGridFilter || "";
   if (!gridIdFilter) return true; // no filter, show all
 
-  const gridIdColIndex = columns.indexOf("Grid ID");
+  const gridIdColIndex = columns.indexOf("Grid");
   if (gridIdColIndex === -1) return true;
 
   const cellValue = dataRow[gridIdColIndex] || "";
