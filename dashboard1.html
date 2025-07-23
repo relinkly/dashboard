@@ -204,23 +204,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-
-   // Custom DataTables filter to filter by Grid column matching currentGridFilter
-  $.fn.dataTable.ext.search.push(function (settings, dataRow) {
-    const gridIdFilter = (window.currentGridFilter || "").trim();
-    if (!gridIdFilter) return true; // no filter, show all
-
-    const tableId = settings.nTable.getAttribute('id');
-    if (!tableId || !dataTables[tableId]) return true;
-
-    const { columns } = dataTables[tableId];
-    const gridColIndex = columns.indexOf("Grid");
-    if (gridColIndex === -1) return true;
-
-    const cellValue = (dataRow[gridColIndex] || "").trim();
-
-    return cellValue === gridIdFilter;
-  });
   // Tab switching logic
   const tabs = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
@@ -255,7 +238,7 @@
     }
   ];
 
-  let dataTables = {}; // Store DataTables instances and columns by tableId
+  let dataTables = {}; // Store DataTables instances and related info by tableId
 
   // Load each sheet CSV, build table and initialize DataTables
   sheets.forEach(({ url, tableId }) => {
@@ -299,7 +282,7 @@
           tbody.appendChild(tr);
         });
 
-        // Initialize DataTable (without built-in search box)
+        // Initialize DataTable (with searching disabled globally)
         const dt = $(table).DataTable({
           paging: true,
           searching: false,
@@ -316,7 +299,10 @@
           }
         });
 
-        dataTables[tableId] = { dt, columns };
+        // Find the index of "Grid" column (case insensitive)
+        let gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
+
+        dataTables[tableId] = { dt, columns, gridColIndex };
 
         // Display watermark if user is whitelisted
         const whitelist = ["sameenyaser", "naumanzaheer"];
@@ -335,35 +321,30 @@
     });
   });
 
-  // Global variable for current grid filter
-  window.currentGridFilter = "";
-
-  // Set up buttons to filter tables
+  // Set up buttons to filter tables using column search
   document.querySelectorAll("#grid-filter-container button").forEach(btn => {
     btn.addEventListener("click", () => {
       const gridId = btn.getAttribute("data-gridid");
-      filterAllTables(gridId);
+
+      // Update active button highlight
+      document.querySelectorAll("#grid-filter-container button").forEach(b => {
+        b.classList.toggle("active", b === btn);
+      });
+
+      // Filter all tables on the "Grid" column
+      Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
+        if (gridColIndex === -1) return; // no such column, skip
+
+        if (!gridId) {
+          dt.column(gridColIndex).search("").draw();
+        } else {
+          // Use regex true, smart false for exact match
+          dt.column(gridColIndex).search("^" + gridId + "$", true, false).draw();
+        }
+      });
     });
   });
-
-  // Filter all tables by grid ID
-  function filterAllTables(gridId) {
-    window.currentGridFilter = gridId;
-
-    // Update active button highlight
-    document.querySelectorAll("#grid-filter-container button").forEach(btn => {
-      btn.classList.toggle("active", btn.getAttribute("data-gridid") === gridId);
-    });
-
-    // Trigger table redraw for filtering
-    Object.values(dataTables).forEach(({ dt }) => {
-      dt.draw();
-    });
-  }
-
- 
 </script>
-
 
 </body>
 </html>
