@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Two Google Sheets Tables</title>
+  <title>Multiple Google Sheets Tables with Pagination</title>
 
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
@@ -41,14 +41,26 @@
 </head>
 <body>
 
-  <h1>Sheet 1 Data</h1>
+  <h1>Sheet 1 Data (No Pagination)</h1>
   <table id="sheetTable1" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 
-  <h1>Sheet 2 Data</h1>
+  <h1>Sheet 2 Data (No Pagination)</h1>
   <table id="sheetTable2" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <h1>Sheet 3 Data (With Pagination)</h1>
+  <table id="sheetTable3" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <h1>Sheet 4 Data (With Pagination)</h1>
+  <table id="sheetTable4" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
@@ -61,10 +73,31 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <script>
-    const csvUrl1 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=0&single=true&output=csv";
-    const csvUrl2 = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=864206039&single=true&output=csv";
+    // Spreadsheet publish URLs with gid & output=csv
+    const sheets = [
+      {
+        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=0&single=true&output=csv",
+        tableId: "sheetTable1",
+        pagination: false
+      },
+      {
+        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=864206039&single=true&output=csv",
+        tableId: "sheetTable2",
+        pagination: false
+      },
+      {
+        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=206508914&single=true&output=csv",
+        tableId: "sheetTable3",
+        pagination: true
+      },
+      {
+        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=1057703911&single=true&output=csv",
+        tableId: "sheetTable4",
+        pagination: true
+      }
+    ];
 
-    function loadTable(csvUrl, tableId) {
+    function loadTable(csvUrl, tableId, pagination) {
       Papa.parse(csvUrl, {
         download: true,
         header: true,
@@ -84,7 +117,8 @@
           $('#' + tableId).DataTable({
             data: data,
             columns: columns,
-            paging: true,
+            paging: pagination,
+            pageLength: pagination ? 10 : null,
             searching: true,
             responsive: true,
           });
@@ -95,8 +129,8 @@
       });
     }
 
-    loadTable(csvUrl1, "sheetTable1");
-    loadTable(csvUrl2, "sheetTable2");
+    // Load all tables
+    sheets.forEach(({url, tableId, pagination}) => loadTable(url, tableId, pagination));
   </script>
 </body>
 </html>
