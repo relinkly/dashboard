@@ -147,14 +147,6 @@
     });
   }
 
-  document.getElementById('grid-filter-input').addEventListener('input', e => {
-    applyGridFilter(e.target.value.trim());
-  });
-
-  document.getElementById('grid-filter-clear').addEventListener('click', () => {
-    document.getElementById('grid-filter-input').value = '';
-    applyGridFilter('');
-  });
 
   const gridIds = [
   "Grid 101", "Grid 105", "Grid 106", "Grid 102", "Grid 104", "Grid 103",
