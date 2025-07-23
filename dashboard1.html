@@ -319,7 +319,7 @@
 
   const cellValue = dataRow[gridIdColIndex] || "";
   // Return true to show row only if it DOES NOT match the filter grid ID
-  return cellValue !== gridIdFilter;
+  return cellValue === gridIdFilter;
 });
 
 
