@@ -3,33 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Test Google Sheet Embed</title>
+  <title>Filterable Google Sheet Data</title>
+
+  <!-- DataTables CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+  />
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
       background: #f9f9f9;
     }
-    iframe {
-      width: 100%;
-      height: 600px;
-      border: none;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      background: white;
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
     }
-    @media (max-width: 768px) {
-      iframe {
-        height: 500px;
+    table.dataTable {
+      width: 100% !important;
+    }
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      body {
+        margin: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Test Google Sheet Embed</h1>
-  <iframe
-    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pubhtml?widget=true&headers=false"
-    allowfullscreen
-    loading="lazy"
-  ></iframe>
+  <h1>Filterable Google Sheet Data</h1>
+  <table id="sheetTable" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <!-- PapaParse CSV parser -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <script>
+    const csvUrl =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vRw1OZ7iVQr-6Q-WWEBD3XkOUuIxZA4MD3ZMY9HhJ4BcZ7B373FB_iZV-dfd64Ytz-KfryPw3Re0ba4/pub?output=csv";
+
+    Papa.parse(csvUrl, {
+      download: true,
+      header: true,
+      complete: function (results) {
+        const data = results.data.filter(row => Object.values(row).some(val => val !== ""));
+
+        if (data.length === 0) {
+          document.body.innerHTML = "<h2>No data found in the sheet.</h2>";
+          return;
+        }
+
+        const columns = Object.keys(data[0]).map(key => ({
+          title: key,
+          data: key,
+        }));
+
+        $('#sheetTable').DataTable({
+          data: data,
+          columns: columns,
+          paging: true,
+          searching: true,
+          responsive: true,
+        });
+      },
+      error: function () {
+        document.body.innerHTML = "<h2>Failed to load the sheet data.</h2>";
+      }
+    });
+  </script>
 </body>
 </html>
