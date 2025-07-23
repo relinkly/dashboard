@@ -16,20 +16,19 @@
 
   <script>
     document.getElementById('login-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
+  e.preventDefault();
+  const user = document.getElementById('username').value;
+  const pass = document.getElementById('password').value;
 
-      // Simple check — you can add multiple users here
-      if (user === "sameenyaser" && pass === "1234") {
-  localStorage.setItem("authenticated", "true");
-  localStorage.setItem("username", user);  // Save username here
-  window.location.href = "menu.html";
-}
- else {
-        document.getElementById('error').textContent = "Invalid credentials.";
-      }
-    });
+  // Check for multiple users here
+  if ((user === "sameenyaser" && pass === "1234") || (user === "naumanzaheer" && pass === "abcd")) {
+    localStorage.setItem("authenticated", "true");
+    localStorage.setItem("username", user);  // Save username here
+    window.location.href = "menu.html";
+  } else {
+    document.getElementById('error').textContent = "Invalid credentials.";
+  }
+});
   </script>
 </body>
 </html>
