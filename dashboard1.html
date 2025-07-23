@@ -288,17 +288,17 @@
 
         // Add a custom filter function for grid ID filtering
         $.fn.dataTable.ext.search.push(function(settings, dataRow, dataIndex, rowData, counter) {
-          const gridIdFilter = window.currentGridFilter || "";
-          if (!gridIdFilter) return true; // no filter, show all
+  const gridIdFilter = window.currentGridFilter || "";
+  if (!gridIdFilter) return true; // no filter, show all
 
-          // Find index of "Grid ID" column
-          const gridIdColIndex = columns.indexOf("Grid ID");
-          if (gridIdColIndex === -1) return true; // no Grid ID column
+  const gridIdColIndex = columns.indexOf("Grid ID");
+  if (gridIdColIndex === -1) return true;
 
-          const cellValue = dataRow[gridIdColIndex] || "";
-          // Exact match or regex match on the cell value
-          return cellValue === gridIdFilter;
-        });
+  const cellValue = dataRow[gridIdColIndex] || "";
+  // Return true to show row only if it DOES NOT match the filter grid ID
+  return cellValue !== gridIdFilter;
+});
+
 
       }
     });
