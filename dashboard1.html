@@ -133,14 +133,10 @@
 <div id="watermark"></div>
 
 <div id="grid-filter-container">
-  <input
-    type="text"
-    id="grid-filter-input"
-    placeholder="Filter by Grid..."
-    style="padding:6px 10px; font-size: 12px; width: 200px; margin-right: 10px;"
-  />
+  <!-- Buttons will be generated here -->
   <button id="grid-filter-clear">Clear</button>
 </div>
+
 
 <script>
   // function to filter all tables by grid value
@@ -159,6 +155,40 @@
     document.getElementById('grid-filter-input').value = '';
     applyGridFilter('');
   });
+
+  const gridIds = [
+  "Grid 101", "Grid 105", "Grid 106", "Grid 102", "Grid 104", "Grid 103",
+  "Grid 401", "Grid 402", "Grid 403", "Grid 404", "Grid 405",
+  "Grid 501", "Grid 502", "Grid 503", "Grid 504", "Grid 505", "Grid 506", "Grid 507", "Grid 508", "Grid 509",
+  "Grid 601", "Grid 602", "Grid 603", "Grid 604", "Grid 605"
+];
+
+const gridFilterContainer = document.getElementById('grid-filter-container');
+
+// Create a button for each gridId
+gridIds.forEach(gridId => {
+  const btn = document.createElement('button');
+  btn.textContent = gridId;
+  btn.addEventListener('click', () => {
+    applyGridFilter(gridId);
+    setActiveButton(btn);
+  });
+  gridFilterContainer.insertBefore(btn, document.getElementById('grid-filter-clear'));
+});
+
+// Highlight active button styling
+function setActiveButton(activeBtn) {
+  const buttons = gridFilterContainer.querySelectorAll('button');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  if (activeBtn) activeBtn.classList.add('active');
+}
+
+// Clear filter button behavior
+document.getElementById('grid-filter-clear').addEventListener('click', () => {
+  applyGridFilter('');
+  setActiveButton(null);
+});
+
 </script>
 
   
