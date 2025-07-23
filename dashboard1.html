@@ -66,24 +66,39 @@
   <h1>ZL & BVS Active Retail</h1>
   <p class="tag">📅 Updated till <strong>23/07/2025</strong></p>
 
-  <div class="excel-container">
-    <iframe 
-      src="https://1drv.ms/x/c/1b1ca8496231ca2e/IQT1uSjMhdlRR4o9p-3p2lMiAX2d-yQresvh6aLMfpApg2E" 
-      allowfullscreen
-      loading="lazy">
-    </iframe>
-  </div>
+  <div class="excel-container" id="iframe-container">
+  <iframe 
+    src="https://1drv.ms/x/c/1b1ca8496231ca2e/IQT1uSjMhdlRR4o9p-3p2lMiAX2d-yQresvh6aLMfpApg2E" 
+    allowfullscreen
+    loading="lazy">
+  </iframe>
+</div>
 
-  <div class="buttons">
-    <a href="menu.html">🔙 Back to Menu</a>
-  </div>
+<!-- Fallback for mobile users -->
+<div id="mobile-fallback" style="display:none; margin-top: 1rem;">
+  <p style="color: #444;">
+    📱 Having trouble viewing the report on your phone? 
+    <a href="https://1drv.ms/x/c/1b1ca8496231ca2e/IQT1uSjMhdlRR4o9p-3p2lMiAX2d-yQresvh6aLMfpApg2E" target="_blank">
+      Tap here to open it in Excel Online.
+    </a>
+  </p>
+</div>
 
-  <script>
-    // Protect this page behind login
-    if (localStorage.getItem("authenticated") !== "true") {
-      window.location.href = "index.html";
-    }
-  </script>
+<script>
+  // Login protection
+  if (localStorage.getItem("authenticated") !== "true") {
+    window.location.href = "index.html";
+  }
+
+  // Fallback detection for mobile
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    document.getElementById("iframe-container").style.display = "none";
+    document.getElementById("mobile-fallback").style.display = "block";
+  }
+</script>
+
+
 
 </body>
 </html>
