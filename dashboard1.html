@@ -327,13 +327,12 @@ $(document).ready(() => {
     const whitelist = ["sameenyaser", "naumanzaheer"];
 const currentUsername = localStorage.getItem("username");  // get stored username
 const watermarkDiv = document.getElementById('watermark');
-const repeatCount = 30; // adjust for coverage
+const repeatCount = 5; // number of vertical repeats
 
 if (currentUsername && whitelist.includes(currentUsername)) {
-  // Repeat username with spaces, multiple times to fill watermark
-  const repeatedText = (currentUsername + "   ").repeat(repeatCount);
-  // Repeat it multiple lines for vertical coverage
-  watermarkDiv.textContent = (repeatedText + "\n").repeat(15);
+  const repeatedText = currentUsername + " ";
+  // Repeat username vertically multiple times as separate lines
+  watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
   watermarkDiv.style.display = 'flex';
 } else {
   watermarkDiv.style.display = 'none';
