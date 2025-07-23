@@ -132,37 +132,6 @@
 
 <div id="watermark"></div>
 
-<!-- Grid ID filter buttons at top -->
-<div id="grid-filter-container">
-  <strong>Filter by Grid ID:</strong><br />
-  <button data-gridid="" class="active">Show All</button>
-  <button data-gridid="Grid 101">Grid 101</button>
-  <button data-gridid="Grid 105">Grid 105</button>
-  <button data-gridid="Grid 106">Grid 106</button>
-  <button data-gridid="Grid 102">Grid 102</button>
-  <button data-gridid="Grid 104">Grid 104</button>
-  <button data-gridid="Grid 103">Grid 103</button>
-  <button data-gridid="Grid 401">Grid 401</button>
-  <button data-gridid="Grid 402">Grid 402</button>
-  <button data-gridid="Grid 403">Grid 403</button>
-  <button data-gridid="Grid 404">Grid 404</button>
-  <button data-gridid="Grid 405">Grid 405</button>
-  <button data-gridid="Grid 501">Grid 501</button>
-  <button data-gridid="Grid 502">Grid 502</button>
-  <button data-gridid="Grid 503">Grid 503</button>
-  <button data-gridid="Grid 504">Grid 504</button>
-  <button data-gridid="Grid 505">Grid 505</button>
-  <button data-gridid="Grid 506">Grid 506</button>
-  <button data-gridid="Grid 507">Grid 507</button>
-  <button data-gridid="Grid 508">Grid 508</button>
-  <button data-gridid="Grid 509">Grid 509</button>
-  <button data-gridid="Grid 601">Grid 601</button>
-  <button data-gridid="Grid 602">Grid 602</button>
-  <button data-gridid="Grid 603">Grid 603</button>
-  <button data-gridid="Grid 604">Grid 604</button>
-  <button data-gridid="Grid 605">Grid 605</button>
-</div>
-
 <div class="tabs">
   <div class="tab-button active" data-tab="etop">etop</div>
   <div class="tab-button" data-tab="zl">zl</div>
@@ -321,29 +290,6 @@
     });
   });
 
-  // Set up buttons to filter tables using column search
-  document.querySelectorAll("#grid-filter-container button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const gridId = btn.getAttribute("data-gridid");
-
-      // Update active button highlight
-      document.querySelectorAll("#grid-filter-container button").forEach(b => {
-        b.classList.toggle("active", b === btn);
-      });
-
-      // Filter all tables on the "Grid" column
-      Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
-        if (gridColIndex === -1) return; // no such column, skip
-
-        if (!gridId) {
-          dt.column(gridColIndex).search("").draw();
-        } else {
-          // Use regex true, smart false for exact match
-          dt.column(gridColIndex).search("^" + gridId + "$", true, false).draw();
-        }
-      });
-    });
-  });
 </script>
 
 </body>
