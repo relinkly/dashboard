@@ -126,27 +126,26 @@
 
 #watermark {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 50%;
+  left: 50%;
+  width: 100vh;    /* use viewport height as width since rotated */
+  height: 100vw;   /* and viewport width as height */
   pointer-events: none;
   user-select: none;
   z-index: 9999;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 0.1;
   color: #000000;
-  font-size: 18vw; /* bigger font size */
+  font-size: 18vw; /* big text */
   font-weight: 900;
   font-family: Arial, sans-serif;
-  line-height: 1;
   white-space: nowrap;
   text-align: center;
-  overflow: hidden;
+  transform: translate(-50%, -50%) rotate(90deg);
 }
+
 
 
   </style>
