@@ -204,6 +204,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
+
+   // Custom DataTables filter to filter by Grid column matching currentGridFilter
+  $.fn.dataTable.ext.search.push(function (settings, dataRow) {
+    const gridIdFilter = (window.currentGridFilter || "").trim();
+    if (!gridIdFilter) return true; // no filter, show all
+
+    const tableId = settings.nTable.getAttribute('id');
+    if (!tableId || !dataTables[tableId]) return true;
+
+    const { columns } = dataTables[tableId];
+    const gridColIndex = columns.indexOf("Grid");
+    if (gridColIndex === -1) return true;
+
+    const cellValue = (dataRow[gridColIndex] || "").trim();
+
+    return cellValue === gridIdFilter;
+  });
   // Tab switching logic
   const tabs = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
@@ -344,22 +361,7 @@
     });
   }
 
-  // Custom DataTables filter to filter by Grid column matching currentGridFilter
-  $.fn.dataTable.ext.search.push(function (settings, dataRow) {
-    const gridIdFilter = (window.currentGridFilter || "").trim();
-    if (!gridIdFilter) return true; // no filter, show all
-
-    const tableId = settings.nTable.getAttribute('id');
-    if (!tableId || !dataTables[tableId]) return true;
-
-    const { columns } = dataTables[tableId];
-    const gridColIndex = columns.indexOf("Grid");
-    if (gridColIndex === -1) return true;
-
-    const cellValue = (dataRow[gridColIndex] || "").trim();
-
-    return cellValue === gridIdFilter;
-  });
+ 
 </script>
 
 
