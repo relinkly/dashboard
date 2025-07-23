@@ -80,303 +80,258 @@
       white-space: nowrap;
     }
 
-    .dataTables_wrapper {
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 20px;
-      margin-bottom: 40px;
+    /* Container for the Grid ID filter buttons */
+    #grid-filter-container {
+      max-width: 1200px;
+      margin: 0 auto 20px auto;
+      text-align: center;
     }
-
-    .dataTables_wrapper .dataTables_paginate,
-    .dataTables_wrapper .dataTables_info,
-    .dataTables_wrapper .dataTables_filter label {
+    #grid-filter-container button {
+      margin: 3px 5px;
+      padding: 6px 12px;
       font-size: 11px;
+      cursor: pointer;
+      border: 1px solid #888;
+      border-radius: 3px;
+      background-color: #f0f0f0;
+      transition: background-color 0.2s;
     }
-
-    @media (max-width: 800px) {
-      body {
-        margin: 10px auto;
-        font-size: 9px;
-        max-width: 100%;
-        padding: 0 5px;
-      }
-      h1 {
-        font-size: 12px;
-        margin-top: 20px;
-        margin-bottom: 8px;
-      }
-      table.dataTable,
-      table.dataTable th,
-      table.dataTable td,
-      .dataTables_wrapper .dataTables_paginate,
-      .dataTables_wrapper .dataTables_info,
-      .dataTables_wrapper .dataTables_filter label {
-        font-size: 9px !important;
-      }
+    #grid-filter-container button:hover {
+      background-color: #ddd;
     }
-
-    /* Highlighted row */
-.highlighted-row {
-  background-color: #ffecb3 !important; /* light yellow */
-}
-
-/* Highlighted column */
-.highlighted-col {
-  background-color: #c8e6c9 !important; /* light green */
-}
-
-#watermark {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100vh;    /* use viewport height as width since rotated */
-  height: 100vw;   /* and viewport width as height */
-  pointer-events: none;
-  user-select: none;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.1;
-  color: #000000;
-  font-size: 18vw; /* big text */
-  font-weight: 900;
-  font-family: Arial, sans-serif;
-  white-space: nowrap;
-  text-align: center;
-  transform: translate(-50%, -50%) rotate(68deg);
-}
-
-
+    #grid-filter-container button.active {
+      background-color: #2196F3;
+      color: white;
+      border-color: #0b7dda;
+    }
 
   </style>
 </head>
 <body>
-  
+
 <div id="watermark"></div>
 
-  <div class="tabs">
-    <div class="tab-button active" data-tab="etop">etop</div>
-    <div class="tab-button" data-tab="zl">zl</div>
-  </div>
+<!-- Grid ID filter buttons at top -->
+<div id="grid-filter-container">
+  <strong>Filter by Grid ID:</strong><br />
+  <button data-gridid="">Show All</button>
+  <button data-gridid="Grid 101">Grid 101</button>
+  <button data-gridid="Grid 105">Grid 105</button>
+  <button data-gridid="Grid 106">Grid 106</button>
+  <button data-gridid="Grid 102">Grid 102</button>
+  <button data-gridid="Grid 104">Grid 104</button>
+  <button data-gridid="Grid 103">Grid 103</button>
+  <button data-gridid="Grid 401">Grid 401</button>
+  <button data-gridid="Grid 402">Grid 402</button>
+  <button data-gridid="Grid 403">Grid 403</button>
+  <button data-gridid="Grid 404">Grid 404</button>
+  <button data-gridid="Grid 405">Grid 405</button>
+  <button data-gridid="Grid 501">Grid 501</button>
+  <button data-gridid="Grid 502">Grid 502</button>
+  <button data-gridid="Grid 503">Grid 503</button>
+  <button data-gridid="Grid 504">Grid 504</button>
+  <button data-gridid="Grid 505">Grid 505</button>
+  <button data-gridid="Grid 506">Grid 506</button>
+  <button data-gridid="Grid 507">Grid 507</button>
+  <button data-gridid="Grid 508">Grid 508</button>
+  <button data-gridid="Grid 509">Grid 509</button>
+  <button data-gridid="Grid 601">Grid 601</button>
+  <button data-gridid="Grid 602">Grid 602</button>
+  <button data-gridid="Grid 603">Grid 603</button>
+  <button data-gridid="Grid 604">Grid 604</button>
+  <button data-gridid="Grid 605">Grid 605</button>
+</div>
 
-  <div id="etop" class="tab-content active">
-    <h1>Subregion Level</h1>
-    <table id="sheetTable1" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
+<div class="tabs">
+  <div class="tab-button active" data-tab="etop">etop</div>
+  <div class="tab-button" data-tab="zl">zl</div>
+</div>
 
-    <h1>RSM Level</h1>
-    <table id="sheetTable2" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
+<div id="etop" class="tab-content active">
+  <!-- Removed Subregion and RSM level, kept only Grid and Franchise -->
+  <h1>Grid Level</h1>
+  <table id="sheetTable3" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
 
-    <h1>Grid Level</h1>
-    <table id="sheetTable3" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
+  <h1>Franchise Level</h1>
+  <table id="sheetTable4" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-    <h1>Franchise Level</h1>
-    <table id="sheetTable4" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
-  </div>
+<div id="zl" class="tab-content">
+  <!-- Removed Subregion and RSM level, kept only Grid and Franchise -->
+  <h1>Grid Level</h1>
+  <table id="sheetTable7" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
 
-  <div id="zl" class="tab-content">
-    <h1>Subregion Level</h1>
-    <table id="sheetTable5" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
+  <h1>Franchise Level</h1>
+  <table id="sheetTable8" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-    <h1>RSM Level</h1>
-    <table id="sheetTable6" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<!-- PapaParse CSV parser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
-    <h1>Grid Level</h1>
-    <table id="sheetTable7" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
 
-    <h1>Franchise Level</h1>
-    <table id="sheetTable8" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
-  </div>
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-  <!-- DataTables JS -->
-  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <!-- PapaParse CSV parser -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
 
-  <script>
-    // Tab switching
-    const tabs = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
+  // Sheets config (only Grid and Franchise tables)
+  const sheets = [
+    {
+      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=206508914&single=true&output=csv",
+      tableId: "sheetTable3",
+      pagination: true
+    },
+    {
+      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=1057703911&single=true&output=csv",
+      tableId: "sheetTable4",
+      pagination: true
+    },
+    {
+      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=206508914&single=true&output=csv",
+      tableId: "sheetTable7",
+      pagination: true
+    },
+    {
+      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=1057703911&single=true&output=csv",
+      tableId: "sheetTable8",
+      pagination: true
+    }
+  ];
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        // Remove active from all tabs and contents
-        tabs.forEach(t => t.classList.remove('active'));
-        tabContents.forEach(c => c.classList.remove('active'));
+  let dataTables = {}; // to store DataTables instances by tableId
 
-        // Activate clicked tab and corresponding content
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-      });
+  // Load each sheet CSV, build table and initialize DataTables
+  sheets.forEach(({url, tableId}) => {
+    Papa.parse(url, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: function(results) {
+        const data = results.data;
+        if (!data.length) {
+          console.warn("No data found for", tableId);
+          return;
+        }
+
+        const table = document.getElementById(tableId);
+        const thead = table.querySelector("thead");
+        const tbody = table.querySelector("tbody");
+
+        // Clear old content if any
+        thead.innerHTML = "";
+        tbody.innerHTML = "";
+
+        // Build headers from keys of first row
+        const columns = Object.keys(data[0]);
+        const trHead = document.createElement("tr");
+        columns.forEach(col => {
+          const th = document.createElement("th");
+          th.textContent = col;
+          trHead.appendChild(th);
+        });
+        thead.appendChild(trHead);
+
+        // Build body rows
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+          columns.forEach(col => {
+            const td = document.createElement("td");
+            td.textContent = row[col];
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+
+        // Initialize DataTable (without built-in search box)
+        const dt = $(table).DataTable({
+          paging: true,
+          searching: false,
+          info: true,
+          order: [], // no initial ordering
+          lengthMenu: [10, 25, 50, 100],
+          pageLength: 25,
+          autoWidth: false,
+          language: {
+            paginate: {
+              previous: "<",
+              next: ">"
+            }
+          }
+        });
+
+        dataTables[tableId] = { dt, columns };
+
+        // Add a custom filter function for grid ID filtering
+        $.fn.dataTable.ext.search.push(function(settings, dataRow, dataIndex, rowData, counter) {
+          const gridIdFilter = window.currentGridFilter || "";
+          if (!gridIdFilter) return true; // no filter, show all
+
+          // Find index of "Grid ID" column
+          const gridIdColIndex = columns.indexOf("Grid ID");
+          if (gridIdColIndex === -1) return true; // no Grid ID column
+
+          const cellValue = dataRow[gridIdColIndex] || "";
+          // Exact match or regex match on the cell value
+          return cellValue === gridIdFilter;
+        });
+
+      }
+    });
+  });
+
+  // Global variable for current grid filter
+  window.currentGridFilter = "";
+
+  // Filter all tables by grid ID
+  function filterAllTables(gridId) {
+    window.currentGridFilter = gridId;
+
+    // Update active button highlight
+    document.querySelectorAll("#grid-filter-container button").forEach(btn => {
+      btn.classList.toggle("active", btn.getAttribute("data-gridid") === gridId);
     });
 
-    // Sheets config for both tabs
-    const sheets = [
-      // etop sheets 1-4
-      {
-        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=0&single=true&output=csv",
-        tableId: "sheetTable1",
-        pagination: false
-      },
-      {
-        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=864206039&single=true&output=csv",
-        tableId: "sheetTable2",
-        pagination: false
-      },
-      {
-        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=206508914&single=true&output=csv",
-        tableId: "sheetTable3",
-        pagination: true
-      },
-      {
-        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=1057703911&single=true&output=csv",
-        tableId: "sheetTable4",
-        pagination: true
-      },
-
-      // zl sheets 5-8
-      {
-        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?output=csv",
-        tableId: "sheetTable5",
-        pagination: false
-      },
-      {
-        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?output=csv",
-        tableId: "sheetTable6",
-        pagination: false
-      },
-      {
-        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?output=csv",
-        tableId: "sheetTable7",
-        pagination: true
-      },
-      {
-        url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?output=csv",
-        tableId: "sheetTable8",
-        pagination: true
-      }
-    ];
-
-
-    function setupHighlighting(tableId) {
-  const table = document.getElementById(tableId);
-  if (!table) return;
-
-  // Clear previous highlights
-  function clearHighlights() {
-    table.querySelectorAll('td, th').forEach(cell => {
-      cell.classList.remove('highlighted-row', 'highlighted-col');
+    // Clear all search in tables to re-run the filter
+    Object.values(dataTables).forEach(({dt}) => {
+      dt.search("").draw(); // clear any internal search box
+      dt.draw(); // redraw to apply the custom filter
     });
   }
 
-  table.addEventListener('click', (event) => {
-    const cell = event.target.closest('td, th');
-    if (!cell) return;
-
-    clearHighlights();
-
-    const colIndex = cell.cellIndex;
-    const row = cell.parentElement;
-
-    // Highlight the clicked row
-    row.querySelectorAll('td').forEach(td => td.classList.add('highlighted-row'));
-
-    // Highlight the clicked column (including header)
-    [...table.rows].forEach(tr => {
-      if (tr.cells[colIndex]) {
-        tr.cells[colIndex].classList.add('highlighted-col');
-      }
+  // Set up buttons to filter tables
+  document.querySelectorAll("#grid-filter-container button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const gridId = btn.getAttribute("data-gridid");
+      filterAllTables(gridId);
     });
   });
-}
 
-// Wait for DataTables to finish loading before setting up highlights
-$(document).ready(() => {
-  sheets.forEach(({ tableId }) => {
-    setupHighlighting(tableId);
-  });
-});
+</script>
 
-
-    const whitelist = ["sameenyaser", "naumanzaheer"];
-const currentUsername = localStorage.getItem("username");  // get stored username
-const watermarkDiv = document.getElementById('watermark');
-const repeatCount = 5; // number of vertical repeats
-
-if (currentUsername && whitelist.includes(currentUsername)) {
-  const repeatedText = currentUsername + " ";
-  // Repeat username vertically multiple times as separate lines
-  watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
-  watermarkDiv.style.display = 'flex';
-} else {
-  watermarkDiv.style.display = 'none';
-}
-
-
-    if (localStorage.getItem("authenticated") !== "true") {
-  window.location.href = "index.html"; // or wherever your login page is
-}
-
-    // Function to load data into a table using PapaParse and DataTables
-    function loadTable(csvUrl, tableId, pagination) {
-      Papa.parse(csvUrl, {
-        download: true,
-        header: true,
-        complete: function (results) {
-          const data = results.data.filter(row => Object.values(row).some(val => val.trim() !== ""));
-
-          if (data.length === 0) {
-            document.getElementById(tableId).outerHTML = `<h2>No data found in ${tableId}.</h2>`;
-            return;
-          }
-
-          const columns = Object.keys(data[0]).map(key => ({
-            title: key,
-            data: key,
-          }));
-
-          $('#' + tableId).DataTable({
-            data: data,
-            columns: columns,
-            paging: pagination,
-            pageLength: pagination ? 10 : null,
-            searching: true,
-            responsive: true,
-          });
-        },
-        error: function () {
-          document.getElementById(tableId).outerHTML = `<h2>Failed to load data for ${tableId}.</h2>`;
-        }
-      });
-    }
-
-    // Load all tables
-    sheets.forEach(({url, tableId, pagination}) => loadTable(url, tableId, pagination));
-  </script>
 </body>
 </html>
