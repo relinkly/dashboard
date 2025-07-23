@@ -106,29 +106,26 @@
     }
 
     #watermark {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100vh;    /* use viewport height as width since rotated */
-  height: 100vw;   /* and viewport width as height */
-  pointer-events: none;
-  user-select: none;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.1;
-  color: #000000;
-  font-size: 18vw; /* big text */
-  font-weight: 900;
-  font-family: Arial, sans-serif;
-  white-space: nowrap;
-  text-align: center;
-  transform: translate(-50%, -50%) rotate(68deg);
-}
-
-
-
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100vh;    /* use viewport height as width since rotated */
+      height: 100vw;   /* and viewport width as height */
+      pointer-events: none;
+      user-select: none;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.1;
+      color: #000000;
+      font-size: 18vw; /* big text */
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      white-space: nowrap;
+      text-align: center;
+      transform: translate(-50%, -50%) rotate(68deg);
+    }
   </style>
 </head>
 <body>
@@ -138,7 +135,7 @@
 <!-- Grid ID filter buttons at top -->
 <div id="grid-filter-container">
   <strong>Filter by Grid ID:</strong><br />
-  <button data-gridid="">Show All</button>
+  <button data-gridid="" class="active">Show All</button>
   <button data-gridid="Grid 101">Grid 101</button>
   <button data-gridid="Grid 105">Grid 105</button>
   <button data-gridid="Grid 106">Grid 106</button>
@@ -172,7 +169,6 @@
 </div>
 
 <div id="etop" class="tab-content active">
-  <!-- Removed Subregion and RSM level, kept only Grid and Franchise -->
   <h1>Grid Level</h1>
   <table id="sheetTable3" class="display" style="width:100%">
     <thead></thead>
@@ -187,7 +183,6 @@
 </div>
 
 <div id="zl" class="tab-content">
-  <!-- Removed Subregion and RSM level, kept only Grid and Franchise -->
   <h1>Grid Level</h1>
   <table id="sheetTable7" class="display" style="width:100%">
     <thead></thead>
@@ -209,7 +204,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-  // Tab switching
+  // Tab switching logic
   const tabs = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
 
@@ -227,27 +222,23 @@
   const sheets = [
     {
       url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=206508914&single=true&output=csv",
-      tableId: "sheetTable3",
-      pagination: true
+      tableId: "sheetTable3"
     },
     {
       url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=1057703911&single=true&output=csv",
-      tableId: "sheetTable4",
-      pagination: true
+      tableId: "sheetTable4"
     },
     {
       url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=206508914&single=true&output=csv",
-      tableId: "sheetTable7",
-      pagination: true
+      tableId: "sheetTable7"
     },
     {
       url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vR2QmehFCp6Isa-ULBnTlNWp_xecKGyvyHo3i1hOXe0Ppfnjbw_hBBOFeoxPYO3mD3NvPrSw7czI70r/pub?gid=1057703911&single=true&output=csv",
-      tableId: "sheetTable8",
-      pagination: true
+      tableId: "sheetTable8"
     }
   ];
 
-  let dataTables = {}; // to store DataTables instances by tableId
+  let dataTables = {}; // store DataTables instances and columns by tableId
 
   // Load each sheet CSV, build table and initialize DataTables
   sheets.forEach(({url, tableId}) => {
@@ -310,23 +301,19 @@
 
         dataTables[tableId] = { dt, columns };
 
-        
-
+        // Display watermark if user is whitelisted
         const whitelist = ["sameenyaser", "naumanzaheer"];
-const currentUsername = localStorage.getItem("username");  // get stored username
-const watermarkDiv = document.getElementById('watermark');
-const repeatCount = 5; // number of vertical repeats
+        const currentUsername = localStorage.getItem("username");
+        const watermarkDiv = document.getElementById('watermark');
+        const repeatCount = 5;
 
-if (currentUsername && whitelist.includes(currentUsername)) {
-  const repeatedText = currentUsername + " ";
-  // Repeat username vertically multiple times as separate lines
-  watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
-  watermarkDiv.style.display = 'flex';
-} else {
-  watermarkDiv.style.display = 'none';
-}
-
-
+        if (currentUsername && whitelist.includes(currentUsername)) {
+          const repeatedText = currentUsername + " ";
+          watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
+          watermarkDiv.style.display = 'flex';
+        } else {
+          watermarkDiv.style.display = 'none';
+        }
       }
     });
   });
@@ -343,10 +330,9 @@ if (currentUsername && whitelist.includes(currentUsername)) {
       btn.classList.toggle("active", btn.getAttribute("data-gridid") === gridId);
     });
 
-    // Clear all search in tables to re-run the filter
-    Object.values(dataTables).forEach(({dt}) => {
-      dt.search("").draw(); // clear any internal search box
-      dt.draw(); // redraw to apply the custom filter
+    // Trigger table redraw for filtering
+    Object.values(dataTables).forEach(({ dt }) => {
+      dt.draw();
     });
   }
 
@@ -358,19 +344,24 @@ if (currentUsername && whitelist.includes(currentUsername)) {
     });
   });
 
+  // Custom DataTables filter to filter by Grid column matching currentGridFilter
+  $.fn.dataTable.ext.search.push(function(settings, dataRow) {
+    const gridIdFilter = window.currentGridFilter || "";
+    if (!gridIdFilter) return true; // no filter, show all
 
-  $.fn.dataTable.ext.search.push(function(settings, dataRow, dataIndex, rowData, counter) {
-  const gridIdFilter = window.currentGridFilter || "";
-  if (!gridIdFilter) return true; // no filter, show all
+    // Find the columns for this table from dataTables mapping
+    const tableId = settings.nTable.getAttribute('id');
+    if (!tableId || !dataTables[tableId]) return true;
 
-  const gridIdColIndex = columns.indexOf("Grid");
-  if (gridIdColIndex === -1) return true;
+    const { columns } = dataTables[tableId];
+    const gridColIndex = columns.indexOf("Grid");
+    if (gridColIndex === -1) return true;
 
-  const cellValue = dataRow[gridIdColIndex] || "";
-  // Return true to show row only if it DOES NOT match the filter grid ID
-  return cellValue === gridIdFilter;
-});
+    const cellValue = dataRow[gridColIndex] || "";
 
+    // Show row only if Grid column matches the selected grid ID
+    return cellValue === gridIdFilter;
+  });
 </script>
 
 </body>
