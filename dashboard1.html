@@ -105,30 +105,35 @@
       border-color: #0b7dda;
     }
 
-  #watermark {
+ #watermark {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 100vh;    /* viewport height as width */
-  height: 100vw;   /* viewport width as height */
+  width: 20vw;          /* smaller width */
+  height: 90vh;         /* taller container to fit 30 lines */
   pointer-events: none;
   user-select: none;
   z-index: 9999;
-  
+
   display: flex;
-  flex-direction: column;       /* stack children vertically */
-  align-items: center;          /* center horizontally */
-  justify-content: center;      /* center vertically */
-  
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   opacity: 0.1;
   color: #000000;
-  font-size: 18vw; /* big text */
+  font-size: 2.5vh;     /* much smaller font so 30 lines fit */
   font-weight: 900;
   font-family: Arial, sans-serif;
   white-space: nowrap;
   text-align: center;
-  
+
   transform: translate(-50%, -50%);
+  overflow: hidden;     /* prevent scrollbars */
+}
+
+#watermark > div {
+  margin: 0.1em 0;
 }
 
   </style>
