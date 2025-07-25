@@ -124,7 +124,7 @@
       font-family: Arial, sans-serif;
       white-space: nowrap;
       text-align: center;
-      transform: translate(-50%, -50%) rotate(68deg);
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
@@ -362,7 +362,7 @@
         const whitelist = ["sameenyaser", "naumanzaheer"];
         const currentUsername = localStorage.getItem("username");
         const watermarkDiv = document.getElementById('watermark');
-        const repeatCount = 5;
+        const repeatCount = 30;
 
         if (currentUsername && whitelist.includes(currentUsername)) {
           const repeatedText = currentUsername + " ";
