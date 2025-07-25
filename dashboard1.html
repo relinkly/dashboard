@@ -105,12 +105,12 @@
       border-color: #0b7dda;
     }
 
- #watermark {
+#watermark {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 100vw;          /* smaller width */
-  height: 100vh;         /* taller container to fit 30 lines */
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   user-select: none;
   z-index: 9999;
@@ -122,19 +122,23 @@
 
   opacity: 0.1;
   color: #000000;
-  font-size: 16vh;     /* much smaller font so 30 lines fit */
+  font-size: 10vw;  /* scale font size based on viewport width */
   font-weight: 900;
   font-family: Arial, sans-serif;
-  white-space: nowrap;
+  /* Remove white-space: nowrap; */
   text-align: center;
 
   transform: translate(-50%, -50%);
-  overflow: hidden;     /* prevent scrollbars */
+  overflow: hidden;
 }
 
 #watermark > div {
   margin: 0.1em 0;
+  width: 100%;  /* fill full width of parent */
+  /* optionally, add: */
+  white-space: normal; /* allow wrapping */
 }
+
 
   </style>
 </head>
