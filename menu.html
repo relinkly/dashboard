@@ -3,17 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <title>Company Dashboard</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Global Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background-color: #fff;
+      padding: 40px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: #222;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .buttons a {
+      display: block;
+      padding: 14px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .buttons a:hover {
+      background-color: #0056b3;
+    }
+
+    @media (min-width: 600px) {
+      .buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .buttons a {
+        flex: 1 1 45%;
+        margin: 5px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Dashboards</h1>
-  <div class="buttons">
-    <a href="dashboard1.html">ZL & BVS Active Retail</a>
-    <a href="dashboard2.html">BVS Performance Report</a>
-    <a href="dashboard3.html">BDO KPI</a>
-    <a href="dashboard4.html">Enablers Dashboard</a>
+  <div class="container">
+    <h1>Company Dashboards</h1>
+    <div class="buttons">
+      <a href="dashboard1.html">ZL & BVS Active Retail</a>
+      <a href="dashboard2.html">BVS Performance Report</a>
+      <a href="dashboard3.html">BDO KPI</a>
+      <a href="dashboard4.html">Enablers Dashboard</a>
+    </div>
   </div>
 
   <script>
