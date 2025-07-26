@@ -5,246 +5,173 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Multiple Google Sheets Tables with Tabs</title>
 
-  <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px auto;
-      max-width: 1200px;
-      background: #f9f9f9;
-      font-size: 11px;
-      padding: 0 10px;
-      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      font-size: 13px;
+      color: #333;
     }
 
     h1 {
       text-align: center;
-      font-size: 16px;
-      margin-top: 40px;
-      margin-bottom: 10px;
-      color: #333;
+      font-size: 20px;
+      color: #222;
+      margin-bottom: 20px;
     }
 
-    /* Tabs container */
     .tabs {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px;
-      gap: 20px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+      gap: 12px;
     }
 
     .tab-button {
-      cursor: pointer;
       padding: 10px 20px;
-      background: #eee;
-      border: 1px solid #ccc;
-      border-bottom: none;
-      font-weight: bold;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
       font-size: 14px;
-      border-radius: 5px 5px 0 0;
-      user-select: none;
-      transition: background-color 0.3s;
-    }
-    .tab-button.active {
-      background: white;
-      border-bottom: 2px solid white;
-      color: #333;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
     }
 
-    /* Tab content containers */
+    .tab-button.active {
+      background: #007BFF;
+      color: white;
+    }
+
     .tab-content {
       display: none;
       background: white;
+      border-radius: 8px;
       padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 0 5px 5px 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 40px;
     }
+
     .tab-content.active {
       display: block;
     }
 
+    #grid-filter-container {
+      text-align: center;
+      margin: 20px auto;
+      flex-wrap: wrap;
+    }
+
+    #grid-filter-container button {
+      margin: 4px 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #f0f0f0;
+      transition: all 0.2s ease;
+    }
+
+    #grid-filter-container button:hover {
+      background: #ddd;
+    }
+
+    #grid-filter-container button.active {
+      background: #007BFF;
+      color: white;
+      border-color: #0056b3;
+    }
+
     table.dataTable {
       width: 100% !important;
-      margin-bottom: 40px;
-      font-size: 11px;
-      box-sizing: border-box;
+      margin-top: 10px;
+      font-size: 12px;
       overflow-x: auto;
-      display: block;
     }
 
     table.dataTable th,
     table.dataTable td {
-      font-size: 11px !important;
       white-space: nowrap;
     }
 
-    /* Container for the Grid ID filter buttons */
-    #grid-filter-container {
-      max-width: 1200px;
-      margin: 0 auto 20px auto;
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .tab-button {
+        flex: 1 1 100%;
+        text-align: center;
+      }
+
+      #grid-filter-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      table.dataTable {
+        font-size: 11px;
+      }
+    }
+
+    #watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      user-select: none;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.05;
+      color: #000;
+      font-size: 10vw;
+      font-weight: 900;
       text-align: center;
-    }
-    #grid-filter-container button {
-      margin: 3px 5px;
-      padding: 6px 12px;
-      font-size: 11px;
-      cursor: pointer;
-      border: 1px solid #888;
-      border-radius: 3px;
-      background-color: #f0f0f0;
-      transition: background-color 0.2s;
-    }
-    #grid-filter-container button:hover {
-      background-color: #ddd;
-    }
-    #grid-filter-container button.active {
-      background-color: #2196F3;
-      color: white;
-      border-color: #0b7dda;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
     }
 
-#watermark {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  user-select: none;
-  z-index: 9999;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  opacity: 0.1;
-  color: #000000;
-  font-size: 10vw;  /* scale font size based on viewport width */
-  font-weight: 900;
-  font-family: Arial, sans-serif;
-  /* Remove white-space: nowrap; */
-  text-align: center;
-
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-}
-
-#watermark > div {
-  margin: 0.1em 0;
-  width: 100%;  /* fill full width of parent */
-  /* optionally, add: */
-  white-space: normal; /* allow wrapping */
-}
-
-
+    #watermark > div {
+      margin: 0.1em 0;
+      width: 100%;
+      white-space: normal;
+    }
   </style>
 </head>
+
 <body>
 
 <div id="watermark"></div>
 
 <div id="grid-filter-container">
-  <!-- Buttons will be generated here -->
+  <!-- Buttons will be inserted here -->
   <button id="grid-filter-clear">Clear</button>
 </div>
 
-<script>
-  // Function to filter all tables by grid value (regex search)
-  function applyGridFilter(value) {
-    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
-      if (gridColIndex === -1) return; // skip if no Grid column found
-      dt.columns(gridColIndex).search(value, true, false, true).draw();
-    });
-  }
-
-  const gridIds = [
-    "Grid 101", "Grid 105", "Grid 106", "Grid 102", "Grid 104", "Grid 103",
-    "Grid 401", "Grid 402", "Grid 403", "Grid 404", "Grid 405",
-    "Grid 501", "Grid 502", "Grid 503", "Grid 504", "Grid 505", "Grid 506", "Grid 507", "Grid 508", "Grid 509",
-    "Grid 601", "Grid 602", "Grid 603", "Grid 604", "Grid 605"
-  ];
-
-  const gridFilterContainer = document.getElementById('grid-filter-container');
-  const clearBtn = document.getElementById('grid-filter-clear');
-
-  // Use a Set to track selected grids for easy add/remove and lookup
-  const selectedGrids = new Set();
-
-  // Create a button for each gridId and insert before Clear button
-  gridIds.forEach(gridId => {
-    const btn = document.createElement('button');
-    btn.textContent = gridId;
-
-    btn.addEventListener('click', () => {
-      if (selectedGrids.has(gridId)) {
-        selectedGrids.delete(gridId); // Deselect if already selected
-      } else {
-        selectedGrids.add(gridId);    // Select if not selected
-      }
-
-      updateFilter();
-      updateButtonStyles();
-    });
-
-    gridFilterContainer.insertBefore(btn, clearBtn);
-  });
-
-  // Clear button clears all selections and resets filter
-  clearBtn.addEventListener('click', () => {
-    selectedGrids.clear();
-    updateFilter();
-    updateButtonStyles();
-  });
-
-  // Update filter to search for any selected grid IDs (regex OR)
-  function updateFilter() {
-    if (selectedGrids.size === 0) {
-      // No filter, show all
-      applyGridFilter('');
-    } else {
-      // Escape special regex chars and join by |
-      const regex = Array.from(selectedGrids)
-        .map(g => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-        .join('|');
-      applyGridFilter(regex);
-    }
-  }
-
-  // Update button styles for selected/deselected state
-  function updateButtonStyles() {
-    const buttons = gridFilterContainer.querySelectorAll('button');
-    buttons.forEach(btn => {
-      if (btn === clearBtn) {
-        btn.classList.toggle('active', selectedGrids.size === 0);
-      } else {
-        btn.classList.toggle('active', selectedGrids.has(btn.textContent));
-      }
-    });
-  }
-
-  // Initialize with Clear button active and no filter on page load
-  updateButtonStyles();
-  applyGridFilter('');
-</script>
-
-  
 <div class="tabs">
-  <div class="tab-button active" data-tab="etop">etop</div>
-  <div class="tab-button" data-tab="zl">zl</div>
+  <button class="tab-button active" data-tab="etop">ETOP</button>
+  <button class="tab-button" data-tab="zl">ZL</button>
 </div>
 
 <div id="etop" class="tab-content active">
   <h1>Grid Level</h1>
-  <table id="sheetTable3" class="display" style="width:100%">
+  <table id="sheetTable3" class="display">
     <thead></thead>
     <tbody></tbody>
   </table>
 
   <h1>Franchise Level</h1>
-  <table id="sheetTable4" class="display" style="width:100%">
+  <table id="sheetTable4" class="display">
     <thead></thead>
     <tbody></tbody>
   </table>
@@ -252,27 +179,25 @@
 
 <div id="zl" class="tab-content">
   <h1>Grid Level</h1>
-  <table id="sheetTable7" class="display" style="width:100%">
+  <table id="sheetTable7" class="display">
     <thead></thead>
     <tbody></tbody>
   </table>
 
   <h1>Franchise Level</h1>
-  <table id="sheetTable8" class="display" style="width:100%">
+  <table id="sheetTable8" class="display">
     <thead></thead>
     <tbody></tbody>
   </table>
 </div>
 
-<!-- jQuery -->
+<!-- jQuery & Plugins -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<!-- PapaParse CSV parser -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-  // Tab switching logic
+  // Tab logic
   const tabs = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
 
@@ -286,29 +211,77 @@
     });
   });
 
-  // Sheets config (only Grid and Franchise tables)
-  const sheets = [
-    {
-      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv",
-      tableId: "sheetTable3"
-    },
-    {
-      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv",
-      tableId: "sheetTable4"
-    },
-    {
-      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv",
-      tableId: "sheetTable7"
-    },
-    {
-      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv",
-      tableId: "sheetTable8"
-    }
+  // Grid Filter
+  const gridIds = [
+    "Grid 101", "Grid 105", "Grid 106", "Grid 102", "Grid 104", "Grid 103",
+    "Grid 401", "Grid 402", "Grid 403", "Grid 404", "Grid 405",
+    "Grid 501", "Grid 502", "Grid 503", "Grid 504", "Grid 505", "Grid 506", "Grid 507", "Grid 508", "Grid 509",
+    "Grid 601", "Grid 602", "Grid 603", "Grid 604", "Grid 605"
   ];
 
-  let dataTables = {}; // Store DataTables instances and related info by tableId
+  const gridFilterContainer = document.getElementById('grid-filter-container');
+  const clearBtn = document.getElementById('grid-filter-clear');
+  const selectedGrids = new Set();
 
-  // Load each sheet CSV, build table and initialize DataTables
+  const dataTables = {};
+
+  function applyGridFilter(value) {
+    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
+      if (gridColIndex !== -1) {
+        dt.columns(gridColIndex).search(value, true, false, true).draw();
+      }
+    });
+  }
+
+  function updateFilter() {
+    if (selectedGrids.size === 0) {
+      applyGridFilter('');
+    } else {
+      const regex = Array.from(selectedGrids)
+        .map(g => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .join('|');
+      applyGridFilter(regex);
+    }
+  }
+
+  function updateButtonStyles() {
+    const buttons = gridFilterContainer.querySelectorAll('button');
+    buttons.forEach(btn => {
+      if (btn === clearBtn) {
+        btn.classList.toggle('active', selectedGrids.size === 0);
+      } else {
+        btn.classList.toggle('active', selectedGrids.has(btn.textContent));
+      }
+    });
+  }
+
+  gridIds.forEach(gridId => {
+    const btn = document.createElement('button');
+    btn.textContent = gridId;
+    btn.addEventListener('click', () => {
+      selectedGrids.has(gridId) ? selectedGrids.delete(gridId) : selectedGrids.add(gridId);
+      updateFilter();
+      updateButtonStyles();
+    });
+    gridFilterContainer.insertBefore(btn, clearBtn);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    selectedGrids.clear();
+    updateFilter();
+    updateButtonStyles();
+  });
+
+  updateButtonStyles();
+  applyGridFilter('');
+
+  const sheets = [
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable3" },
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable4" },
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable7" },
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable8" }
+  ];
+
   sheets.forEach(({ url, tableId }) => {
     Papa.parse(url, {
       download: true,
@@ -316,20 +289,15 @@
       skipEmptyLines: true,
       complete: function (results) {
         const data = results.data;
-        if (!data.length) {
-          console.warn("No data found for", tableId);
-          return;
-        }
+        if (!data.length) return;
 
         const table = document.getElementById(tableId);
         const thead = table.querySelector("thead");
         const tbody = table.querySelector("tbody");
 
-        // Clear old content if any
         thead.innerHTML = "";
         tbody.innerHTML = "";
 
-        // Build headers from keys of first row
         const columns = Object.keys(data[0]);
         const trHead = document.createElement("tr");
         columns.forEach(col => {
@@ -339,7 +307,6 @@
         });
         thead.appendChild(trHead);
 
-        // Build body rows
         data.forEach(row => {
           const tr = document.createElement("tr");
           columns.forEach(col => {
@@ -350,29 +317,22 @@
           tbody.appendChild(tr);
         });
 
-        // Initialize DataTable (with searching disabled globally)
         const dt = $(table).DataTable({
           paging: true,
           searching: true,
           info: true,
-          order: [], // no initial ordering
+          order: [],
           lengthMenu: [10, 25, 50, 100],
           pageLength: 25,
           autoWidth: false,
           language: {
-            paginate: {
-              previous: "<",
-              next: ">"
-            }
+            paginate: { previous: "<", next: ">" }
           }
         });
 
-        // Find the index of "Grid" column (case insensitive)
-        let gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
-
+        const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
         dataTables[tableId] = { dt, columns, gridColIndex };
 
-        // Display watermark if user is whitelisted
         const whitelist = ["sameenyaser", "naumanzaheer"];
         const currentUsername = localStorage.getItem("username");
         const watermarkDiv = document.getElementById('watermark');
@@ -388,7 +348,6 @@
       }
     });
   });
-
 </script>
 
 </body>
