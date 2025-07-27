@@ -27,7 +27,6 @@
       color: #333;
     }
 
-    /* Tabs container */
     .tabs {
       display: flex;
       justify-content: center;
@@ -47,13 +46,13 @@
       user-select: none;
       transition: background-color 0.3s;
     }
+
     .tab-button.active {
       background: white;
       border-bottom: 2px solid white;
       color: #333;
     }
 
-    /* Tab content containers */
     .tab-content {
       display: none;
       background: white;
@@ -61,6 +60,7 @@
       border: 1px solid #ccc;
       border-radius: 0 5px 5px 5px;
     }
+
     .tab-content.active {
       display: block;
     }
@@ -80,12 +80,12 @@
       white-space: nowrap;
     }
 
-    /* Container for the Grid ID filter buttons */
     #grid-filter-container {
       max-width: 1200px;
       margin: 0 auto 20px auto;
       text-align: center;
     }
+
     #grid-filter-container button {
       margin: 3px 5px;
       padding: 6px 12px;
@@ -96,50 +96,45 @@
       background-color: #f0f0f0;
       transition: background-color 0.2s;
     }
+
     #grid-filter-container button:hover {
       background-color: #ddd;
     }
+
     #grid-filter-container button.active {
       background-color: #2196F3;
       color: white;
       border-color: #0b7dda;
     }
 
-#watermark {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  user-select: none;
-  z-index: 9999;
+    #watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      user-select: none;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.1;
+      color: #000000;
+      font-size: 10vw;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+    }
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  opacity: 0.1;
-  color: #000000;
-  font-size: 10vw;  /* scale font size based on viewport width */
-  font-weight: 900;
-  font-family: Arial, sans-serif;
-  /* Remove white-space: nowrap; */
-  text-align: center;
-
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-}
-
-#watermark > div {
-  margin: 0.1em 0;
-  width: 100%;  /* fill full width of parent */
-  /* optionally, add: */
-  white-space: normal; /* allow wrapping */
-}
-
-
+    #watermark > div {
+      margin: 0.1em 0;
+      width: 100%;
+      white-space: normal;
+    }
   </style>
 </head>
 <body>
@@ -147,90 +142,9 @@
 <div id="watermark"></div>
 
 <div id="grid-filter-container">
-  <!-- Buttons will be generated here -->
   <button id="grid-filter-clear">Clear</button>
 </div>
 
-<script>
-  // Function to filter all tables by grid value (regex search)
-  function applyGridFilter(value) {
-    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
-      if (gridColIndex === -1) return; // skip if no Grid column found
-      dt.columns(gridColIndex).search(value, true, false, true).draw();
-    });
-  }
-
-  const gridIds = [
-    "Grid 101", "Grid 105", "Grid 106", "Grid 102", "Grid 104", "Grid 103",
-    "Grid 401", "Grid 402", "Grid 403", "Grid 404", "Grid 405",
-    "Grid 501", "Grid 502", "Grid 503", "Grid 504", "Grid 505", "Grid 506", "Grid 507", "Grid 508", "Grid 509",
-    "Grid 601", "Grid 602", "Grid 603", "Grid 604", "Grid 605"
-  ];
-
-  const gridFilterContainer = document.getElementById('grid-filter-container');
-  const clearBtn = document.getElementById('grid-filter-clear');
-
-  // Use a Set to track selected grids for easy add/remove and lookup
-  const selectedGrids = new Set();
-
-  // Create a button for each gridId and insert before Clear button
-  gridIds.forEach(gridId => {
-    const btn = document.createElement('button');
-    btn.textContent = gridId;
-
-    btn.addEventListener('click', () => {
-      if (selectedGrids.has(gridId)) {
-        selectedGrids.delete(gridId); // Deselect if already selected
-      } else {
-        selectedGrids.add(gridId);    // Select if not selected
-      }
-
-      updateFilter();
-      updateButtonStyles();
-    });
-
-    gridFilterContainer.insertBefore(btn, clearBtn);
-  });
-
-  // Clear button clears all selections and resets filter
-  clearBtn.addEventListener('click', () => {
-    selectedGrids.clear();
-    updateFilter();
-    updateButtonStyles();
-  });
-
-  // Update filter to search for any selected grid IDs (regex OR)
-  function updateFilter() {
-    if (selectedGrids.size === 0) {
-      // No filter, show all
-      applyGridFilter('');
-    } else {
-      // Escape special regex chars and join by |
-      const regex = Array.from(selectedGrids)
-        .map(g => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-        .join('|');
-      applyGridFilter(regex);
-    }
-  }
-
-  // Update button styles for selected/deselected state
-  function updateButtonStyles() {
-    const buttons = gridFilterContainer.querySelectorAll('button');
-    buttons.forEach(btn => {
-      if (btn === clearBtn) {
-        btn.classList.toggle('active', selectedGrids.size === 0);
-      } else {
-        btn.classList.toggle('active', selectedGrids.has(btn.textContent));
-      }
-    });
-  }
-
-  // Initialize with Clear button active and no filter on page load
-  updateButtonStyles();
-  applyGridFilter('');
-</script>
-
-  
 <div class="tabs">
   <div class="tab-button active" data-tab="etop">etop</div>
   <div class="tab-button" data-tab="zl">zl</div>
@@ -272,43 +186,76 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
-  // Tab switching logic
-  const tabs = document.querySelectorAll('.tab-button');
-  const tabContents = document.querySelectorAll('.tab-content');
+  let dataTables = {}; // Store DataTables instances and info
+  let loadedCount = 0; // Track how many tables finished loading
 
-  tabs.forEach(tab => {
+  function applyGridFilter(value) {
+    if (!dataTables || Object.keys(dataTables).length === 0) return;
+    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
+      if (gridColIndex === -1) return;
+      dt.columns(gridColIndex).search(value, true, false, true).draw();
+    });
+  }
+
+  const gridIds = [
+    "Grid 101", "Grid 105", "Grid 106", "Grid 102", "Grid 104", "Grid 103",
+    "Grid 401", "Grid 402", "Grid 403", "Grid 404", "Grid 405",
+    "Grid 501", "Grid 502", "Grid 503", "Grid 504", "Grid 505", "Grid 506", "Grid 507", "Grid 508", "Grid 509",
+    "Grid 601", "Grid 602", "Grid 603", "Grid 604", "Grid 605"
+  ];
+
+  const gridFilterContainer = document.getElementById('grid-filter-container');
+  const clearBtn = document.getElementById('grid-filter-clear');
+  const selectedGrids = new Set();
+
+  gridIds.forEach(gridId => {
+    const btn = document.createElement('button');
+    btn.textContent = gridId;
+    btn.addEventListener('click', () => {
+      selectedGrids.has(gridId) ? selectedGrids.delete(gridId) : selectedGrids.add(gridId);
+      updateFilter();
+      updateButtonStyles();
+    });
+    gridFilterContainer.insertBefore(btn, clearBtn);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    selectedGrids.clear();
+    updateFilter();
+    updateButtonStyles();
+  });
+
+  function updateFilter() {
+    const regex = Array.from(selectedGrids)
+      .map(g => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      .join('|');
+    applyGridFilter(selectedGrids.size === 0 ? '' : regex);
+  }
+
+  function updateButtonStyles() {
+    const buttons = gridFilterContainer.querySelectorAll('button');
+    buttons.forEach(btn => {
+      btn.classList.toggle('active', btn === clearBtn ? selectedGrids.size === 0 : selectedGrids.has(btn.textContent));
+    });
+  }
+
+  // Tab switching
+  document.querySelectorAll('.tab-button').forEach(tab => {
     tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tabContents.forEach(c => c.classList.remove('active'));
-
+      document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById(tab.dataset.tab).classList.add('active');
     });
   });
 
-  // Sheets config (only Grid and Franchise tables)
   const sheets = [
-    {
-      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv",
-      tableId: "sheetTable3"
-    },
-    {
-      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv",
-      tableId: "sheetTable4"
-    },
-    {
-      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv",
-      tableId: "sheetTable7"
-    },
-    {
-      url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv",
-      tableId: "sheetTable8"
-    }
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable3" },
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable4" },
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable7" },
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable8" }
   ];
 
-  let dataTables = {}; // Store DataTables instances and related info by tableId
-
-  // Load each sheet CSV, build table and initialize DataTables
   sheets.forEach(({ url, tableId }) => {
     Papa.parse(url, {
       download: true,
@@ -316,21 +263,14 @@
       skipEmptyLines: true,
       complete: function (results) {
         const data = results.data;
-        if (!data.length) {
-          console.warn("No data found for", tableId);
-          return;
-        }
-
         const table = document.getElementById(tableId);
         const thead = table.querySelector("thead");
         const tbody = table.querySelector("tbody");
 
-        // Clear old content if any
         thead.innerHTML = "";
         tbody.innerHTML = "";
 
-        // Build headers from keys of first row
-        const columns = Object.keys(data[0]);
+        const columns = Object.keys(data[0] || {});
         const trHead = document.createElement("tr");
         columns.forEach(col => {
           const th = document.createElement("th");
@@ -339,7 +279,6 @@
         });
         thead.appendChild(trHead);
 
-        // Build body rows
         data.forEach(row => {
           const tr = document.createElement("tr");
           columns.forEach(col => {
@@ -350,29 +289,23 @@
           tbody.appendChild(tr);
         });
 
-        // Initialize DataTable (with searching disabled globally)
         const dt = $(table).DataTable({
           paging: true,
           searching: true,
           info: true,
-          order: [], // no initial ordering
+          order: [],
           lengthMenu: [10, 25, 50, 100],
           pageLength: 25,
           autoWidth: false,
           language: {
-            paginate: {
-              previous: "<",
-              next: ">"
-            }
+            paginate: { previous: "<", next: ">" }
           }
         });
 
-        // Find the index of "Grid" column (case insensitive)
-        let gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
-
+        const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
         dataTables[tableId] = { dt, columns, gridColIndex };
 
-        // Display watermark if user is whitelisted
+        // Watermark for specific users
         const whitelist = ["sameenyaser", "naumanzaheer"];
         const currentUsername = localStorage.getItem("username");
         const watermarkDiv = document.getElementById('watermark');
@@ -380,15 +313,21 @@
 
         if (currentUsername && whitelist.includes(currentUsername)) {
           const repeatedText = currentUsername + " ";
-          watermarkDiv.innerHTML = Array(repeatCount).fill(<div>${repeatedText}</div>).join('');
+          watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
           watermarkDiv.style.display = 'flex';
         } else {
           watermarkDiv.style.display = 'none';
         }
+
+        // Only apply filter after all tables are loaded
+        loadedCount++;
+        if (loadedCount === sheets.length) {
+          updateButtonStyles();
+          applyGridFilter('');
+        }
       }
     });
   });
-
 </script>
 
 </body>
