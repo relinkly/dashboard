@@ -56,19 +56,19 @@
 
    table.dataTable {
   width: 100% !important; /* full width */
-  margin: 0 auto !important; /* no horizontal margin but keep consistent */
+  margin: 0 auto !important; /* center horizontally */
   font-size: 11px;
   box-sizing: border-box;
   overflow-x: auto;
   display: block;
 }
 
-table.dataTable th,
-table.dataTable td {
-  text-align: center !important; /* center align text in all cells */
-  white-space: nowrap;
-  font-size: 11px !important;
+#gridTable, #franchiseTable {
+  width: 100% !important;
+  margin: 0 auto;
+  min-width: unset !important;
 }
+
     #watermark {
       position: fixed;
       top: 50%;
@@ -116,18 +116,19 @@ table.dataTable td {
   <button id="grid-filter-clear">Clear</button>
 </div>
 
+<!-- Tables -->
 <h1>Grid Level</h1>
-<table id="gridTable" class="display" style="margin: 0 auto; width: auto; min-width: 600px;">
-
+<table id="gridTable" class="display" style="width: 100%; margin: 0 auto;">
   <thead></thead>
   <tbody></tbody>
 </table>
 
 <h1>Franchise Level</h1>
-<table id="franchiseTable" class="display" style="margin: 0 auto; width: auto; min-width: 600px;">
+<table id="franchiseTable" class="display" style="width: 100%; margin: 0 auto;">
   <thead></thead>
   <tbody></tbody>
 </table>
+
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
