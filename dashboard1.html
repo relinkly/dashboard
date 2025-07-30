@@ -202,7 +202,7 @@
   let dataTables = {}; // Store DataTables instances and info
   let loadedCount = 0; // Track how many tables finished loading
 
-  function applyGridFilter(value) {
+   function applyGridFilter(value) {
     if (!dataTables || Object.keys(dataTables).length === 0) return;
     Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
       if (gridColIndex === -1) return;
