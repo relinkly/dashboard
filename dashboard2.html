@@ -174,10 +174,10 @@
   }
 
   const gridIds = [
-    "Grid 101", "Grid 105", "Grid 106", "Grid 102", "Grid 104", "Grid 103",
-    "Grid 401", "Grid 402", "Grid 403", "Grid 404", "Grid 405",
-    "Grid 501", "Grid 502", "Grid 503", "Grid 504", "Grid 505", "Grid 506", "Grid 507", "Grid 508", "Grid 509",
-    "Grid 601", "Grid 602", "Grid 603", "Grid 604", "Grid 605"
+    "C1001", "C1005", "C1006", "C1002", "C1004", "C1003",
+    "C4001", "C4002", "C4003", "C4004", "C4005",
+    "C5001", "C5002", "C5003", "C5004", "C5005", "C5006", "C5007", "C5008", "C5009",
+    "C6001", "C6002", "C6003", "C6004", "C6005"
   ];
 
   const gridFilterContainer = document.getElementById('grid-filter-container');
@@ -269,7 +269,7 @@
 
         const dt = $(table).DataTable({
   paging: false,
-  searching: false,  // <-- disable search
+  searching: true,  // <-- disable search
   info: false,
   order: [],
   autoWidth: false,
