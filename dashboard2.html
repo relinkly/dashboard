@@ -248,14 +248,28 @@
         thead.innerHTML = "";
         tbody.innerHTML = "";
 
-       const columns = Object.keys(data[0] || {});
-console.log(`Table ${tableId}: columns`, columns);
-const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
-console.log(`Table ${tableId}: gridColIndex =`, gridColIndex);
+        const columns = Object.keys(data[0] || {});
+        const trHead = document.createElement("tr");
+        columns.forEach(col => {
+          const th = document.createElement("th");
+          th.textContent = col;
+          trHead.appendChild(th);
+        });
+        thead.appendChild(trHead);
 
-const dt = $(table).DataTable({
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+          columns.forEach(col => {
+            const td = document.createElement("td");
+            td.textContent = row[col];
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+
+        const dt = $(table).DataTable({
   paging: false,
-  searching: false,   // hide the global search box
+  searching: true,  // <-- disable search
   info: false,
   order: [],
   autoWidth: false,
@@ -265,6 +279,9 @@ const dt = $(table).DataTable({
 });
 
 
+        const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
+        dataTables[tableId] = { dt, columns, gridColIndex };
+
         // Watermark for specific users
         const whitelist = ["sameenyaser", "naumanzaheer"];
         const currentUsername = localStorage.getItem("username");
@@ -273,7 +290,7 @@ const dt = $(table).DataTable({
 
         if (currentUsername && whitelist.includes(currentUsername)) {
           const repeatedText = currentUsername + " ";
-          watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
+          watermarkDiv.innerHTML = Array(repeatCount).fill(<div>${repeatedText}</div>).join('');
           watermarkDiv.style.display = 'flex';
         } else {
           watermarkDiv.style.display = 'none';
