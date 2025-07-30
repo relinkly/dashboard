@@ -78,6 +78,7 @@
     table.dataTable td {
       font-size: 11px !important;
       white-space: nowrap;
+      text-align: center !important;
     }
 
     #grid-filter-container {
@@ -303,15 +304,69 @@
         });
 
         const dt = $(table).DataTable({
-  paging: false,      // show all entries at once, no pagination
-  searching: false,   // remove individual table search bar
-  info: false,        // no "Showing X of Y" info
+  paging: false,
+  searching: false,
+  info: false,
   order: [],
   autoWidth: false,
   language: {
     paginate: { previous: "<", next: ">" }
+  },
+  createdRow: function(row, data, dataIndex) {
+    // We'll handle coloring below after initialization, so no action here yet.
   }
 });
+
+// Function to apply conditional formatting on specified columns
+function applyConditionalFormatting(dt, columnsToColor) {
+  columnsToColor.forEach(colName => {
+    const colIndex = dt.columns().header().toArray().findIndex(th => th.textContent.trim() === colName);
+    if (colIndex === -1) return;
+
+    // Get all data for this column
+    const colData = dt.column(colIndex).data().toArray()
+      .map(v => {
+        // parse float or 0 if NaN
+        let num = parseFloat(v.toString().replace(/[^0-9.-]+/g,""));
+        return isNaN(num) ? 0 : num;
+      });
+
+    const min = Math.min(...colData);
+    const max = Math.max(...colData);
+
+    // Color interpolation function from red (min) to green (max)
+    function interpolateColor(value) {
+      if (max === min) return 'rgb(144,238,144)'; // lightgreen if all same
+
+      // Normalize value between 0 and 1
+      const ratio = (value - min) / (max - min);
+
+      // Red to green gradient
+      const r = Math.round(255 * (1 - ratio));
+      const g = Math.round(255 * ratio);
+      const b = 0;
+
+      return `rgb(${r},${g},${b})`;
+    }
+
+    dt.cells(null, colIndex).every(function() {
+      const cell = this.node();
+      const cellValueRaw = this.data();
+      let val = parseFloat(cellValueRaw.toString().replace(/[^0-9.-]+/g,""));
+      if (isNaN(val)) val = 0;
+
+      cell.style.backgroundColor = interpolateColor(val);
+      cell.style.color = val < (min + max) / 2 ? 'white' : 'black'; // contrast for readability
+    });
+  });
+}
+
+// Columns to color
+const columnsToColor = ["W1 Achv %", "W2 Achv %", "W3 Achv %", "W4 Achv %"];
+
+// Apply formatting after DataTable initialization
+applyConditionalFormatting(dt, columnsToColor);
+
 
 
         const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
