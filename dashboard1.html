@@ -303,63 +303,17 @@
           tbody.appendChild(tr);
         });
 
-        const dt = $(table).DataTable({
-  paging: false,
-  searching: false,
-  info: false,
+       const dt = $(table).DataTable({
+  paging: false,      // show all entries at once, no pagination
+  searching: false,   // remove individual table search bar
+  info: false,        // no "Showing X of Y" info
   order: [],
   autoWidth: false,
   language: {
     paginate: { previous: "<", next: ">" }
-  },
-  createdRow: function(row, data, dataIndex) {
-    // We'll handle coloring below after initialization, so no action here yet.
   }
 });
 
-// Function to apply conditional formatting on specified columns
-function applyConditionalFormatting(dt, columnsToColor) {
-  columnsToColor.forEach(colName => {
-    const colIndex = dt.columns().header().toArray().findIndex(th => th.textContent.trim() === colName);
-    if (colIndex === -1) return;
-
-    // Parse and normalize data
-    const colData = dt.column(colIndex).data().toArray()
-      .map(v => {
-        let num = parseFloat(v.toString().replace(/[^0-9.-]+/g, ""));
-        return isNaN(num) ? 0 : num;
-      });
-
-    const min = Math.min(...colData);
-    const max = Math.max(...colData);
-
-    function pastelColor(value) {
-      if (max === min) return 'rgb(204, 235, 197)'; // Neutral pastel green
-
-      const ratio = (value - min) / (max - min);
-
-      // Pastel Red:   rgb(255, 204, 204)
-      // Pastel Green: rgb(204, 235, 197)
-
-      const r = Math.round(255 * (1 - ratio) + 204 * ratio);
-      const g = Math.round(204 * (1 - ratio) + 235 * ratio);
-      const b = Math.round(204 * (1 - ratio) + 197 * ratio);
-
-      return `rgb(${r},${g},${b})`;
-    }
-
-    dt.cells(null, colIndex).every(function() {
-      const cell = this.node();
-      const cellValueRaw = this.data();
-      let val = parseFloat(cellValueRaw.toString().replace(/[^0-9.-]+/g, ""));
-      if (isNaN(val)) val = 0;
-
-      const bgColor = pastelColor(val);
-      cell.style.backgroundColor = bgColor;
-      cell.style.color = '#222'; // Keep text dark for pastel contrast
-    });
-  });
-}
 
 // Columns to color
 const columnsToColor = ["W1 Achv %", "W2 Achv %", "W3 Achv %", "W4 Achv %"];
