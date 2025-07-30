@@ -146,52 +146,37 @@
 </div>
 
 <div class="tabs">
-  <div class="tab-button active" data-tab="zl">zl</div>
-  <div class="tab-button" data-tab="bvs">bvs</div>
+  <div class="tab-button active" data-tab="etop">etop</div>
+  <div class="tab-button" data-tab="zl">zl</div>
 </div>
 
-<!-- ZL TAB -->
-<div id="zl" class="tab-content active">
-  <h1>Subregion Level</h1>
-  <table id="zlSubregionTable" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
-
+<div id="etop" class="tab-content active">
   <h1>Grid Level</h1>
-  <table id="zlGridTable" class="display" style="width:100%">
+  <table id="sheetTable3" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 
   <h1>Franchise Level</h1>
-  <table id="zlFranchiseTable" class="display" style="width:100%">
+  <table id="sheetTable4" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 </div>
 
-<!-- BVS TAB -->
-<div id="bvs" class="tab-content">
-  <h1>Subregion Level</h1>
-  <table id="bvsSubregionTable" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
-
+<div id="zl" class="tab-content">
   <h1>Grid Level</h1>
-  <table id="bvsGridTable" class="display" style="width:100%">
+  <table id="sheetTable7" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 
   <h1>Franchise Level</h1>
-  <table id="bvsFranchiseTable" class="display" style="width:100%">
+  <table id="sheetTable8" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 </div>
-
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -254,7 +239,7 @@
     });
   }
 
- document.addEventListener("DOMContentLoaded", () => {
+  // Tab switching
   document.querySelectorAll('.tab-button').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
@@ -263,22 +248,13 @@
       document.getElementById(tab.dataset.tab).classList.add('active');
     });
   });
-});
-
-
 
   const sheets = [
-  // ZL tab
-  { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "zlSubregionTable" },
-  { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "zlGridTable" },
-  { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "zlFranchiseTable" },
-
-  // BVS tab
-  { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "bvsSubregionTable" },
-  { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "bvsGridTable" },
-  { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "bvsFranchiseTable" }
-];
-
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable3" },
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable4" },
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable7" },
+    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable8" }
+  ];
 
   sheets.forEach(({ url, tableId }) => {
     Papa.parse(url, {
@@ -337,7 +313,7 @@
 
         if (currentUsername && whitelist.includes(currentUsername)) {
           const repeatedText = currentUsername + " ";
-          watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
+          watermarkDiv.innerHTML = Array(repeatCount).fill(<div>${repeatedText}</div>).join('');
           watermarkDiv.style.display = 'flex';
         } else {
           watermarkDiv.style.display = 'none';
