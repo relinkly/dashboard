@@ -304,15 +304,16 @@
         });
 
        const dt = $(table).DataTable({
-  paging: false,      // show all entries at once, no pagination
-  searching: false,   // remove individual table search bar
-  info: false,        // no "Showing X of Y" info
+  paging: false,
+  searching: true,   // <-- enable search for programmatic filtering
+  info: false,
   order: [],
   autoWidth: false,
   language: {
     paginate: { previous: "<", next: ">" }
   }
 });
+
 
 
 
