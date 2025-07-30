@@ -54,17 +54,19 @@
       border-color: #0b7dda;
     }
 
-   table.dataTable {
+ table.dataTable {
   font-size: 11px;
   box-sizing: border-box;
-  display: block;
+  display: table; /* Use table layout instead of block */
+  margin: 0 auto;  /* Center the table */
 }
 
-#gridTable, #franchiseTable {
+#gridTable,
+#franchiseTable {
   width: 100% !important;
-  margin: 0 auto;
   min-width: unset !important;
 }
+
 
     #watermark {
       position: fixed;
