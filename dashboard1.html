@@ -146,52 +146,37 @@
 </div>
 
 <div class="tabs">
-  <div class="tab-button active" data-tab="zl">zl</div>
-  <div class="tab-button" data-tab="bvs">bvs</div>
+  <div class="tab-button active" data-tab="etop">etop</div>
+  <div class="tab-button" data-tab="zl">zl</div>
 </div>
 
-<!-- ZL TAB -->
-<div id="zl" class="tab-content active">
-  <h1>Subregion Level</h1>
-  <table id="zlSubregionTable" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
-
+<div id="etop" class="tab-content active">
   <h1>Grid Level</h1>
-  <table id="zlGridTable" class="display" style="width:100%">
+  <table id="sheetTable3" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 
   <h1>Franchise Level</h1>
-  <table id="zlFranchiseTable" class="display" style="width:100%">
+  <table id="sheetTable4" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 </div>
 
-<!-- BVS TAB -->
-<div id="bvs" class="tab-content">
-  <h1>Subregion Level</h1>
-  <table id="bvsSubregionTable" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
-
+<div id="zl" class="tab-content">
   <h1>Grid Level</h1>
-  <table id="bvsGridTable" class="display" style="width:100%">
+  <table id="sheetTable7" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 
   <h1>Franchise Level</h1>
-  <table id="bvsFranchiseTable" class="display" style="width:100%">
+  <table id="sheetTable8" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 </div>
-
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -264,18 +249,13 @@
     });
   });
 
-  
   const sheets = [
-  // ZL tab
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=1388789729", tableId: "zlSubregionTable" },
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=0", tableId: "zlGridTable" },
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=1196662913", tableId: "zlFranchiseTable" },
-
-  // BVS tab
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=45484466", tableId: "bvsSubregionTable" },
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=1028097947", tableId: "bvsGridTable" },
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=1979603911", tableId: "bvsFranchiseTable" }
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=0", tableId: "sheetTable3" },
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1196662913", tableId: "sheetTable4" },
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1028097947", tableId: "sheetTable7" },
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1979603911", tableId: "sheetTable8" }
 ];
+
 
   sheets.forEach(({ url, tableId }) => {
     Papa.parse(url, {
@@ -333,13 +313,12 @@
         const repeatCount = 10;
 
         if (currentUsername && whitelist.includes(currentUsername)) {
-  const repeatedText = currentUsername + " ";
-  watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
-  watermarkDiv.style.display = 'flex';
-} else {
-  watermarkDiv.style.display = 'none';
-}
-
+          const repeatedText = currentUsername + " ";
+          watermarkDiv.innerHTML = Array(repeatCount).fill(<div>${repeatedText}</div>).join('');
+          watermarkDiv.style.display = 'flex';
+        } else {
+          watermarkDiv.style.display = 'none';
+        }
 
         // Only apply filter after all tables are loaded
         loadedCount++;
