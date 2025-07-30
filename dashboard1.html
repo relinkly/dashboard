@@ -146,37 +146,52 @@
 </div>
 
 <div class="tabs">
-  <div class="tab-button active" data-tab="etop">etop</div>
-  <div class="tab-button" data-tab="zl">zl</div>
+  <div class="tab-button active" data-tab="zl">zl</div>
+  <div class="tab-button" data-tab="bvs">bvs</div>
 </div>
 
-<div id="etop" class="tab-content active">
+<!-- ZL TAB -->
+<div id="zl" class="tab-content active">
+  <h1>Subregion Level</h1>
+  <table id="zlSubregionTable" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
   <h1>Grid Level</h1>
-  <table id="sheetTable3" class="display" style="width:100%">
+  <table id="zlGridTable" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 
   <h1>Franchise Level</h1>
-  <table id="sheetTable4" class="display" style="width:100%">
+  <table id="zlFranchiseTable" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 </div>
 
-<div id="zl" class="tab-content">
+<!-- BVS TAB -->
+<div id="bvs" class="tab-content">
+  <h1>Subregion Level</h1>
+  <table id="bvsSubregionTable" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
   <h1>Grid Level</h1>
-  <table id="sheetTable7" class="display" style="width:100%">
+  <table id="bvsGridTable" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 
   <h1>Franchise Level</h1>
-  <table id="sheetTable8" class="display" style="width:100%">
+  <table id="bvsFranchiseTable" class="display" style="width:100%">
     <thead></thead>
     <tbody></tbody>
   </table>
 </div>
+
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -249,12 +264,18 @@
     });
   });
 
+  
   const sheets = [
-    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable3" },
-    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable4" },
-    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable7" },
-    { url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQoCyl8yMw8VqrSaN5CFhvM5FM4sh4ChwbgFnLWIikcGSinkPaFEhFqH4HUrNKdzuBNia8WRI4lShpa/pub?output=csv", tableId: "sheetTable8" }
-  ];
+  // ZL tab
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=1388789729", tableId: "zlSubregionTable" },
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=0", tableId: "zlGridTable" },
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=1196662913", tableId: "zlFranchiseTable" },
+
+  // BVS tab
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=45484466", tableId: "bvsSubregionTable" },
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=1028097947", tableId: "bvsGridTable" },
+  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/gviz/tq?tqx=out:csv&gid=1979603911", tableId: "bvsFranchiseTable" }
+];
 
   sheets.forEach(({ url, tableId }) => {
     Papa.parse(url, {
