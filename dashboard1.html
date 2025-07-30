@@ -323,28 +323,27 @@ function applyConditionalFormatting(dt, columnsToColor) {
     const colIndex = dt.columns().header().toArray().findIndex(th => th.textContent.trim() === colName);
     if (colIndex === -1) return;
 
-    // Get all data for this column
+    // Parse and normalize data
     const colData = dt.column(colIndex).data().toArray()
       .map(v => {
-        // parse float or 0 if NaN
-        let num = parseFloat(v.toString().replace(/[^0-9.-]+/g,""));
+        let num = parseFloat(v.toString().replace(/[^0-9.-]+/g, ""));
         return isNaN(num) ? 0 : num;
       });
 
     const min = Math.min(...colData);
     const max = Math.max(...colData);
 
-    // Color interpolation function from red (min) to green (max)
-    function interpolateColor(value) {
-      if (max === min) return 'rgb(144,238,144)'; // lightgreen if all same
+    function pastelColor(value) {
+      if (max === min) return 'rgb(204, 235, 197)'; // Neutral pastel green
 
-      // Normalize value between 0 and 1
       const ratio = (value - min) / (max - min);
 
-      // Red to green gradient
-      const r = Math.round(255 * (1 - ratio));
-      const g = Math.round(255 * ratio);
-      const b = 0;
+      // Pastel Red:   rgb(255, 204, 204)
+      // Pastel Green: rgb(204, 235, 197)
+
+      const r = Math.round(255 * (1 - ratio) + 204 * ratio);
+      const g = Math.round(204 * (1 - ratio) + 235 * ratio);
+      const b = Math.round(204 * (1 - ratio) + 197 * ratio);
 
       return `rgb(${r},${g},${b})`;
     }
@@ -352,11 +351,12 @@ function applyConditionalFormatting(dt, columnsToColor) {
     dt.cells(null, colIndex).every(function() {
       const cell = this.node();
       const cellValueRaw = this.data();
-      let val = parseFloat(cellValueRaw.toString().replace(/[^0-9.-]+/g,""));
+      let val = parseFloat(cellValueRaw.toString().replace(/[^0-9.-]+/g, ""));
       if (isNaN(val)) val = 0;
 
-      cell.style.backgroundColor = interpolateColor(val);
-      cell.style.color = val < (min + max) / 2 ? 'white' : 'black'; // contrast for readability
+      const bgColor = pastelColor(val);
+      cell.style.backgroundColor = bgColor;
+      cell.style.color = '#222'; // Keep text dark for pastel contrast
     });
   });
 }
