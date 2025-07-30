@@ -303,17 +303,16 @@
         });
 
         const dt = $(table).DataTable({
-          paging: true,
-          searching: true,
-          info: true,
-          order: [],
-          lengthMenu: [10, 25, 50, 100],
-          pageLength: 25,
-          autoWidth: false,
-          language: {
-            paginate: { previous: "<", next: ">" }
-          }
-        });
+  paging: false,      // show all entries at once, no pagination
+  searching: false,   // remove individual table search bar
+  info: false,        // no "Showing X of Y" info
+  order: [],
+  autoWidth: false,
+  language: {
+    paginate: { previous: "<", next: ">" }
+  }
+});
+
 
         const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
         dataTables[tableId] = { dt, columns, gridColIndex };
