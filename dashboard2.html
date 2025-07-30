@@ -54,22 +54,21 @@
       border-color: #0b7dda;
     }
 
-    table.dataTable {
-      width: 100% !important;
-      margin-bottom: 40px;
-      font-size: 11px;
-      box-sizing: border-box;
-      overflow-x: auto;
-      display: block;
-    }
+   table.dataTable {
+  width: 100% !important; /* full width */
+  margin: 0 auto !important; /* no horizontal margin but keep consistent */
+  font-size: 11px;
+  box-sizing: border-box;
+  overflow-x: auto;
+  display: block;
+}
 
-    table.dataTable th,
-    table.dataTable td {
-      font-size: 11px !important;
-      white-space: nowrap;
-      text-align: center !important;
-    }
-
+table.dataTable th,
+table.dataTable td {
+  text-align: center !important; /* center align text in all cells */
+  white-space: nowrap;
+  font-size: 11px !important;
+}
     #watermark {
       position: fixed;
       top: 50%;
@@ -244,15 +243,16 @@
         });
 
         const dt = $(table).DataTable({
-          paging: false,
-          searching: false,  // disable search bars
-          info: false,
-          order: [],
-          autoWidth: false,
-          language: {
-            paginate: { previous: "<", next: ">" }
-          }
-        });
+  paging: false,
+  searching: false,  // <-- disable search
+  info: false,
+  order: [],
+  autoWidth: false,
+  language: {
+    paginate: { previous: "<", next: ">" }
+  }
+});
+
 
         const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
         dataTables[tableId] = { dt, columns, gridColIndex };
