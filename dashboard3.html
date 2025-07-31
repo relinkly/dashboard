@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
   <style>
-    /* your existing styles here (no changes) */
     body {
       font-family: Arial, sans-serif;
       margin: 20px auto;
@@ -66,7 +65,6 @@
       display: block;
     }
 
-    /* Wrap tables for scroll on small screens */
     .table-wrapper {
       width: 100%;
       overflow-x: auto;
@@ -178,13 +176,7 @@
 <h1>Grid Level</h1>
 <div class="table-wrapper">
   <table id="gridTable" class="display" style="width: 100%;">
-    <thead>
-      <tr>
-      </tr>
-      <tr>
-        
-      </tr>
-    </thead>
+    <thead></thead>
     <tbody></tbody>
   </table>
 </div>
@@ -192,16 +184,10 @@
 <h1>Franchise Level</h1>
 <div class="table-wrapper">
   <table id="franchiseTable" class="display" style="width: 100%;">
-    <thead>
-      <tr>
-      </tr>
-      <tr>
-      </tr>
-    </thead>
+    <thead></thead>
     <tbody></tbody>
   </table>
 </div>
-
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -214,7 +200,6 @@
   let dataTables = {};
   let loadedCount = 0;
 
-  // Same gridIds and filtering as before...
   const gridIds = [
     "C1001", "C1005", "C1006", "C1002", "C1004", "C1003",
     "C4001", "C4002", "C4003", "C4004", "C4005",
@@ -273,109 +258,175 @@
     });
   }
 
-  const sheets = [
-  {
-    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=25723398",
-    tableId: "gridTable"
-  },
-  {
-    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=949395118",
-    tableId: "franchiseTable"
-  }
-];
+  // Helper: build merged header row with colspans and rowspans
+  function buildMergedHeaders(headerRows) {
+    // headerRows is an array of arrays, e.g. [ [r0c0, r0c1, ...], [r1c0, r1c1, ...] ]
+    const rowCount = headerRows.length;
+    const colCount = Math.max(...headerRows.map(r => r.length));
 
+    // Normalize rows to have same length by filling empty cells
+    headerRows.forEach(row => {
+      while (row.length < colCount) {
+        row.push("");
+      }
+    });
+
+    // We'll track which cells are covered by rowspans to skip rendering them
+    const skipCells = Array(rowCount).fill(0).map(() => Array(colCount).fill(false));
+
+    // Build an array of arrays for thead rows (DOM elements)
+    const theadRows = [];
+
+    for (let r = 0; r < rowCount; r++) {
+      const tr = document.createElement('tr');
+      let c = 0;
+      while (c < colCount) {
+        if (skipCells[r][c]) {
+          c++;
+          continue;
+        }
+
+        const cellValue = headerRows[r][c].trim();
+
+        if (!cellValue) {
+          // Empty cell, check if it is part of horizontal merge with previous cells
+          // Just skip rendering an empty cell on top row if next cell has value, handled by previous cell's colspan
+          c++;
+          continue;
+        }
+
+        // Calculate colspan: count how many consecutive empty cells to the right on this row
+        let colspan = 1;
+        for (let cc = c + 1; cc < colCount; cc++) {
+          if (headerRows[r][cc].trim() === "") {
+            colspan++;
+          } else {
+            break;
+          }
+        }
+
+        // Calculate rowspan: if the cell below is empty, this cell spans vertically
+        let rowspan = 1;
+        if (r < rowCount - 1) {
+          let isRowspan = true;
+          for (let cc = c; cc < c + colspan; cc++) {
+            if (headerRows[r + 1][cc].trim() !== "") {
+              isRowspan = false;
+              break;
+            }
+          }
+          if (isRowspan) {
+            rowspan = 2;
+            // Mark the cells in the next row as skipped for these columns
+            for (let cc = c; cc < c + colspan; cc++) {
+              skipCells[r + 1][cc] = true;
+            }
+          }
+        }
+
+        const th = document.createElement('th');
+        th.textContent = cellValue;
+        if (colspan > 1) th.colSpan = colspan;
+        if (rowspan > 1) th.rowSpan = rowspan;
+
+        tr.appendChild(th);
+        c += colspan;
+      }
+      theadRows.push(tr);
+    }
+
+    return theadRows;
+  }
+
+  const sheets = [
+    {
+      url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=25723398",
+      tableId: "gridTable"
+    },
+    {
+      url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=949395118",
+      tableId: "franchiseTable"
+    }
+  ];
 
   sheets.forEach(({ url, tableId }) => {
-   Papa.parse(url, {
-  download: true,
-  header: false, // get raw rows (including all header rows)
-  skipEmptyLines: true,
-  complete: function (results) {
-    const rows = results.data;
-    const table = document.getElementById(tableId);
-    const thead = table.querySelector("thead");
-    const tbody = table.querySelector("tbody");
+    Papa.parse(url, {
+      download: true,
+      header: false,
+      skipEmptyLines: true,
+      complete: function (results) {
+        const rows = results.data;
+        const table = document.getElementById(tableId);
+        const thead = table.querySelector("thead");
+        const tbody = table.querySelector("tbody");
 
-    thead.innerHTML = "";
-    tbody.innerHTML = "";
+        thead.innerHTML = "";
+        tbody.innerHTML = "";
 
-    // Assume first 2 rows are headers
-    const headerRows = rows.slice(0, 2);
-    const dataRows = rows.slice(2);
+        // Assume first 2 rows are headers
+        const headerRows = rows.slice(0, 2);
+        const dataRows = rows.slice(2);
 
-    // Build <thead> with two rows
-    headerRows.forEach(row => {
-      const tr = document.createElement("tr");
-      row.forEach(cell => {
-        const th = document.createElement("th");
-        th.textContent = cell;
-        tr.appendChild(th);
-      });
-      thead.appendChild(tr);
-    });
+        // Build <thead> with merged headers
+        const theadRows = buildMergedHeaders(headerRows);
+        theadRows.forEach(tr => thead.appendChild(tr));
 
-    // Build <tbody> with data rows
-    dataRows.forEach(row => {
-      const tr = document.createElement("tr");
-      row.forEach(cell => {
-        const td = document.createElement("td");
-        td.textContent = cell;
-        tr.appendChild(td);
-      });
-      tbody.appendChild(tr);
-    });
+        // Build <tbody> with data rows
+        dataRows.forEach(row => {
+          const tr = document.createElement("tr");
+          row.forEach(cell => {
+            const td = document.createElement("td");
+            td.textContent = cell;
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
 
-    // Initialize DataTables
-    const dt = $(table).DataTable({
-      paging: false,
-      searching: true,
-      info: false,
-      order: [],
-      autoWidth: false,
-      language: {
-        paginate: { previous: "<", next: ">" }
+        // Initialize DataTables
+        const dt = $(table).DataTable({
+          paging: false,
+          searching: true,
+          info: false,
+          order: [],
+          autoWidth: false,
+          language: {
+            paginate: { previous: "<", next: ">" }
+          }
+        });
+
+        // Row click highlight toggle
+        $(table).on('click', 'tbody td', function () {
+          const $row = $(this).closest('tr');
+          $row.toggleClass('highlighted');
+        });
+
+        // Find index of "grid" column for filtering (in second header row)
+        const columns = headerRows[1];
+        const gridColIndex = columns.findIndex(c => c && c.toLowerCase().includes("grid"));
+
+        dataTables[tableId] = { dt, columns, gridColIndex };
+
+        // Watermark code (unchanged) ...
+        const whitelist = ["sameenyaser", "naumanzaheer"];
+        const currentUsername = localStorage.getItem("username");
+        const watermarkDiv = document.getElementById('watermark');
+        const repeatCount = 20;
+
+        if (currentUsername && whitelist.includes(currentUsername)) {
+          const repeatedText = currentUsername + " ";
+          watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
+          watermarkDiv.style.display = 'flex';
+        } else {
+          watermarkDiv.style.display = 'none';
+        }
+
+        loadedCount++;
+        if (loadedCount === sheets.length) {
+          updateButtonStyles();
+          applyGridFilter('');
+        }
       }
     });
-
-    // Row click highlight toggle
-    $(table).on('click', 'tbody td', function () {
-      const $row = $(this).closest('tr');
-      if ($row.hasClass('highlighted')) {
-        $row.removeClass('highlighted');
-      } else {
-        $row.addClass('highlighted');
-      }
-    });
-
-    // Find index of "grid" column for filtering
-    // Look into the second header row because first is merged header (likely empty or broad header)
-    const columns = headerRows[1];
-    const gridColIndex = columns.findIndex(c => c && c.toLowerCase().includes("grid"));
-
-    dataTables[tableId] = { dt, columns, gridColIndex };
-
-    // Watermark code (unchanged) ...
-    const whitelist = ["sameenyaser", "naumanzaheer"];
-    const currentUsername = localStorage.getItem("username");
-    const watermarkDiv = document.getElementById('watermark');
-    const repeatCount = 20;
-
-    if (currentUsername && whitelist.includes(currentUsername)) {
-      const repeatedText = currentUsername + " ";
-      watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
-      watermarkDiv.style.display = 'flex';
-    } else {
-      watermarkDiv.style.display = 'none';
-    }
-
-    loadedCount++;
-    if (loadedCount === sheets.length) {
-      updateButtonStyles();
-      applyGridFilter('');
-    }
-  }
-});
-
   });
 </script>
 
