@@ -151,6 +151,10 @@ table.dataTable {
 .dataTables_filter {
   display: none !important;
 }
+/* Highlight style for clicked row */
+.highlighted {
+  background-color: #ffff99 !important; /* pale yellow */
+}
 
 
 </style>
@@ -313,6 +317,21 @@ table.dataTable {
   autoWidth: false,
   language: {
     paginate: { previous: "<", next: ">" }
+  }
+});
+
+        // When any table cell is clicked, highlight the whole row
+$('table.display tbody').on('click', 'td', function () {
+  const $row = $(this).closest('tr');
+
+  // Toggle highlight class on clicked row
+  if ($row.hasClass('highlighted')) {
+    $row.removeClass('highlighted');
+  } else {
+    // Optional: if you want only one row highlighted at a time, uncomment next line
+    // $('table.display tbody tr.highlighted').removeClass('highlighted');
+    
+    $row.addClass('highlighted');
   }
 });
 
