@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Company Dashboards</title>
+  <title>Company KPI Dashboards</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Google Font -->
@@ -30,37 +30,43 @@
     .container {
       background: #ffffff;
       border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
       max-width: 720px;
       width: 100%;
-      padding: 40px 30px;
+      padding: 48px 36px;
       text-align: center;
       color: #222;
+      user-select: none;
     }
 
     .header {
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      position: relative;
+      padding-bottom: 16px;
     }
 
     .header h1 {
       font-weight: 700;
-      font-size: 2.6rem;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+      font-size: 2.8rem;
+      letter-spacing: 1.2px;
       color: #1e3c72;
     }
 
-    .header p {
-      font-weight: 500;
-      font-size: 1.1rem;
-      color: #555;
-      letter-spacing: 0.5px;
+    .header::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: #2a5298;
+      margin: 16px auto 0;
+      border-radius: 2px;
+      opacity: 0.7;
     }
 
     .buttons {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
     }
 
     .buttons a {
@@ -68,64 +74,82 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: #1e3c72;
+      background: linear-gradient(145deg, #1e3c72, #254b8a);
       color: #f0f2f5;
       text-decoration: none;
-      padding: 24px 20px;
-      border-radius: 14px;
+      padding: 28px 24px;
+      border-radius: 16px;
       font-weight: 600;
-      font-size: 1.1rem;
-      box-shadow: 0 6px 12px rgba(30, 60, 114, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      font-size: 1.15rem;
+      box-shadow: 0 8px 18px rgba(30, 60, 114, 0.3);
+      transition: 
+        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.35s ease;
       cursor: pointer;
+      min-height: 140px;
+      text-align: center;
       user-select: none;
-      min-height: 120px;
     }
 
-    .buttons a:hover,
-    .buttons a:focus {
-      background: #2a5298;
-      box-shadow: 0 12px 24px rgba(42, 82, 152, 0.5);
-      transform: translateY(-4px);
-      outline: none;
+    .buttons a:focus-visible {
+      outline: 3px solid #ffd700;
+      outline-offset: 4px;
     }
 
-    /* Icon placeholder */
+    .buttons a:hover {
+      background: linear-gradient(145deg, #2a5298, #3762b1);
+      box-shadow: 0 20px 40px rgba(42, 82, 152, 0.7);
+      transform: translateY(-6px);
+    }
+
     .buttons a .icon {
-      font-size: 3rem;
-      margin-bottom: 12px;
+      font-size: 3.6rem;
+      margin-bottom: 16px;
       user-select: none;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
     }
+
+    /* Different icons for clarity */
+    .buttons a:nth-child(1) .icon { content: "📊"; }
+    .buttons a:nth-child(2) .icon { content: "📈"; }
+    .buttons a:nth-child(3) .icon { content: "🎯"; }
+    .buttons a:nth-child(4) .icon { content: "⚙️"; }
 
     @media (max-width: 400px) {
       .buttons a {
-        padding: 20px 16px;
+        padding: 22px 18px;
         font-size: 1rem;
+        min-height: 120px;
+      }
+      .buttons a .icon {
+        font-size: 3rem;
+        margin-bottom: 12px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container" role="main">
+  <div class="container" role="main" aria-label="Company KPI Dashboards">
     <header class="header">
       <h1>KPI Dashboards</h1>
     </header>
 
     <nav class="buttons" aria-label="Dashboard navigation">
       <a href="dashboard1.html" aria-label="ZL & BVS Active Retail Dashboard">
-        <span class="icon">📈</span>
+        <span class="icon" aria-hidden="true">📊</span>
         ZL & BVS Active Retail
       </a>
       <a href="dashboard2.html" aria-label="Gross Addition Performance Dashboard">
-        <span class="icon">📈</span>
+        <span class="icon" aria-hidden="true">📈</span>
         Gross Addition Performance
       </a>
       <a href="dashboard3.html" aria-label="BDO KPI Dashboard">
-        <span class="icon">📈</span>
+        <span class="icon" aria-hidden="true">🎯</span>
         BDO KPI
       </a>
       <a href="dashboard4.html" aria-label="Enablers Dashboard">
-        <span class="icon">📈</span>
+        <span class="icon" aria-hidden="true">⚙️</span>
         Enablers Dashboard
       </a>
     </nav>
