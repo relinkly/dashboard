@@ -331,12 +331,14 @@ function buildMergedHeaders(headerRows) {
       if (colspan > 1) th.colSpan = colspan;
       if (rowspan > 1) th.rowSpan = rowspan;
 
-      // Assign pastel background color and some padding
-      th.style.backgroundColor = pastelColors[colorIndex % pastelColors.length];
-      th.style.padding = "5px";
-      th.style.border = "1px solid #ccc";
-
-      colorIndex++;
+      if (r === 0) {
+        // For first row headers only:
+        th.style.backgroundColor = pastelColors[colorIndex % pastelColors.length];
+        th.style.textAlign = 'center';
+        th.style.padding = "5px";
+        th.style.border = "1px solid #ccc";
+        colorIndex++;
+      }
 
       tr.appendChild(th);
       c += colspan;
