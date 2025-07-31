@@ -320,17 +320,17 @@ table.dataTable {
   }
 });
 
-        // When any table cell is clicked, highlight the whole row
-$('table.display tbody').on('click', 'td', function () {
+      // Use DataTables API to bind event on rows inside the current table
+$(table).on('click', 'tbody td', function () {
   const $row = $(this).closest('tr');
 
   // Toggle highlight class on clicked row
   if ($row.hasClass('highlighted')) {
     $row.removeClass('highlighted');
   } else {
-    // Optional: if you want only one row highlighted at a time, uncomment next line
-    // $('table.display tbody tr.highlighted').removeClass('highlighted');
-    
+    // Uncomment if only one highlighted row at a time
+    // $(table).find('tbody tr.highlighted').removeClass('highlighted');
+
     $row.addClass('highlighted');
   }
 });
