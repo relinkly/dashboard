@@ -8,8 +8,9 @@
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
-<style>
-   body {
+  <style>
+    /* your existing styles here (no changes) */
+    body {
       font-family: Arial, sans-serif;
       margin: 20px auto;
       max-width: 1200px;
@@ -65,32 +66,29 @@
       display: block;
     }
 
-/* Wrap tables for scroll on small screens */
-.table-wrapper {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-  margin-bottom: 40px;
-  box-sizing: border-box;
-}
+    /* Wrap tables for scroll on small screens */
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 40px;
+      box-sizing: border-box;
+    }
 
-/* Make sure DataTables styling stays intact */
-table.dataTable {
-  width: 100% !important;
-  font-size: 11px;
-  box-sizing: border-box;
-  white-space: nowrap; /* keep cells from wrapping */
-}
+    table.dataTable {
+      width: 100% !important;
+      font-size: 11px;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  /* The .table-wrapper will allow horizontal scroll on mobile */
-  .table-wrapper {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: white;
-  }
-}
+    @media (max-width: 768px) {
+      .table-wrapper {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: white;
+      }
+    }
 
     #grid-filter-container {
       max-width: 1200px;
@@ -147,17 +145,15 @@ table.dataTable {
       width: 100%;
       white-space: normal;
     }
-  /* Hide the default DataTables search box */
-.dataTables_filter {
-  display: none !important;
-}
-/* Highlight style for clicked row */
-.highlighted {
-  background-color: #ffff99 !important; /* pale yellow */
-}
 
+    .dataTables_filter {
+      display: none !important;
+    }
 
-</style>
+    .highlighted {
+      background-color: #ffff99 !important;
+    }
+  </style>
 
 </head>
 <body>
@@ -178,10 +174,28 @@ table.dataTable {
 </div>
 
 <!-- Tables -->
+
 <h1>Grid Level</h1>
 <div class="table-wrapper">
   <table id="gridTable" class="display" style="width: 100%;">
-    <thead></thead>
+    <thead>
+      <tr>
+        <!-- Example merged headers for Grid Level table -->
+        <th colspan="2">Region Info</th>
+        <th colspan="3">Performance Metrics</th>
+        <th colspan="2">Other Details</th>
+      </tr>
+      <tr>
+        <!-- Second header row - detailed columns -->
+        <th>Grid ID</th>
+        <th>Grid Name</th>
+        <th>Sales</th>
+        <th>Growth</th>
+        <th>Target</th>
+        <th>Status</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
     <tbody></tbody>
   </table>
 </div>
@@ -189,11 +203,28 @@ table.dataTable {
 <h1>Franchise Level</h1>
 <div class="table-wrapper">
   <table id="franchiseTable" class="display" style="width: 100%;">
-    <thead></thead>
+    <thead>
+      <tr>
+        <!-- Example merged headers for Franchise Level table -->
+        <th colspan="3">Franchise Info</th>
+        <th colspan="4">Financials</th>
+        <th colspan="2">Notes</th>
+      </tr>
+      <tr>
+        <th>Franchise ID</th>
+        <th>Franchise Name</th>
+        <th>Location</th>
+        <th>Revenue</th>
+        <th>Profit</th>
+        <th>Cost</th>
+        <th>Margin</th>
+        <th>Status</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
     <tbody></tbody>
   </table>
 </div>
-
 
 
 <!-- jQuery -->
@@ -207,14 +238,7 @@ table.dataTable {
   let dataTables = {};
   let loadedCount = 0;
 
-  function applyGridFilter(value) {
-    if (!dataTables || Object.keys(dataTables).length === 0) return;
-    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
-      if (gridColIndex === -1) return;
-      dt.columns(gridColIndex).search(value, true, false, true).draw();
-    });
-  }
-
+  // Same gridIds and filtering as before...
   const gridIds = [
     "C1001", "C1005", "C1006", "C1002", "C1004", "C1003",
     "C4001", "C4002", "C4003", "C4004", "C4005",
@@ -247,6 +271,14 @@ table.dataTable {
     updateButtonStyles();
   });
 
+  function applyGridFilter(value) {
+    if (!dataTables || Object.keys(dataTables).length === 0) return;
+    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
+      if (gridColIndex === -1) return;
+      dt.columns(gridColIndex).search(value, true, false, true).draw();
+    });
+  }
+
   function updateFilter() {
     const regex = Array.from(selectedGrids)
       .map(g => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
@@ -267,100 +299,106 @@ table.dataTable {
 
   const sheets = [
     {
-      url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1987045560",
+      url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=25723398",
       tableId: "gridTable"
     },
     {
-      url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=533050303",
+      url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=949395118",
       tableId: "franchiseTable"
     }
   ];
 
   sheets.forEach(({ url, tableId }) => {
-    Papa.parse(url, {
-      download: true,
-      header: true,
-      skipEmptyLines: true,
-      complete: function (results) {
-        const data = results.data;
-        const table = document.getElementById(tableId);
-        const thead = table.querySelector("thead");
-        const tbody = table.querySelector("tbody");
+   Papa.parse(url, {
+  download: true,
+  header: false, // get raw rows (including all header rows)
+  skipEmptyLines: true,
+  complete: function (results) {
+    const rows = results.data;
+    const table = document.getElementById(tableId);
+    const thead = table.querySelector("thead");
+    const tbody = table.querySelector("tbody");
 
-        thead.innerHTML = "";
-        tbody.innerHTML = "";
+    thead.innerHTML = "";
+    tbody.innerHTML = "";
 
-        const columns = Object.keys(data[0] || {});
-        const trHead = document.createElement("tr");
-        columns.forEach(col => {
-          const th = document.createElement("th");
-          th.textContent = col;
-          trHead.appendChild(th);
-        });
-        thead.appendChild(trHead);
+    // Assume first 2 rows are headers
+    const headerRows = rows.slice(0, 2);
+    const dataRows = rows.slice(2);
 
-        data.forEach(row => {
-          const tr = document.createElement("tr");
-          columns.forEach(col => {
-            const td = document.createElement("td");
-            td.textContent = row[col];
-            tr.appendChild(td);
-          });
-          tbody.appendChild(tr);
-        });
+    // Build <thead> with two rows
+    headerRows.forEach(row => {
+      const tr = document.createElement("tr");
+      row.forEach(cell => {
+        const th = document.createElement("th");
+        th.textContent = cell;
+        tr.appendChild(th);
+      });
+      thead.appendChild(tr);
+    });
 
-        const dt = $(table).DataTable({
-  paging: false,
-  searching: true,  // <-- disable search
-  info: false,
-  order: [],
-  autoWidth: false,
-  language: {
-    paginate: { previous: "<", next: ">" }
-  }
-});
+    // Build <tbody> with data rows
+    dataRows.forEach(row => {
+      const tr = document.createElement("tr");
+      row.forEach(cell => {
+        const td = document.createElement("td");
+        td.textContent = cell;
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
 
-      // Use DataTables API to bind event on rows inside the current table
-$(table).on('click', 'tbody td', function () {
-  const $row = $(this).closest('tr');
-
-  // Toggle highlight class on clicked row
-  if ($row.hasClass('highlighted')) {
-    $row.removeClass('highlighted');
-  } else {
-    // Uncomment if only one highlighted row at a time
-    // $(table).find('tbody tr.highlighted').removeClass('highlighted');
-
-    $row.addClass('highlighted');
-  }
-});
-
-
-        const gridColIndex = columns.findIndex(c => c.trim().toLowerCase().includes("grid"));
-        dataTables[tableId] = { dt, columns, gridColIndex };
-
-        // Watermark for specific users
-        const whitelist = ["sameenyaser", "naumanzaheer"];
-        const currentUsername = localStorage.getItem("username");
-        const watermarkDiv = document.getElementById('watermark');
-        const repeatCount = 20;
-
-        if (currentUsername && whitelist.includes(currentUsername)) {
-  const repeatedText = currentUsername + " ";
-  watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
-  watermarkDiv.style.display = 'flex';
-} else {
-  watermarkDiv.style.display = 'none';
-}
-
-
-        loadedCount++;
-        if (loadedCount === sheets.length) {
-          updateButtonStyles();
-          applyGridFilter('');
-        }
+    // Initialize DataTables
+    const dt = $(table).DataTable({
+      paging: false,
+      searching: true,
+      info: false,
+      order: [],
+      autoWidth: false,
+      language: {
+        paginate: { previous: "<", next: ">" }
       }
     });
+
+    // Row click highlight toggle
+    $(table).on('click', 'tbody td', function () {
+      const $row = $(this).closest('tr');
+      if ($row.hasClass('highlighted')) {
+        $row.removeClass('highlighted');
+      } else {
+        $row.addClass('highlighted');
+      }
+    });
+
+    // Find index of "grid" column for filtering
+    // Look into the second header row because first is merged header (likely empty or broad header)
+    const columns = headerRows[1];
+    const gridColIndex = columns.findIndex(c => c && c.toLowerCase().includes("grid"));
+
+    dataTables[tableId] = { dt, columns, gridColIndex };
+
+    // Watermark code (unchanged) ...
+    const whitelist = ["sameenyaser", "naumanzaheer"];
+    const currentUsername = localStorage.getItem("username");
+    const watermarkDiv = document.getElementById('watermark');
+    const repeatCount = 20;
+
+    if (currentUsername && whitelist.includes(currentUsername)) {
+      const repeatedText = currentUsername + " ";
+      watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
+      watermarkDiv.style.display = 'flex';
+    } else {
+      watermarkDiv.style.display = 'none';
+    }
+
+    loadedCount++;
+    if (loadedCount === sheets.length) {
+      updateButtonStyles();
+      applyGridFilter('');
+    }
+  }
+});
+
   });
 </script>
 
