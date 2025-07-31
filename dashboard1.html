@@ -222,33 +222,6 @@
   </div>
 </div>
 
-  <h1>Franchise Level</h1>
-  <table id="sheetTable4" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
-</div>
-
-<div id="zl" class="tab-content">
-  <h1>Grid Level</h1>
-  <table id="sheetTable7" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
-
-  <h1>Franchise Level</h1>
-  <table id="sheetTable8" class="display" style="width:100%">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
-</div>
-
-
-<div id="chart" class="tab-content">
-  <h1>Avg Ach% by Grid</h1>
-  <canvas id="gridBarChart" width="800" height="400"></canvas>
-</div>
-
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <!-- DataTables JS -->
@@ -258,137 +231,150 @@
 
 <script>
   let dataTables = {};
-let loadedCount = 0;
-let zlChartInstance = null;
-let bvsChartInstance = null;
+  let loadedCount = 0;
+  let zlChartInstance = null;
+  let bvsChartInstance = null;
 
-// Render bar chart function (returns Chart instance)
-function renderBarChart(ctx, labels, data) {
-  return new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Avg Ach%',
-        data: data,
-        backgroundColor: '#42a5f5',
-        borderColor: '#1e88e5',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 100
-        }
+  // Render bar chart function (returns Chart instance)
+  function renderBarChart(ctx, labels, data) {
+    return new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Avg Ach%',
+          data: data,
+          backgroundColor: '#42a5f5',
+          borderColor: '#1e88e5',
+          borderWidth: 1
+        }]
       },
-      plugins: {
-        legend: { display: true },
-        tooltip: { enabled: true }
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        },
+        plugins: {
+          legend: { display: true },
+          tooltip: { enabled: true }
+        }
       }
-    }
-  });
-}
+    });
+  }
 
-const sheets = [
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=0", tableId: "sheetTable3" },  // BVS grid level
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1196662913", tableId: "sheetTable4" }, // BVS franchise
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1028097947", tableId: "sheetTable7" }, // ZL grid level
-  { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1979603911", tableId: "sheetTable8" }  // ZL franchise
-];
+  const sheets = [
+    { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=0", tableId: "sheetTable3" },  // BVS grid level
+    { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1196662913", tableId: "sheetTable4" }, // BVS franchise
+    { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1028097947", tableId: "sheetTable7" }, // ZL grid level
+    { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1979603911", tableId: "sheetTable8" }  // ZL franchise
+  ];
 
-sheets.forEach(({ url, tableId }) => {
-  Papa.parse(url, {
-    download: true,
-    header: true,
-    skipEmptyLines: true,
-    complete: function (results) {
-      const data = results.data;
-      const table = document.getElementById(tableId);
-      const thead = table.querySelector("thead");
-      const tbody = table.querySelector("tbody");
+  sheets.forEach(({ url, tableId }) => {
+    Papa.parse(url, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: function (results) {
+        const data = results.data;
+        const table = document.getElementById(tableId);
+        const thead = table.querySelector("thead");
+        const tbody = table.querySelector("tbody");
 
-      thead.innerHTML = "";
-      tbody.innerHTML = "";
+        thead.innerHTML = "";
+        tbody.innerHTML = "";
 
-      const columns = Object.keys(data[0] || {});
-      const trHead = document.createElement("tr");
-      columns.forEach(col => {
-        const th = document.createElement("th");
-        th.textContent = col;
-        trHead.appendChild(th);
-      });
-      thead.appendChild(trHead);
-
-      data.forEach(row => {
-        const tr = document.createElement("tr");
+        const columns = Object.keys(data[0] || {});
+        const trHead = document.createElement("tr");
         columns.forEach(col => {
-          const td = document.createElement("td");
-          td.textContent = row[col];
-          tr.appendChild(td);
+          const th = document.createElement("th");
+          th.textContent = col;
+          trHead.appendChild(th);
         });
-        tbody.appendChild(tr);
-      });
+        thead.appendChild(trHead);
 
-      const dt = $(table).DataTable({
-        paging: false,
-        searching: true,
-        info: false,
-        order: [],
-        autoWidth: false,
-        language: {
-          paginate: { previous: "<", next: ">" }
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+          columns.forEach(col => {
+            const td = document.createElement("td");
+            td.textContent = row[col];
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+
+        const dt = $(table).DataTable({
+          paging: false,
+          searching: true,
+          info: false,
+          order: [],
+          autoWidth: false,
+          language: {
+            paginate: { previous: "<", next: ">" }
+          }
+        });
+
+        $(table).on('click', 'tbody td', function () {
+          const $row = $(this).closest('tr');
+          $row.toggleClass('highlighted');
+        });
+
+        const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
+        dataTables[tableId] = { dt, columns, gridColIndex };
+
+        // Render chart for BVS grid table (sheetTable3)
+        if (tableId === "sheetTable3") {
+          const gridKey = columns.find(c => c.toLowerCase().includes("grid"));
+          const avgAchKey = columns.find(c => c.toLowerCase().includes("avg") && c.toLowerCase().includes("ach"));
+
+          if (gridKey && avgAchKey) {
+            const labels = data.map(r => r[gridKey]);
+            const values = data.map(r => parseFloat(r[avgAchKey]) || 0);
+
+            const ctxBVS = document.getElementById('bvsGridBarChart').getContext('2d');
+            if (bvsChartInstance) bvsChartInstance.destroy();
+            bvsChartInstance = renderBarChart(ctxBVS, labels, values);
+          }
         }
-      });
 
-      $(table).on('click', 'tbody td', function () {
-        const $row = $(this).closest('tr');
-        $row.toggleClass('highlighted');
-      });
+        // Render chart for ZL grid table (sheetTable7)
+        if (tableId === "sheetTable7") {
+          const gridKey = columns.find(c => c.toLowerCase().includes("grid"));
+          const avgAchKey = columns.find(c => c.toLowerCase().includes("avg") && c.toLowerCase().includes("ach"));
 
-      const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
-      dataTables[tableId] = { dt, columns, gridColIndex };
+          if (gridKey && avgAchKey) {
+            const labels = data.map(r => r[gridKey]);
+            const values = data.map(r => parseFloat(r[avgAchKey]) || 0);
 
-      // Render chart for BVS grid table (sheetTable3)
-      if (tableId === "sheetTable3") {
-        const gridKey = columns.find(c => c.toLowerCase().includes("grid"));
-        const avgAchKey = columns.find(c => c.toLowerCase().includes("avg") && c.toLowerCase().includes("ach"));
+            const ctxZL = document.getElementById('zlGridBarChart').getContext('2d');
+            if (zlChartInstance) zlChartInstance.destroy();
+            zlChartInstance = renderBarChart(ctxZL, labels, values);
+          }
+        }
 
-        if (gridKey && avgAchKey) {
-          const labels = data.map(r => r[gridKey]);
-          const values = data.map(r => parseFloat(r[avgAchKey]) || 0);
-
-          const ctxBVS = document.getElementById('bvsGridBarChart').getContext('2d');
-          if (bvsChartInstance) bvsChartInstance.destroy();
-          bvsChartInstance = renderBarChart(ctxBVS, labels, values);
+        loadedCount++;
+        if (loadedCount === sheets.length) {
+          // Removed calls to undefined functions updateButtonStyles and applyGridFilter
+          // You can add your logic here if needed
+          console.log('All sheets loaded and charts rendered');
         }
       }
-
-      // Render chart for ZL grid table (sheetTable7)
-      if (tableId === "sheetTable7") {
-        const gridKey = columns.find(c => c.toLowerCase().includes("grid"));
-        const avgAchKey = columns.find(c => c.toLowerCase().includes("avg") && c.toLowerCase().includes("ach"));
-
-        if (gridKey && avgAchKey) {
-          const labels = data.map(r => r[gridKey]);
-          const values = data.map(r => parseFloat(r[avgAchKey]) || 0);
-
-          const ctxZL = document.getElementById('zlGridBarChart').getContext('2d');
-          if (zlChartInstance) zlChartInstance.destroy();
-          zlChartInstance = renderBarChart(ctxZL, labels, values);
-        }
-      }
-
-      loadedCount++;
-      if (loadedCount === sheets.length) {
-        updateButtonStyles();
-        applyGridFilter('');
-      }
-    }
+    });
   });
-});
 
+  // Tabs functionality
+  document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const tab = button.getAttribute('data-tab');
+
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+
+      button.classList.add('active');
+      document.getElementById(tab).classList.add('active');
+    });
+  });
 
   // Make Chart tab active on page load
   window.addEventListener('DOMContentLoaded', () => {
