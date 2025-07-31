@@ -148,6 +148,13 @@
     .dataTables_filter {
       display: none !important;
     }
+
+    #chart h1, #chart h2 {
+  text-align: center;
+  color: #2c3e50; /* Darker blue-gray for better look */
+  margin-bottom: 15px;
+}
+
   </style>
 </head>
 <body>
@@ -183,14 +190,16 @@
 <div id="chart" class="tab-content">
   <h1>Avg Ach% by Grid</h1>
   <div style="display:flex; gap:30px; flex-wrap: wrap;">
-    <div style="flex:1; min-width: 300px;">
-      <h2>BVS Avg Ach% by Grid</h2>
-      <canvas id="zlGridBarChart" width="600" height="400"></canvas>
-    </div>
-    <div style="flex:1; min-width: 300px;">
-      <h2>ZL Avg Ach% by Grid</h2>
-      <canvas id="bvsGridBarChart" width="600" height="400"></canvas>
-    </div>
+    <div style="flex:1; min-width: 300px; height: 400px;">
+  <h2>ZL Avg Ach% by Grid</h2>
+  <canvas id="bvsGridBarChart" style="height: 100%; width: 100%;"></canvas>
+</div>
+    <div style="flex:1; min-width: 300px; height: 400px;">
+  <h2>BVS Avg Ach% by Grid</h2>
+  <canvas id="zlGridBarChart" style="height: 100%; width: 100%;"></canvas>
+</div>
+
+
   </div>
 </div>
 
@@ -239,34 +248,69 @@
   let zlChartInstance = null;
   let bvsChartInstance = null;
 
-  // Render bar chart function (returns Chart instance)
   function renderBarChart(ctx, labels, data) {
-    return new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Avg Ach%',
-          data: data,
-          backgroundColor: '#42a5f5',
-          borderColor: '#1e88e5',
-          borderWidth: 1
-        }]
+  return new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Avg Ach%',
+        data: data,
+        backgroundColor: 'rgba(66, 165, 245, 0.7)', // softer blue with opacity
+        borderColor: 'rgba(30, 136, 229, 1)',
+        borderWidth: 1,
+        borderRadius: 5,  // rounded corners on bars
+        hoverBackgroundColor: 'rgba(30, 136, 229, 0.9)'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: 20,
       },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 100
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          grid: {
+            color: '#e0e0e0'
+          },
+          ticks: {
+            color: '#34495e',
+            font: { size: 12 }
           }
         },
-        plugins: {
-          legend: { display: true },
-          tooltip: { enabled: true }
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            color: '#34495e',
+            font: { size: 12 }
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: true,
+          labels: {
+            color: '#34495e',
+            font: { size: 14, weight: 'bold' }
+          }
+        },
+        tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(52, 73, 94, 0.8)',
+          titleFont: { size: 14, weight: 'bold' },
+          bodyFont: { size: 13 },
+          padding: 10,
+          cornerRadius: 4
         }
       }
-    });
-  }
+    }
+  });
+}
 
   const sheets = [
     { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=0", tableId: "sheetTable3" },  // BVS grid level
