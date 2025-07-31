@@ -279,7 +279,7 @@
 });
 
 
-        const gridColIndex = columns.findIndex(c => c.trim().toLowerCase() === "grid");
+        const gridColIndex = columns.findIndex(c => c.trim().toLowerCase().includes("grid"));
         dataTables[tableId] = { dt, columns, gridColIndex };
 
         // Watermark for specific users
