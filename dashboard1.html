@@ -174,6 +174,7 @@
 </h1>
 <p>Updated till: 30-07-25</p>
 
+
 <div id="grid-filter-container">
   <button id="grid-filter-clear">Clear</button>
 </div>
@@ -247,6 +248,65 @@
   let loadedCount = 0;
   let zlChartInstance = null;
   let bvsChartInstance = null;
+
+
+  function applyGridFilter(value) {
+    if (!dataTables || Object.keys(dataTables).length === 0) return;
+    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
+      if (gridColIndex === -1) return;
+      dt.columns(gridColIndex).search(value, true, false, true).draw();
+    });
+  }
+
+  const gridIds = [
+    "Grid 101", "Grid 105", "C1006", "Grid 102", "Grid 104", "Grid 103",
+    "Grid 401", "Grid 402", "Grid 403", "Grid 404", "Grid 405",
+    "Grid 501", "Grid 502", "Grid 503", "Grid 504", "Grid 505", "Grid 506", "Grid 507", "Grid 508", "Grid 509",
+    "Grid 601", "Grid 602", "Grid 603", "Grid 604", "Grid 605"
+  ];
+
+  const gridFilterContainer = document.getElementById('grid-filter-container');
+  const clearBtn = document.getElementById('grid-filter-clear');
+  const selectedGrids = new Set();
+
+  gridIds.forEach(gridId => {
+    const btn = document.createElement('button');
+    btn.textContent = gridId;
+    btn.addEventListener('click', () => {
+      if (selectedGrids.has(gridId)) {
+        selectedGrids.delete(gridId);
+      } else {
+        selectedGrids.add(gridId);
+      }
+      updateFilter();
+      updateButtonStyles();
+    });
+    gridFilterContainer.insertBefore(btn, clearBtn);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    selectedGrids.clear();
+    updateFilter();
+    updateButtonStyles();
+  });
+
+  function updateFilter() {
+    const regex = Array.from(selectedGrids)
+      .map(g => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      .join('|');
+    applyGridFilter(selectedGrids.size === 0 ? '' : regex);
+  }
+
+  function updateButtonStyles() {
+    const buttons = gridFilterContainer.querySelectorAll('button');
+    buttons.forEach(btn => {
+      if (btn === clearBtn) {
+        btn.classList.toggle('active', selectedGrids.size === 0);
+      } else {
+        btn.classList.toggle('active', selectedGrids.has(btn.textContent));
+      }
+    });
+  }
 
   function renderBarChart(ctx, labels, data) {
   return new Chart(ctx, {
