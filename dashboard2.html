@@ -289,12 +289,13 @@
         const repeatCount = 10;
 
         if (currentUsername && whitelist.includes(currentUsername)) {
-          const repeatedText = currentUsername + " ";
-          watermarkDiv.innerHTML = Array(repeatCount).fill(<div>${repeatedText}</div>).join('');
-          watermarkDiv.style.display = 'flex';
-        } else {
-          watermarkDiv.style.display = 'none';
-        }
+  const repeatedText = currentUsername + " ";
+  watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
+  watermarkDiv.style.display = 'flex';
+} else {
+  watermarkDiv.style.display = 'none';
+}
+
 
         loadedCount++;
         if (loadedCount === sheets.length) {
