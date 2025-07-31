@@ -65,21 +65,32 @@
       display: block;
     }
 
- table.dataTable {
-      width: 100% !important;
-      margin-bottom: 40px;
-      font-size: 11px;
-      box-sizing: border-box;
-      overflow-x: auto;
-      display: block;
-    }
+/* Wrap tables for scroll on small screens */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  margin-bottom: 40px;
+  box-sizing: border-box;
+}
 
-    table.dataTable th,
-    table.dataTable td {
-      font-size: 11px !important;
-      white-space: nowrap;
-      text-align: center !important;
-    }
+/* Make sure DataTables styling stays intact */
+table.dataTable {
+  width: 100% !important;
+  font-size: 11px;
+  box-sizing: border-box;
+  white-space: nowrap; /* keep cells from wrapping */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* The .table-wrapper will allow horizontal scroll on mobile */
+  .table-wrapper {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+  }
+}
 
     #grid-filter-container {
       max-width: 1200px;
@@ -159,16 +170,21 @@
 
 <!-- Tables -->
 <h1>Grid Level</h1>
-<table id="gridTable" class="display" style="width: 100%;">
-  <thead></thead>
-  <tbody></tbody>
-</table>
+<div class="table-wrapper">
+  <table id="gridTable" class="display" style="width: 100%;">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
 
 <h1>Franchise Level</h1>
-<table id="franchiseTable" class="display" style="width: 100%;">
-  <thead></thead>
-  <tbody></tbody>
-</table>
+<div class="table-wrapper">
+  <table id="franchiseTable" class="display" style="width: 100%;">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
 
 
 <!-- jQuery -->
