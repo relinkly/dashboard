@@ -136,6 +136,17 @@
       width: 100%;
       white-space: normal;
     }
+
+    .highlighted {
+  background-color: #ffff99 !important;
+}
+
+    /* Hide the default DataTables search box */
+.dataTables_filter {
+  display: none !important;
+}
+
+
   </style>
 </head>
 <body>
@@ -315,6 +326,20 @@
 });
 
 
+// Use DataTables API to bind event on rows inside the current table
+$(table).on('click', 'tbody td', function () {
+  const $row = $(this).closest('tr');
+
+  // Toggle highlight class on clicked row
+  if ($row.hasClass('highlighted')) {
+    $row.removeClass('highlighted');
+  } else {
+    // Uncomment if only one highlighted row at a time
+    // $(table).find('tbody tr.highlighted').removeClass('highlighted');
+
+    $row.addClass('highlighted');
+  }
+});
 
 
 
@@ -325,7 +350,7 @@
         const whitelist = ["sameenyaser", "naumanzaheer"];
         const currentUsername = localStorage.getItem("username");
         const watermarkDiv = document.getElementById('watermark');
-        const repeatCount = 10;
+        const repeatCount = 20;
 
         if (currentUsername && whitelist.includes(currentUsername)) {
   const repeatedText = currentUsername + " ";
