@@ -259,84 +259,93 @@
   }
 
   // Helper: build merged header row with colspans and rowspans
-  function buildMergedHeaders(headerRows) {
-    // headerRows is an array of arrays, e.g. [ [r0c0, r0c1, ...], [r1c0, r1c1, ...] ]
-    const rowCount = headerRows.length;
-    const colCount = Math.max(...headerRows.map(r => r.length));
+function buildMergedHeaders(headerRows) {
+  const rowCount = headerRows.length;
+  const colCount = Math.max(...headerRows.map(r => r.length));
+  headerRows.forEach(row => {
+    while (row.length < colCount) {
+      row.push("");
+    }
+  });
 
-    // Normalize rows to have same length by filling empty cells
-    headerRows.forEach(row => {
-      while (row.length < colCount) {
-        row.push("");
+  const skipCells = Array(rowCount).fill(0).map(() => Array(colCount).fill(false));
+  const theadRows = [];
+  const pastelColors = [
+    "#d0e7f9", // light blue
+    "#f9d0d0", // light red
+    "#d0f9d7", // light green
+    "#f9f1d0", // light yellow
+    "#e6d0f9"  // light purple
+  ];
+  let colorIndex = 0;
+
+  for (let r = 0; r < rowCount; r++) {
+    const tr = document.createElement('tr');
+    let c = 0;
+    while (c < colCount) {
+      if (skipCells[r][c]) {
+        c++;
+        continue;
       }
-    });
+      const cellValue = headerRows[r][c].trim();
 
-    // We'll track which cells are covered by rowspans to skip rendering them
-    const skipCells = Array(rowCount).fill(0).map(() => Array(colCount).fill(false));
+      if (!cellValue) {
+        // Empty cell - render empty th for alignment
+        const th = document.createElement('th');
+        th.innerHTML = "&nbsp;";
+        tr.appendChild(th);
+        c++;
+        continue;
+      }
 
-    // Build an array of arrays for thead rows (DOM elements)
-    const theadRows = [];
-
-    for (let r = 0; r < rowCount; r++) {
-      const tr = document.createElement('tr');
-      let c = 0;
-      while (c < colCount) {
-        if (skipCells[r][c]) {
-          c++;
-          continue;
+      // Calculate colspan
+      let colspan = 1;
+      for (let cc = c + 1; cc < colCount; cc++) {
+        if (headerRows[r][cc].trim() === "") {
+          colspan++;
+        } else {
+          break;
         }
+      }
 
-        const cellValue = headerRows[r][c].trim();
-
-        if (!cellValue) {
-          // Empty cell, check if it is part of horizontal merge with previous cells
-          // Just skip rendering an empty cell on top row if next cell has value, handled by previous cell's colspan
-          c++;
-          continue;
-        }
-
-        // Calculate colspan: count how many consecutive empty cells to the right on this row
-        let colspan = 1;
-        for (let cc = c + 1; cc < colCount; cc++) {
-          if (headerRows[r][cc].trim() === "") {
-            colspan++;
-          } else {
+      // Calculate rowspan
+      let rowspan = 1;
+      if (r < rowCount - 1) {
+        let isRowspan = true;
+        for (let cc = c; cc < c + colspan; cc++) {
+          if (headerRows[r + 1][cc].trim() !== "") {
+            isRowspan = false;
             break;
           }
         }
-
-        // Calculate rowspan: if the cell below is empty, this cell spans vertically
-        let rowspan = 1;
-        if (r < rowCount - 1) {
-          let isRowspan = true;
+        if (isRowspan) {
+          rowspan = 2;
           for (let cc = c; cc < c + colspan; cc++) {
-            if (headerRows[r + 1][cc].trim() !== "") {
-              isRowspan = false;
-              break;
-            }
-          }
-          if (isRowspan) {
-            rowspan = 2;
-            // Mark the cells in the next row as skipped for these columns
-            for (let cc = c; cc < c + colspan; cc++) {
-              skipCells[r + 1][cc] = true;
-            }
+            skipCells[r + 1][cc] = true;
           }
         }
-
-        const th = document.createElement('th');
-        th.textContent = cellValue;
-        if (colspan > 1) th.colSpan = colspan;
-        if (rowspan > 1) th.rowSpan = rowspan;
-
-        tr.appendChild(th);
-        c += colspan;
       }
-      theadRows.push(tr);
-    }
 
-    return theadRows;
+      const th = document.createElement('th');
+      th.textContent = cellValue;
+      if (colspan > 1) th.colSpan = colspan;
+      if (rowspan > 1) th.rowSpan = rowspan;
+
+      // Assign pastel background color and some padding
+      th.style.backgroundColor = pastelColors[colorIndex % pastelColors.length];
+      th.style.padding = "5px";
+      th.style.border = "1px solid #ccc";
+
+      colorIndex++;
+
+      tr.appendChild(th);
+      c += colspan;
+    }
+    theadRows.push(tr);
   }
+  return theadRows;
+}
+
 
   const sheets = [
     {
