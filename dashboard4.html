@@ -1,19 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard 4</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enablers</title>
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px auto;
+      max-width: 1200px;
+      background: #f9f9f9;
+      font-size: 11px;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 16px;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+
+    .tab-button {
+      cursor: pointer;
+      padding: 10px 20px;
+      background: #eee;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 5px 5px 0 0;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
+
+    .tab-button.active {
+      background: white;
+      border-bottom: 2px solid white;
+      color: #333;
+    }
+
+    .tab-content {
+      display: none;
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 0 5px 5px 5px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 40px;
+      box-sizing: border-box;
+    }
+
+    table.dataTable {
+      width: 100% !important;
+      font-size: 11px;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      .table-wrapper {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: white;
+      }
+    }
+
+    #grid-filter-container {
+      max-width: 1200px;
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
+
+    #grid-filter-container button {
+      margin: 3px 5px;
+      padding: 6px 12px;
+      font-size: 11px;
+      cursor: pointer;
+      border: 1px solid #888;
+      border-radius: 3px;
+      background-color: #f0f0f0;
+      transition: background-color 0.2s;
+    }
+
+    #grid-filter-container button:hover {
+      background-color: #ddd;
+    }
+
+    #grid-filter-container button.active {
+      background-color: #2196F3;
+      color: white;
+      border-color: #0b7dda;
+    }
+
+    #watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      user-select: none;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.1;
+      color: #000000;
+      font-size: 10vw;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+    }
+
+    #watermark > div {
+      margin: 0.1em 0;
+      width: 100%;
+      white-space: normal;
+    }
+
+    .dataTables_filter {
+      display: none !important;
+    }
+
+    .highlighted {
+      background-color: #ffff99 !important;
+    }
+  </style>
+
 </head>
 <body>
-  <h1>Dashboard 4</h1>
-  <p>Update your data here manually...</p>
-  <a href="menu.html">Back</a>
 
-  <script>
-  if (localStorage.getItem("authenticated") !== "true") {
-    window.location.href = "index.html";
+<div id="watermark"></div>
+
+<!-- Back button -->
+<div style="margin-bottom: 20px;">
+  <button onclick="window.location.href='menu.html'" style="padding: 6px 12px; font-size: 12px; cursor: pointer;">
+    &larr; Back to Menu
+  </button>
+</div>
+
+<h1>Enablers Dashboard</h1>
+  <p>Updated till: 30-07-25</p>
+
+<div id="grid-filter-container">
+  <button id="grid-filter-clear">Clear</button>
+</div>
+
+<!-- Tables -->
+
+<h1>Franchise Level</h1>
+<div class="table-wrapper">
+  <table id="newSheetTable" class="display" style="width: 100%;">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<!-- PapaParse CSV parser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+<script>
+  let dataTables = {};
+  let loadedCount = 0;
+
+  const gridIds = [
+    "C1001", "C1005", "C1006", "C1002", "C1004", "C1003",
+    "C4001", "C4002", "C4003", "C4004", "C4005",
+    "C5001", "C5002", "C5003", "C5004", "C5005", "C5006", "C5007", "C5008", "C5009",
+    "C6001", "C6002", "C6003", "C6004", "C6005"
+  ];
+
+  const gridFilterContainer = document.getElementById('grid-filter-container');
+  const clearBtn = document.getElementById('grid-filter-clear');
+  const selectedGrids = new Set();
+
+  gridIds.forEach(gridId => {
+    const btn = document.createElement('button');
+    btn.textContent = gridId;
+    btn.addEventListener('click', () => {
+      if (selectedGrids.has(gridId)) {
+        selectedGrids.delete(gridId);
+      } else {
+        selectedGrids.add(gridId);
+      }
+      updateFilter();
+      updateButtonStyles();
+    });
+    gridFilterContainer.insertBefore(btn, clearBtn);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    selectedGrids.clear();
+    updateFilter();
+    updateButtonStyles();
+  });
+
+  function applyGridFilter(value) {
+    if (!dataTables || Object.keys(dataTables).length === 0) return;
+    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
+      if (gridColIndex === -1) return;
+      dt.columns(gridColIndex).search(value, true, false, true).draw();
+    });
   }
+
+  function updateFilter() {
+    const regex = Array.from(selectedGrids)
+      .map(g => g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      .join('|');
+    applyGridFilter(selectedGrids.size === 0 ? '' : regex);
+  }
+
+  function updateButtonStyles() {
+    const buttons = gridFilterContainer.querySelectorAll('button');
+    buttons.forEach(btn => {
+      if (btn === clearBtn) {
+        btn.classList.toggle('active', selectedGrids.size === 0);
+      } else {
+        btn.classList.toggle('active', selectedGrids.has(btn.textContent));
+      }
+    });
+  }
+
+  // Helper: build merged header row with colspans and rowspans
+function buildMergedHeaders(headerRows) {
+  const rowCount = headerRows.length;
+  const colCount = Math.max(...headerRows.map(r => r.length));
+  headerRows.forEach(row => {
+    while (row.length < colCount) {
+      row.push("");
+    }
+  });
+
+  const skipCells = Array(rowCount).fill(0).map(() => Array(colCount).fill(false));
+  const theadRows = [];
+  const pastelColors = [
+    "#d0e7f9", // light blue
+    "#f9d0d0", // light red
+    "#d0f9d7", // light green
+    "#f9f1d0", // light yellow
+    "#e6d0f9"  // light purple
+  ];
+  let colorIndex = 0;
+
+  for (let r = 0; r < rowCount; r++) {
+    const tr = document.createElement('tr');
+    let c = 0;
+    while (c < colCount) {
+      if (skipCells[r][c]) {
+        c++;
+        continue;
+      }
+      const cellValue = headerRows[r][c].trim();
+
+      if (!cellValue) {
+        // Empty cell - render empty th for alignment
+        const th = document.createElement('th');
+        th.innerHTML = "&nbsp;";
+        tr.appendChild(th);
+        c++;
+        continue;
+      }
+
+      // Calculate colspan
+      let colspan = 1;
+      for (let cc = c + 1; cc < colCount; cc++) {
+        if (headerRows[r][cc].trim() === "") {
+          colspan++;
+        } else {
+          break;
+        }
+      }
+
+      // Calculate rowspan
+      let rowspan = 1;
+      if (r < rowCount - 1) {
+        let isRowspan = true;
+        for (let cc = c; cc < c + colspan; cc++) {
+          if (headerRows[r + 1][cc].trim() !== "") {
+            isRowspan = false;
+            break;
+          }
+        }
+        if (isRowspan) {
+          rowspan = 2;
+          for (let cc = c; cc < c + colspan; cc++) {
+            skipCells[r + 1][cc] = true;
+          }
+        }
+      }
+
+      const th = document.createElement('th');
+      th.textContent = cellValue;
+      if (colspan > 1) th.colSpan = colspan;
+      if (rowspan > 1) th.rowSpan = rowspan;
+
+      if (r === 0) {
+        // For first row headers only:
+        th.style.backgroundColor = pastelColors[colorIndex % pastelColors.length];
+        th.style.textAlign = 'center';
+        th.style.padding = "5px";
+        th.style.border = "1px solid #ccc";
+        colorIndex++;
+      }
+
+      tr.appendChild(th);
+      c += colspan;
+    }
+    theadRows.push(tr);
+  }
+  return theadRows;
+}
+
+
+  const sheets = [
+    {
+  url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1271414550",
+  tableId: "newSheetTable"
+}
+
+  ];
+
+  sheets.forEach(({ url, tableId }) => {
+    Papa.parse(url, {
+      download: true,
+      header: false,
+      skipEmptyLines: true,
+      complete: function (results) {
+        const rows = results.data;
+        const table = document.getElementById(tableId);
+        const thead = table.querySelector("thead");
+        const tbody = table.querySelector("tbody");
+
+        thead.innerHTML = "";
+        tbody.innerHTML = "";
+
+        // Assume first 2 rows are headers
+        const headerRows = rows.slice(0, 2);
+        const dataRows = rows.slice(2);
+
+        // Build <thead> with merged headers
+        const theadRows = buildMergedHeaders(headerRows);
+        theadRows.forEach(tr => thead.appendChild(tr));
+
+        // Build <tbody> with data rows
+        dataRows.forEach(row => {
+          const tr = document.createElement("tr");
+          row.forEach(cell => {
+            const td = document.createElement("td");
+            td.textContent = cell;
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+
+        // Initialize DataTables
+        const dt = $(table).DataTable({
+          paging: false,
+          searching: true,
+          info: false,
+          order: [],
+          autoWidth: false,
+          language: {
+            paginate: { previous: "<", next: ">" }
+          }
+        });
+
+        // Row click highlight toggle
+        $(table).on('click', 'tbody td', function () {
+          const $row = $(this).closest('tr');
+          $row.toggleClass('highlighted');
+        });
+
+        // Find index of "grid" column for filtering (in second header row)
+        const columns = headerRows[1];
+        const gridColIndex = columns.findIndex(c => c && c.toLowerCase().includes("grid"));
+
+        dataTables[tableId] = { dt, columns, gridColIndex };
+
+        // Watermark code (unchanged) ...
+        const whitelist = ["sameenyaser", "naumanzaheer"];
+        const currentUsername = localStorage.getItem("username");
+        const watermarkDiv = document.getElementById('watermark');
+        const repeatCount = 20;
+
+        if (currentUsername && whitelist.includes(currentUsername)) {
+          const repeatedText = currentUsername + " ";
+          watermarkDiv.innerHTML = Array(repeatCount).fill(`<div>${repeatedText}</div>`).join('');
+          watermarkDiv.style.display = 'flex';
+        } else {
+          watermarkDiv.style.display = 'none';
+        }
+
+        loadedCount++;
+        if (loadedCount === sheets.length) {
+          updateButtonStyles();
+          applyGridFilter('');
+        }
+      }
+    });
+  });
 </script>
 
 </body>
