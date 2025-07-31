@@ -9,177 +9,133 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
 <style>
- body {
-  font-family: Arial, sans-serif;
-  margin: 0 auto;
-  max-width: 1200px;
-  background: #f9f9f9;
-  font-size: 12px;
-  padding: 10px;
-  box-sizing: border-box;
-}
+   body {
+      font-family: Arial, sans-serif;
+      margin: 20px auto;
+      max-width: 1200px;
+      background: #f9f9f9;
+      font-size: 11px;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
 
-.dataTables_filter {
-  display: none !important;
-}
+    h1 {
+      text-align: center;
+      font-size: 16px;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      color: #333;
+    }
 
-h1 {
-  text-align: center;
-  font-size: 20px;
-  margin: 40px 0 20px;
-  color: #333;
-}
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
 
-#grid-filter-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 20px;
-}
+    .tab-button {
+      cursor: pointer;
+      padding: 10px 20px;
+      background: #eee;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 5px 5px 0 0;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
 
-#grid-filter-container button {
-  padding: 8px 16px;
-  font-size: 13px;
-  cursor: pointer;
-  border: 1px solid #888;
-  border-radius: 4px;
-  background-color: #f0f0f0;
-  transition: background-color 0.2s;
-  white-space: nowrap;
-  user-select: none;
-  min-width: 70px;
-  text-align: center;
-}
+    .tab-button.active {
+      background: white;
+      border-bottom: 2px solid white;
+      color: #333;
+    }
 
-#grid-filter-container button:hover {
-  background-color: #ddd;
-}
+    .tab-content {
+      display: none;
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 0 5px 5px 5px;
+    }
 
-#grid-filter-container button.active {
-  background-color: #2196F3;
-  color: white;
-  border-color: #0b7dda;
-}
+    .tab-content.active {
+      display: block;
+    }
 
-.table-wrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin-bottom: 30px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background: #fff;
-}
+    table.dataTable {
+      width: 100% !important;
+      margin-bottom: 40px;
+      font-size: 11px;
+      box-sizing: border-box;
+      overflow-x: auto;
+      display: block;
+    }
 
-/* Wrap your tables in .table-wrapper in HTML for this to work */
-/* Example:
-<div class="table-wrapper">
-  <table>...</table>
-</div>
-*/
+    table.dataTable th,
+    table.dataTable td {
+      font-size: 11px !important;
+      white-space: nowrap;
+      text-align: center !important;
+    }
 
-table.dataTable {
-  font-size: 12px;
-  width: 100% !important;
-  margin: 0 auto;
-  border-collapse: collapse;
-  box-sizing: border-box;
-  min-width: 600px; /* ensures horizontal scroll on narrow screens */
-}
+    #grid-filter-container {
+      max-width: 1200px;
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
 
-table.dataTable thead th,
-table.dataTable tbody td {
-  white-space: nowrap;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  text-align: left;
-}
+    #grid-filter-container button {
+      margin: 3px 5px;
+      padding: 6px 12px;
+      font-size: 11px;
+      cursor: pointer;
+      border: 1px solid #888;
+      border-radius: 3px;
+      background-color: #f0f0f0;
+      transition: background-color 0.2s;
+    }
 
-#watermark {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  user-select: none;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.1;
-  color: #000000;
-  font-size: 10vw;
-  font-weight: 900;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-}
+    #grid-filter-container button:hover {
+      background-color: #ddd;
+    }
 
-/* Smaller watermark on narrow screens */
-@media (max-width: 480px) {
-  #watermark {
-    font-size: 20vw;
-  }
-}
+    #grid-filter-container button.active {
+      background-color: #2196F3;
+      color: white;
+      border-color: #0b7dda;
+    }
 
-#watermark > div {
-  margin: 0.1em 0;
-  width: 100%;
-  white-space: normal;
-}
+    #watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      user-select: none;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.1;
+      color: #000000;
+      font-size: 10vw;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+    }
 
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  h1 {
-    font-size: 18px;
-    margin: 30px 0 15px;
-  }
-
-  #grid-filter-container {
-    gap: 6px;
-  }
-
-  #grid-filter-container button {
-    font-size: 14px;
-    padding: 10px 14px;
-    min-width: 60px;
-  }
-
-  table.dataTable {
-    min-width: 500px;
-    font-size: 13px;
-  }
-
-  table.dataTable thead th,
-  table.dataTable tbody td {
-    padding: 6px 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  #grid-filter-container {
-    justify-content: flex-start;
-  }
-
-  #grid-filter-container button {
-    flex: 1 1 30%;
-    min-width: auto;
-    padding: 10px 6px;
-    font-size: 14px;
-  }
-
-  table.dataTable {
-    min-width: 400px;
-    font-size: 14px;
-  }
-}
+    #watermark > div {
+      margin: 0.1em 0;
+      width: 100%;
+      white-space: normal;
+    }
 
 </style>
 
