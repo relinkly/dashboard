@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Company Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Company Dashboards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
     /* Global Reset */
@@ -18,75 +18,118 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f4f6f8;
-      color: #333;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #f0f2f5;
       min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       padding: 20px;
     }
 
     .container {
-      max-width: 600px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 720px;
       width: 100%;
-      background-color: #fff;
-      padding: 40px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      padding: 40px 30px;
       text-align: center;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 30px;
       color: #222;
     }
 
+    .header {
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-weight: 700;
+      font-size: 2.6rem;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: #1e3c72;
+    }
+
+    .header p {
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #555;
+      letter-spacing: 0.5px;
+    }
+
     .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
     }
 
     .buttons a {
-      display: block;
-      padding: 14px 20px;
-      background-color: #007BFF;
-      color: #fff;
-      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #1e3c72;
+      color: #f0f2f5;
       text-decoration: none;
-      border-radius: 8px;
-      transition: background-color 0.3s ease;
+      padding: 24px 20px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 6px 12px rgba(30, 60, 114, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      min-height: 120px;
     }
 
-    .buttons a:hover {
-      background-color: #0056b3;
+    .buttons a:hover,
+    .buttons a:focus {
+      background: #2a5298;
+      box-shadow: 0 12px 24px rgba(42, 82, 152, 0.5);
+      transform: translateY(-4px);
+      outline: none;
     }
 
-    @media (min-width: 600px) {
-      .buttons {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
+    /* Icon placeholder */
+    .buttons a .icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      user-select: none;
+    }
 
+    @media (max-width: 400px) {
       .buttons a {
-        flex: 1 1 45%;
-        margin: 5px;
+        padding: 20px 16px;
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Company Dashboards</h1>
-    <div class="buttons">
-      <a href="dashboard1.html">ZL & BVS Active Retail</a>
-      <a href="dashboard2.html">Gross Addition Performance</a>
-      <a href="dashboard3.html">BDO KPI</a>
-      <a href="dashboard4.html">Enablers Dashboard</a>
-    </div>
+  <div class="container" role="main">
+    <header class="header">
+      <h1>Company Dashboards</h1>
+      <p>Select a dashboard to get started</p>
+    </header>
+
+    <nav class="buttons" aria-label="Dashboard navigation">
+      <a href="dashboard1.html" aria-label="ZL & BVS Active Retail Dashboard">
+        <span class="icon">🛒</span>
+        ZL & BVS Active Retail
+      </a>
+      <a href="dashboard2.html" aria-label="Gross Addition Performance Dashboard">
+        <span class="icon">📈</span>
+        Gross Addition Performance
+      </a>
+      <a href="dashboard3.html" aria-label="BDO KPI Dashboard">
+        <span class="icon">🎯</span>
+        BDO KPI
+      </a>
+      <a href="dashboard4.html" aria-label="Enablers Dashboard">
+        <span class="icon">⚙️</span>
+        Enablers Dashboard
+      </a>
+    </nav>
   </div>
 
   <script>
