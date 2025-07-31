@@ -298,15 +298,16 @@
   }
 
   const sheets = [
-    {
-      url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=25723398",
-      tableId: "gridTable"
-    },
-    {
-      url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=949395118",
-      tableId: "franchiseTable"
-    }
-  ];
+  {
+    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=25723398",
+    tableId: "gridTable"
+  },
+  {
+    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=949395118",
+    tableId: "franchiseTable"
+  }
+];
+
 
   sheets.forEach(({ url, tableId }) => {
    Papa.parse(url, {
