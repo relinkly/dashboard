@@ -388,37 +388,38 @@
 
   const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse";
 
-  document.getElementById("incidentForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+document.getElementById("incidentForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-    const area = document.getElementById("area").value.trim();
-    const description = document.getElementById("description").value.trim();
-    const username = usernameInput.value.trim();
+  const area = document.getElementById("area").value.trim();
+  const description = document.getElementById("description").value.trim();
+  const username = usernameInput.value.trim();
 
-    if (!area || !description) {
-      alert("Please fill in all required fields.");
-      return;
-    }
+  if (!area || !description) {
+    alert("Please fill in all required fields.");
+    return;
+  }
 
-    const formData = new FormData();
-    formData.append("entry.2120015252", username);
-    formData.append("entry.1059382315", area);
-    formData.append("entry.1887453304", description);
+  const formData = new FormData();
+  formData.append("entry.2120015252", username);
+  formData.append("entry.1887453304", description);
+  formData.append("entry.1059382315", area);
 
-    fetch(googleFormURL, {
-      method: "POST",
-      mode: "no-cors",
-      body: formData
-    })
-    .then(() => {
-      alert("Incident submitted successfully!");
-      clearForm();
-      closeModal();
-    })
-    .catch(() => {
-      alert("There was an issue submitting the incident. Please try again.");
-    });
+  fetch(googleFormURL, {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+  })
+  .then(() => {
+    alert("Incident submitted successfully!");
+    clearForm();
+    closeModal();
+  })
+  .catch(() => {
+    alert("There was an issue submitting the incident. Please try again.");
   });
+});
+
 
   function clearForm() {
     document.getElementById("area").value = "";
