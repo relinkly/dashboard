@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KPI Dashboards Menu</title>
   <style>
-    /* Reset and base */
+    /* Reset */
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -13,174 +13,158 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #fff;
-      color: #333;
+      background-color: #fff;
+      color: #2d2d2d;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 3rem 1rem 4rem;
-      line-height: 1.6;
-      background: linear-gradient(135deg, #27ae60 0%, #c71585 100%);
-      /* subtle gradient background with brand colors */
-      background-attachment: fixed;
-    }
-
-    main {
-      background: white;
-      border-radius: 16px;
-      max-width: 900px;
-      width: 100%;
-      padding: 3rem 2.5rem 4rem;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-      color: #333;
+      line-height: 1.55;
     }
 
     header {
       text-align: center;
       margin-bottom: 3rem;
-      user-select: none;
+      max-width: 480px;
+      width: 100%;
     }
 
     header img {
-      height: 56px;
-      margin-bottom: 0.5rem;
-      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+      height: 50px;
+      margin-bottom: 0.75rem;
+      filter: drop-shadow(0 0 1px rgba(0,0,0,0.15));
     }
 
     h1 {
-      font-weight: 900;
-      font-size: 3rem;
-      color: #27ae60; /* Brand green */
-      margin-bottom: 0.3rem;
+      font-weight: 800;
+      font-size: 2.8rem;
+      color: #27ae60; /* brand green */
+      margin: 0 0 0.5rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      user-select: text;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
     .subtitle {
-      font-size: 1.2rem;
-      color: #c71585; /* Fuchsia */
-      font-weight: 700;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #c71585; /* fuchsia */
       letter-spacing: 0.1em;
-      margin-top: 0;
-      user-select: text;
+      margin: 0;
     }
 
-    .dashboards {
+    nav.dashboards {
       display: flex;
       gap: 1.8rem;
       flex-wrap: wrap;
       justify-content: center;
+      max-width: 900px;
+      width: 100%;
       margin-bottom: 3.5rem;
     }
 
-    .dashboards a {
-      flex: 1 1 200px;
-      background: #27ae60; /* green */
-      color: white;
-      padding: 1.6rem 2rem;
+    nav.dashboards a {
+      flex: 1 1 220px;
+      background: #27ae60;
+      color: #fff;
       text-decoration: none;
       font-weight: 700;
-      font-size: 1.3rem;
-      border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(39, 174, 96, 0.45);
+      font-size: 1.25rem;
+      padding: 1.6rem 2rem;
+      border-radius: 14px;
+      box-shadow: 0 6px 15px rgba(39, 174, 96, 0.35);
       display: flex;
       justify-content: center;
       align-items: center;
-      transition:
-        background-color 0.3s ease,
-        box-shadow 0.3s ease,
-        transform 0.25s ease;
-      user-select: none;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      letter-spacing: 0.08em;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      border: 2px solid transparent;
       cursor: pointer;
-      border: 2.5px solid transparent;
     }
 
-    .dashboards a:hover,
-    .dashboards a:focus {
-      background-color: #c71585; /* fuchsia */
-      box-shadow: 0 10px 28px rgba(199, 21, 133, 0.7);
-      transform: translateY(-4px);
+    nav.dashboards a:hover,
+    nav.dashboards a:focus {
+      background-color: #c71585;
+      box-shadow: 0 8px 25px rgba(199, 21, 133, 0.6);
+      transform: translateY(-3px);
       outline: none;
       border-color: #fff;
-      color: white;
+      color: #fff;
     }
 
     #openModalBtn {
-      background: #c71585; /* fuchsia */
-      color: white;
-      padding: 1.4rem 3.2rem;
-      font-weight: 800;
+      background: #c71585;
+      color: #fff;
+      padding: 1.3rem 3.2rem;
+      font-weight: 700;
       font-size: 1.3rem;
       border: none;
-      border-radius: 16px;
+      border-radius: 14px;
       cursor: pointer;
-      box-shadow: 0 7px 18px rgba(199, 21, 133, 0.55);
-      transition:
-        background-color 0.3s ease,
-        box-shadow 0.3s ease,
-        transform 0.25s ease;
+      box-shadow: 0 6px 15px rgba(199, 21, 133, 0.45);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.15em;
       user-select: none;
-      margin: 0 auto 4rem;
-      display: block;
-      max-width: 280px;
+      margin-bottom: 3rem;
+      max-width: 320px;
       width: 100%;
+      align-self: center;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      border: 2px solid transparent;
     }
 
     #openModalBtn:hover,
     #openModalBtn:focus {
-      background-color: #27ae60; /* green */
-      box-shadow: 0 10px 25px rgba(39, 174, 96, 0.75);
-      transform: translateY(-4px);
+      background-color: #27ae60;
+      box-shadow: 0 8px 20px rgba(39, 174, 96, 0.65);
+      transform: translateY(-3px);
       outline: none;
+      border-color: #fff;
     }
 
     .logout-btn {
       background: #e74c3c;
-      color: white;
+      color: #fff;
       border: none;
       padding: 0.85rem 2.2rem;
       font-weight: 700;
       border-radius: 12px;
       cursor: pointer;
       font-size: 1.15rem;
-      transition: background-color 0.3s ease, transform 0.25s ease;
+      box-shadow: 0 5px 15px rgba(231, 76, 60, 0.5);
+      transition: background-color 0.3s ease, transform 0.2s ease;
       user-select: none;
       max-width: 160px;
       width: 100%;
-      box-shadow: 0 6px 18px rgba(231, 76, 60, 0.6);
-      display: block;
-      margin: 0 auto;
+      align-self: center;
+      letter-spacing: 0.05em;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      border: 2px solid transparent;
     }
 
     .logout-btn:hover,
     .logout-btn:focus {
       background-color: #c0392b;
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       outline: none;
+      border-color: #fff;
     }
 
     /* Modal styles */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.55);
       display: none;
       justify-content: center;
       align-items: center;
       z-index: 9999;
       padding: 1rem;
-      backdrop-filter: blur(3px);
-      -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(4px);
     }
 
     .modal-overlay.active {
@@ -188,29 +172,29 @@
     }
 
     .modal {
-      background: white;
-      border-radius: 18px;
-      max-width: 500px;
+      background: #fff;
+      border-radius: 16px;
+      max-width: 480px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.18);
       padding: 2.5rem 3rem;
       position: relative;
       font-size: 1rem;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #333;
+      color: #2d2d2d;
     }
 
     .modal h2 {
       margin-top: 0;
       margin-bottom: 2rem;
       color: #27ae60;
-      font-weight: 900;
+      font-weight: 800;
       font-size: 2rem;
       text-align: center;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       user-select: none;
     }
 
@@ -223,73 +207,78 @@
     .modal label {
       font-weight: 700;
       color: #555;
-      user-select: none;
+      letter-spacing: 0.04em;
     }
 
     .modal input[type="text"],
     .modal textarea {
-      padding: 0.85rem 1.2rem;
-      border-radius: 12px;
-      border: 2px solid #ddd;
-      font-size: 1.05rem;
+      padding: 1rem 1.2rem;
+      border-radius: 10px;
+      border: 1.8px solid #ddd;
+      font-size: 1rem;
       resize: vertical;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      font-family: inherit;
-      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #2d2d2d;
+      box-shadow: inset 0 2px 6px rgb(0 0 0 / 0.05);
+      min-height: 44px;
     }
 
     .modal input[type="text"]:focus,
     .modal textarea:focus {
       border-color: #c71585;
       outline: none;
-      box-shadow: 0 0 9px rgba(199, 21, 133, 0.7);
+      box-shadow: 0 0 10px rgba(199, 21, 133, 0.6);
+      background-color: #fff;
     }
 
     .modal input[readonly] {
-      background: #f0f0f0;
+      background: #f4f7f6;
       cursor: default;
-      color: #666;
-      user-select: text;
+      color: #777;
+      box-shadow: none;
+      border-color: #ccc;
     }
 
     .modal button[type="submit"] {
-      padding: 1.15rem 0;
+      padding: 1.1rem 0;
       background-color: #27ae60;
-      color: white;
+      color: #fff;
       border: none;
-      border-radius: 16px;
-      font-weight: 900;
-      font-size: 1.3rem;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 1.25rem;
       cursor: pointer;
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 0.07em;
       user-select: none;
-      margin-top: 1rem;
-      box-shadow: 0 8px 25px rgba(39, 174, 96, 0.65);
+      box-shadow: 0 6px 15px rgba(39, 174, 96, 0.45);
+      margin-top: 0.5rem;
     }
 
     .modal button[type="submit"]:hover,
     .modal button[type="submit"]:focus {
       background-color: #c71585;
-      box-shadow: 0 0 20px rgba(199, 21, 133, 0.9);
+      box-shadow: 0 0 20px rgba(199, 21, 133, 0.85);
       outline: none;
     }
 
     .close-modal-btn {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 18px;
+      right: 20px;
       background: transparent;
       border: none;
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       cursor: pointer;
       color: #c71585;
-      font-weight: 900;
+      font-weight: 800;
       transition: color 0.25s ease;
       user-select: none;
       line-height: 1;
       padding: 0;
+      line-height: 1;
     }
 
     .close-modal-btn:hover,
@@ -298,33 +287,29 @@
       outline: none;
     }
 
+    /* Responsive */
     @media (max-width: 600px) {
-      main {
-        padding: 2rem 1.5rem 3rem;
-      }
       h1 {
-        font-size: 2.4rem;
+        font-size: 2.2rem;
       }
-      .subtitle {
-        font-size: 1rem;
-      }
-      .dashboards a {
+      nav.dashboards a {
         flex: 1 1 100%;
-        font-size: 1.1rem;
-        padding: 1.4rem 1.6rem;
+        font-size: 1.15rem;
+        padding: 1.3rem 1.7rem;
       }
       #openModalBtn {
         max-width: 100%;
-        font-size: 1.2rem;
+        font-size: 1.15rem;
+        padding: 1.1rem 2.5rem;
       }
       .logout-btn {
         max-width: 100%;
       }
       .modal {
-        padding: 2rem 2rem;
+        padding: 2rem 2.2rem;
       }
       .modal h2 {
-        font-size: 1.7rem;
+        font-size: 1.6rem;
       }
     }
   </style>
@@ -344,7 +329,7 @@
       <a href="dashboard4.html" tabindex="0">Dashboard 4</a>
     </nav>
 
-    <button id="openModalBtn" aria-haspopup="dialog" aria-controls="incidentModal" aria-expanded="false">
+    <button id="openModalBtn" aria-haspopup="dialog" aria-controls="incidentModal" aria-expanded="false" type="button">
       Report Incident
     </button>
 
@@ -361,16 +346,16 @@
           <input type="text" id="area" name="area" placeholder="Enter area" required aria-required="true" />
 
           <label for="description">Description</label>
-          <textarea id="description" name="description" rows="4" placeholder="Describe the incident" required aria-required="true"></textarea>
+          <textarea id="description" name="description" rows="5" placeholder="Describe the incident" required aria-required="true"></textarea>
 
-          <!-- Removed file upload field -->
+          <!-- Removed file upload per request -->
 
           <button type="submit">Submit Incident</button>
         </form>
       </div>
     </div>
 
-    <button class="logout-btn" id="logoutBtn" aria-label="Log out">Logout</button>
+    <button class="logout-btn" id="logoutBtn" aria-label="Log out" type="button">Logout</button>
   </main>
 
   <script>
