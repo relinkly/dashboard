@@ -3,201 +3,259 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KPI Dashboards</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <title>KPI Dashboards Menu</title>
   <style>
-    /* ... Your existing CSS unchanged ... */
-    /* I omitted for brevity, use exactly your current CSS */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 2rem;
+    }
+
+    .dashboards {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .dashboards a {
+      background: #4a90e2;
+      color: white;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(74, 144, 226, 0.4);
+      transition: background-color 0.3s ease;
+      min-width: 140px;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .dashboards a:hover {
+      background-color: #357abd;
+    }
+
+    .incident-form {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 8px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .incident-form h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: #333;
+      font-weight: 600;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    .incident-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .incident-form label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .incident-form input[type="text"],
+    .incident-form textarea,
+    .incident-form select {
+      padding: 0.65rem 1rem;
+      border-radius: 6px;
+      border: 1.5px solid #ccc;
+      font-size: 1rem;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+    }
+
+    .incident-form input[type="text"]:focus,
+    .incident-form textarea:focus,
+    .incident-form select:focus {
+      border-color: #4a90e2;
+      outline: none;
+      box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    }
+
+    .incident-form input[readonly] {
+      background: #eee;
+      cursor: not-allowed;
+    }
+
+    .incident-form input[type="file"] {
+      border: none;
+      padding: 0;
+    }
+
+    .incident-form button {
+      padding: 0.85rem;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .incident-form button:hover {
+      background-color: #357abd;
+    }
+
+    .logout-btn {
+      margin-top: 2rem;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
+
+    @media (max-width: 480px) {
+      .dashboards {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container" role="main" aria-label="Company KPI Dashboards">
-    <header class="header">
-      <h1>KPI Dashboards</h1>
-    </header>
+  <h1>Welcome to KPI Dashboards</h1>
 
-    <nav class="buttons" aria-label="Dashboard navigation">
-      <!-- Your dashboard cards unchanged -->
-      <!-- ... -->
+  <nav class="dashboards" aria-label="Dashboard links">
+    <a href="dashboard1.html">Dashboard 1</a>
+    <a href="dashboard2.html">Dashboard 2</a>
+    <a href="dashboard3.html">Dashboard 3</a>
+    <a href="dashboard4.html">Dashboard 4</a>
+  </nav>
 
-      <!-- New Incident Reporting button -->
-      <div id="incidentReportBtn" class="card" role="button" tabindex="0" aria-label="Open Incident Reporting Form" style="background-color:#fce4ec; border-color: #c2185b; color:#c2185b;">
-        <div class="card-icon" style="background-color:#c2185b;">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm.75 14.5h-1.5v-1.5h1.5zm0-3h-1.5v-5h1.5z"/></svg>
-        </div>
-        <div class="card-content">
-          <div class="card-title">Report Incident</div>
-          <div class="card-subtitle">Take a picture and report an issue</div>
-        </div>
-      </div>
-    </nav>
+  <section class="incident-form" aria-labelledby="incident-form-title">
+    <h2 id="incident-form-title">Incident Reporting</h2>
+    <form id="incidentForm" novalidate>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" readonly aria-readonly="true" />
 
-    <!-- Modal for Incident Reporting -->
-    <div id="incidentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-content">
-        <button class="close-btn" aria-label="Close Incident Reporting Form">&times;</button>
-        <h2 id="modalTitle" class="modal-header">Report Incident</h2>
-        <form id="incidentForm" method="POST" action="https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse" onsubmit="return handleSubmit(event)">
-          <label for="usernameInput">Username</label>
-          <input type="text" id="usernameInput" name="entry.2120015252" required />
+      <label for="area">Area</label>
+      <input type="text" id="area" name="area" placeholder="Enter area" required aria-required="true" />
 
-          <label for="areaInput">Area</label>
-          <input type="text" id="areaInput" name="entry.1059382315" required />
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="4" placeholder="Describe the incident" required aria-required="true"></textarea>
 
-          <label for="descInput">Description</label>
-          <textarea id="descInput" name="entry.1887453304" required></textarea>
+      <label for="image">Upload Image (optional)</label>
+      <input type="file" id="image" name="image" accept="image/*" />
 
-          <label>Camera</label>
-          <video id="video" autoplay playsinline></video>
-          <canvas id="canvas" style="display:none;"></canvas>
+      <button type="submit">Submit Incident</button>
+    </form>
+  </section>
 
-          <div class="btn-group">
-            <button type="button" class="btn-capture" id="captureBtn">Capture Photo</button>
-            <button type="button" class="btn-retake" id="retakeBtn" style="display:none;">Retake</button>
-          </div>
-
-          <!-- Hidden field to store photo base64 -->
-          <input type="hidden" name="entry.9999999999" id="photoInput" />
-
-          <button type="submit">Submit Incident</button>
-        </form>
-      </div>
-    </div>
-
-  </div>
+  <button class="logout-btn" id="logoutBtn" aria-label="Log out">Logout</button>
 
   <script>
-    const incidentReportBtn = document.getElementById('incidentReportBtn');
-    const incidentModal = document.getElementById('incidentModal');
-    const closeBtn = incidentModal.querySelector('.close-btn');
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const captureBtn = document.getElementById('captureBtn');
-    const retakeBtn = document.getElementById('retakeBtn');
-    const incidentForm = document.getElementById('incidentForm');
-    const photoInput = document.getElementById('photoInput');
-
-    // For demo, hardcoding username
-    const hardcodedUsername = 'John Doe';
-
-    let stream = null;
-    let photoTaken = false;
-
-    // Open modal and start camera
-    incidentReportBtn.addEventListener('click', () => {
-      incidentModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      startCamera();
-      // Pre-fill username for convenience
-      document.getElementById('usernameInput').value = hardcodedUsername;
-    });
-
-    closeBtn.addEventListener('click', closeModal);
-
-    // Close modal helper
-    function closeModal() {
-      incidentModal.classList.remove('active');
-      document.body.style.overflow = '';
-      stopCamera();
-      resetPhoto();
-      incidentForm.reset();
+    // Redirect to login if not authenticated
+    if (localStorage.getItem("authenticated") !== "true") {
+      window.location.href = "login.html";
     }
 
-    // Start camera streaming
-    async function startCamera() {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        try {
-          stream = await navigator.mediaDevices.getUserMedia({ video: true });
-          video.srcObject = stream;
-          photoTaken = false;
-          captureBtn.style.display = 'inline-block';
-          retakeBtn.style.display = 'none';
-          canvas.style.display = 'none';
-          video.style.display = 'block';
-        } catch (err) {
-          alert('Could not access the camera. Please allow camera permission or use a supported device.');
-        }
-      } else {
-        alert('Camera API not supported in this browser.');
+    // Fill the username field from localStorage
+    const usernameInput = document.getElementById("username");
+    const loggedInUser = localStorage.getItem("username") || "";
+    usernameInput.value = loggedInUser;
+
+    // Google Form URL and entries mapping
+    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse";
+    // Entry IDs:
+    // username: entry.2120015252
+    // description: entry.1887453304
+    // area: entry.1059382315
+
+    // Incident form submit handler
+    document.getElementById("incidentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const area = document.getElementById("area").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const imageInput = document.getElementById("image");
+      // Username from readonly input
+      const username = usernameInput.value.trim();
+
+      if (!area || !description) {
+        alert("Please fill in all required fields.");
+        return;
       }
-    }
 
-    // Stop camera streaming
-    function stopCamera() {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-        stream = null;
+      // We cannot upload files directly via GET or URL redirect to Google Forms.
+      // Google Forms does not support direct file upload via URL parameters.
+      // So we ignore the image for now or you can add instructions.
+
+      // Construct form data for Google Form
+      // We'll submit via a hidden form POST to Google Form with target _blank
+
+      const form = document.createElement("form");
+      form.action = googleFormURL;
+      form.method = "POST";
+      form.target = "_blank"; // open in new tab
+      form.style.display = "none";
+
+      // Append inputs with the Google Form entries names
+      const fields = {
+        "entry.2120015252": username,
+        "entry.1059382315": area,
+        "entry.1887453304": description,
+      };
+
+      for (const key in fields) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = fields[key];
+        form.appendChild(input);
       }
-    }
 
-    // Capture photo event
-    captureBtn.addEventListener('click', () => {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const context = canvas.getContext('2d');
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      video.style.display = 'none';
-      canvas.style.display = 'block';
-      captureBtn.style.display = 'none';
-      retakeBtn.style.display = 'inline-block';
-      photoTaken = true;
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
 
-      // Store base64 in hidden input
-      photoInput.value = canvas.toDataURL('image/png');
+      // Reset form (except username)
+      document.getElementById("area").value = "";
+      document.getElementById("description").value = "";
+      imageInput.value = "";
+
+      alert("Incident submitted! A new tab has been opened for confirmation.");
     });
 
-    // Retake photo event
-    retakeBtn.addEventListener('click', () => {
-      canvas.style.display = 'none';
-      video.style.display = 'block';
-      captureBtn.style.display = 'inline-block';
-      retakeBtn.style.display = 'none';
-      photoInput.value = '';
-      photoTaken = false;
+    // Logout button
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("authenticated");
+      localStorage.removeItem("username");
+      window.location.href = "login.html";
     });
-
-    // Reset photo helper
-    function resetPhoto() {
-      canvas.style.display = 'none';
-      video.style.display = 'block';
-      captureBtn.style.display = 'inline-block';
-      retakeBtn.style.display = 'none';
-      photoInput.value = '';
-      photoTaken = false;
-    }
-
-async function handleSubmit(event) {
-  event.preventDefault(); // prevent default form submit
-
-  // Validate if photo is taken, optionally:
-  if (!photoInput.value) {
-    alert('Please capture a photo before submitting.');
-    return false;
-  }
-
-  // Prepare data to send
-  const formData = new FormData(incidentForm);
-
-  // Submit using fetch POST
-  try {
-    const response = await fetch(incidentForm.action, {
-      method: 'POST',
-      mode: 'no-cors', // because google forms disallow CORS, no-cors hides response
-      body: formData,
-    });
-
-    // Google Forms returns an empty response, so assume success
-    alert('Incident reported successfully!');
-    closeModal();  // close modal and reset
-  } catch (error) {
-    alert('Error submitting form. Please try again.');
-    console.error('Form submission error:', error);
-  }
-
-  return false; // prevent default form submit
-}
-
   </script>
 </body>
 </html>
-
