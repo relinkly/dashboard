@@ -166,6 +166,37 @@
       photoTaken = false;
     }
 
+async function handleSubmit(event) {
+  event.preventDefault(); // prevent default form submit
+
+  // Validate if photo is taken, optionally:
+  if (!photoInput.value) {
+    alert('Please capture a photo before submitting.');
+    return false;
+  }
+
+  // Prepare data to send
+  const formData = new FormData(incidentForm);
+
+  // Submit using fetch POST
+  try {
+    const response = await fetch(incidentForm.action, {
+      method: 'POST',
+      mode: 'no-cors', // because google forms disallow CORS, no-cors hides response
+      body: formData,
+    });
+
+    // Google Forms returns an empty response, so assume success
+    alert('Incident reported successfully!');
+    closeModal();  // close modal and reset
+  } catch (error) {
+    alert('Error submitting form. Please try again.');
+    console.error('Form submission error:', error);
+  }
+
+  return false; // prevent default form submit
+}
+
         });
   </script>
 </body>
