@@ -13,152 +13,159 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9faf9;
-      color: #333;
+      background: #f2f5f3;
+      color: #2e3e2f;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 60px 24px 40px;
+      justify-content: center;
+      padding: 60px 20px 40px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
     main {
+      background: #fff;
       max-width: 900px;
       width: 100%;
-      background: #fff;
-      padding: 40px 36px 48px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      padding: 48px 40px 56px;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(46, 62, 47, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     /* Header */
     header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
+      user-select: none;
     }
 
     h1 {
       font-weight: 700;
-      font-size: 2.8rem;
+      font-size: 2.4rem;
       color: #2a4d3a;
       margin: 0;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      user-select: none;
-      line-height: 1.1;
+      line-height: 1.2;
     }
 
-    /* Navigation */
+    /* Navigation Grid */
     .dashboards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      margin-bottom: 48px;
+      gap: 24px;
+      width: 100%;
+      margin-bottom: 56px;
     }
 
     .dashboards a {
       background-color: #fefefe;
-      border-radius: 10px;
-      padding: 18px 22px;
+      border-radius: 12px;
+      padding: 20px 24px;
       color: #2a4d3a;
       font-weight: 600;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       text-align: center;
       text-decoration: none;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       display: flex;
       justify-content: center;
       align-items: center;
-      user-select: none;
       cursor: pointer;
-      border: 1px solid #c9d6ca;
-      transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
+      border: 2px solid #c9d6ca;
+      user-select: none;
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.25s ease, transform 0.15s ease;
       position: relative;
+      box-shadow: inset 0 0 0 rgba(0,0,0,0);
     }
 
     .dashboards a::before {
       content: "📈";
-      font-size: 1.5rem;
-      margin-right: 10px;
+      font-size: 1.6rem;
+      margin-right: 12px;
       line-height: 1;
+      flex-shrink: 0;
     }
 
     .dashboards a:hover,
     .dashboards a:focus {
-      background-color: #e6f1e8;
-      border-color: #2a4d3a;
+      background-color: #e9f2e7;
+      border-color: #3a7d44;
+      box-shadow: 0 4px 10px rgba(58, 125, 68, 0.15);
       outline: none;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
     .dashboards a:focus-visible {
-      outline: 2px solid #2a4d3a;
+      outline: 3px solid #3a7d44;
       outline-offset: 3px;
     }
 
     /* Buttons */
     #openModalBtn {
-      display: block;
-      margin: 0 auto 48px;
       background: #3a7d44;
       border: none;
-      padding: 14px 48px;
-      border-radius: 24px;
+      padding: 16px 56px;
+      border-radius: 28px;
       color: #fff;
-      font-weight: 600;
-      font-size: 1.15rem;
-      letter-spacing: 0.1em;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       cursor: pointer;
       user-select: none;
-      transition: background 0.3s ease, transform 0.15s ease;
-      box-shadow: none;
-      filter: none;
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+      box-shadow: 0 4px 12px rgba(58, 125, 68, 0.4);
+      margin-bottom: 56px;
+      align-self: center;
     }
 
     #openModalBtn:hover,
     #openModalBtn:focus {
-      background: #2a4d3a;
+      background: #2a5931;
+      box-shadow: 0 6px 16px rgba(42, 89, 49, 0.5);
       outline: none;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
     #openModalBtn:focus-visible {
-      outline: 2px solid #2a4d3a;
+      outline: 3px solid #2a5931;
       outline-offset: 3px;
     }
 
     .logout-btn {
-      display: block;
-      margin: 0 auto;
       background: #2a4d3a;
       border: none;
-      padding: 14px 48px;
-      border-radius: 24px;
-      font-weight: 600;
+      padding: 16px 56px;
+      border-radius: 28px;
+      font-weight: 700;
       font-size: 1.1rem;
       color: #fff;
       cursor: pointer;
       user-select: none;
-      transition: background 0.3s ease, transform 0.15s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+      align-self: center;
+      box-shadow: 0 3px 9px rgba(42, 77, 58, 0.35);
     }
 
     .logout-btn:hover,
     .logout-btn:focus {
       background: #1f3a2a;
+      box-shadow: 0 5px 14px rgba(31, 58, 42, 0.5);
       outline: none;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
     .logout-btn:focus-visible {
-      outline: 2px solid #1f3a2a;
+      outline: 3px solid #1f3a2a;
       outline-offset: 3px;
     }
 
-    /* Modal */
+    /* Modal Overlay */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -166,50 +173,51 @@
       display: none;
       justify-content: center;
       align-items: center;
-      padding: 32px 24px;
+      padding: 32px 20px;
       z-index: 1100;
-      backdrop-filter: blur(4px);
-      transition: background-color 0.3s ease;
+      backdrop-filter: blur(6px);
+      transition: opacity 0.3s ease;
     }
 
     .modal-overlay.active {
       display: flex;
+      opacity: 1;
     }
 
+    /* Modal Window */
     .modal {
       background-color: #fff;
-      border-radius: 12px;
+      border-radius: 14px;
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
       max-height: 90vh;
       overflow-y: auto;
-      padding: 40px 40px 48px;
+      padding: 48px 44px 56px;
       position: relative;
-      color: #333;
+      color: #2e3e2f;
       font-size: 1rem;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 12px 32px rgba(46, 62, 47, 0.15);
       scroll-behavior: smooth;
     }
 
     .modal h2 {
-      margin-top: 0;
-      font-size: 1.9rem;
+      margin: 0 0 36px;
+      font-size: 2rem;
       font-weight: 700;
       color: #3a7d44;
       text-align: center;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 32px;
+      letter-spacing: 0.14em;
       user-select: none;
     }
 
     .close-modal-btn {
       position: absolute;
-      top: 16px;
-      right: 20px;
+      top: 18px;
+      right: 22px;
       background: transparent;
       border: none;
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       color: #3a7d44;
       cursor: pointer;
@@ -225,7 +233,7 @@
     }
 
     .close-modal-btn:focus-visible {
-      outline: 2px solid #1f3a2a;
+      outline: 3px solid #1f3a2a;
       outline-offset: 3px;
     }
 
@@ -233,125 +241,130 @@
     form {
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 24px;
     }
 
     label {
       font-weight: 600;
-      color: #555;
-      letter-spacing: 0.04em;
+      color: #4b5c4a;
+      letter-spacing: 0.06em;
       user-select: none;
+      font-size: 1rem;
     }
 
     input[type="text"],
     textarea {
-      padding: 14px 16px;
-      border-radius: 10px;
-      border: 1.3px solid #cbd5d1;
+      padding: 16px 18px;
+      border-radius: 12px;
+      border: 1.5px solid #cbd5d1;
       font-size: 1rem;
       font-family: inherit;
-      color: #333;
+      color: #2e3e2f;
       resize: vertical;
-      min-height: 44px;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
-      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05);
+      min-height: 48px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.07);
+      outline-offset: 2px;
     }
 
     input[type="text"]:focus,
     textarea:focus {
       border-color: #3a7d44;
       outline: none;
+      box-shadow: 0 0 16px rgba(58, 125, 68, 0.35);
       background-color: #fff;
-      box-shadow: 0 0 12px rgba(58, 125, 68, 0.3);
     }
 
     input[readonly] {
-      background-color: #f5f7f6;
+      background-color: #f6f8f6;
       border-color: #a3b5a8;
       cursor: default;
       color: #71806d;
+      box-shadow: none;
     }
 
     button[type="submit"] {
       background: #2a4d3a;
       border: none;
-      padding: 16px 0;
-      border-radius: 24px;
-      font-weight: 600;
-      font-size: 1.15rem;
+      padding: 18px 0;
+      border-radius: 28px;
+      font-weight: 700;
+      font-size: 1.2rem;
       color: #fff;
       cursor: pointer;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       user-select: none;
-      transition: background 0.3s ease, transform 0.15s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
       margin-top: 4px;
-      box-shadow: none;
+      box-shadow: 0 6px 16px rgba(42, 77, 58, 0.35);
+      align-self: stretch;
     }
 
     button[type="submit"]:hover,
     button[type="submit"]:focus {
       background: #1f3a2a;
-      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(31, 58, 42, 0.5);
+      transform: translateY(-3px);
       outline: none;
     }
 
     button[type="submit"]:focus-visible {
-      outline: 2px solid #1f3a2a;
+      outline: 3px solid #1f3a2a;
       outline-offset: 3px;
     }
 
     /* Responsive */
     @media (max-width: 600px) {
       main {
-        padding: 32px 24px 36px;
-        border-radius: 10px;
-        box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+        padding: 36px 24px 40px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(46, 62, 47, 0.08);
       }
 
       h1 {
-        font-size: 2.2rem;
-        letter-spacing: 0.08em;
+        font-size: 2rem;
+        letter-spacing: 0.1em;
       }
 
       .dashboards {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 22px;
       }
 
       .dashboards a {
-        font-size: 1.05rem;
-        padding: 16px 18px;
+        font-size: 1.1rem;
+        padding: 18px 22px;
       }
 
       .dashboards a::before {
-        font-size: 1.3rem;
-        margin-right: 8px;
+        font-size: 1.4rem;
+        margin-right: 10px;
       }
 
       #openModalBtn {
-        padding: 12px 40px;
-        font-size: 1.05rem;
-        margin-bottom: 36px;
+        padding: 14px 48px;
+        font-size: 1.1rem;
+        margin-bottom: 40px;
       }
 
       .logout-btn {
         font-size: 1rem;
-        padding: 12px 40px;
+        padding: 14px 48px;
       }
 
       .modal {
-        padding: 32px 32px;
+        padding: 36px 32px 40px;
         max-height: 85vh;
       }
 
       .modal h2 {
-        font-size: 1.6rem;
-        margin-bottom: 28px;
+        font-size: 1.7rem;
+        margin-bottom: 30px;
       }
 
       form {
-        gap: 18px;
+        gap: 20px;
       }
     }
   </style>
@@ -438,13 +451,11 @@
 
   <script>
     (() => {
-      // Redirect if user is not authenticated
       if (localStorage.getItem("authenticated") !== "true") {
         window.location.href = "login.html";
         return;
       }
 
-      // Cache DOM elements
       const usernameInput = document.getElementById("username");
       const loggedInUser = localStorage.getItem("username") || "";
       const modal = document.getElementById("incidentModal");
@@ -453,10 +464,8 @@
       const incidentForm = document.getElementById("incidentForm");
       const logoutBtn = document.getElementById("logoutBtn");
 
-      // Populate username readonly input
       usernameInput.value = loggedInUser;
 
-      // Accessibility helpers: trap focus within modal
       const focusableSelectors = [
         'a[href]',
         'area[href]',
@@ -494,71 +503,50 @@
         }
       }
 
-      // Open modal function
       function openModal() {
         lastFocusedElement = document.activeElement;
         modal.classList.add("active");
         modal.setAttribute("aria-hidden", "false");
         openModalBtn.setAttribute("aria-expanded", "true");
-        usernameInput.value = loggedInUser;
-        setTimeout(() => {
-          // Focus first input in modal after open
-          document.getElementById("area").focus();
-        }, 100);
+        // Focus first focusable element in modal
+        const focusableElements = modal.querySelectorAll(focusableSelectors.join(","));
+        if (focusableElements.length) {
+          focusableElements[0].focus();
+        }
         document.addEventListener("keydown", trapFocus);
       }
 
-      // Close modal function
       function closeModal() {
         modal.classList.remove("active");
         modal.setAttribute("aria-hidden", "true");
         openModalBtn.setAttribute("aria-expanded", "false");
         if (lastFocusedElement) lastFocusedElement.focus();
         document.removeEventListener("keydown", trapFocus);
-        incidentForm.reset();
-        usernameInput.value = loggedInUser;
       }
 
-      // Open modal event
       openModalBtn.addEventListener("click", openModal);
-
-      // Close modal events
       closeModalBtn.addEventListener("click", closeModal);
 
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
           closeModal();
         }
       });
 
-      // Close modal with Escape key
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("active")) {
-          e.preventDefault();
-          closeModal();
-        }
-      });
-
-      // Form submit handler
-      incidentForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        // Simple validation
-        const area = incidentForm.area.value.trim();
-        const description = incidentForm.description.value.trim();
-
-        if (!area || !description) {
-          alert("Please fill out all required fields.");
+      incidentForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        // Basic validation
+        if (!incidentForm.area.value.trim() || !incidentForm.description.value.trim()) {
+          alert("Please fill in all required fields.");
           return;
         }
-
-        // Example: Here you would send the data to server (via fetch, AJAX, etc)
-        alert("Incident reported successfully. Thank you!");
-
+        // Here you could add your incident submission logic, e.g. send data to server
+        alert("Incident reported successfully.");
+        incidentForm.reset();
+        usernameInput.value = loggedInUser;
         closeModal();
       });
 
-      // Logout handler
       logoutBtn.addEventListener("click", () => {
         localStorage.clear();
         window.location.href = "login.html";
