@@ -26,7 +26,7 @@
       gap: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
     .dashboards a {
@@ -47,16 +47,70 @@
       background-color: #357abd;
     }
 
-    .incident-form {
+    #openModalBtn {
+      background: #27ae60;
+      color: white;
+      padding: 1rem 2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(39, 174, 96, 0.5);
+      transition: background-color 0.3s ease;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    #openModalBtn:hover {
+      background-color: #1e8449;
+    }
+
+    .logout-btn {
+      margin-top: auto;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
       background: white;
-      padding: 1.5rem 2rem;
       border-radius: 8px;
       max-width: 480px;
       width: 100%;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      padding: 1.5rem 2rem;
+      position: relative;
     }
 
-    .incident-form h2 {
+    .modal h2 {
       margin-top: 0;
       margin-bottom: 1rem;
       color: #333;
@@ -65,20 +119,19 @@
       text-align: center;
     }
 
-    .incident-form form {
+    .modal form {
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
 
-    .incident-form label {
+    .modal label {
       font-weight: 600;
       color: #555;
     }
 
-    .incident-form input[type="text"],
-    .incident-form textarea,
-    .incident-form select {
+    .modal input[type="text"],
+    .modal textarea {
       padding: 0.65rem 1rem;
       border-radius: 6px;
       border: 1.5px solid #ccc;
@@ -88,25 +141,24 @@
       font-family: inherit;
     }
 
-    .incident-form input[type="text"]:focus,
-    .incident-form textarea:focus,
-    .incident-form select:focus {
+    .modal input[type="text"]:focus,
+    .modal textarea:focus {
       border-color: #4a90e2;
       outline: none;
       box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
     }
 
-    .incident-form input[readonly] {
+    .modal input[readonly] {
       background: #eee;
       cursor: not-allowed;
     }
 
-    .incident-form input[type="file"] {
+    .modal input[type="file"] {
       border: none;
       padding: 0;
     }
 
-    .incident-form button {
+    .modal button[type="submit"] {
       padding: 0.85rem;
       background-color: #4a90e2;
       color: white;
@@ -118,24 +170,24 @@
       transition: background-color 0.3s ease;
     }
 
-    .incident-form button:hover {
+    .modal button[type="submit"]:hover {
       background-color: #357abd;
     }
 
-    .logout-btn {
-      margin-top: 2rem;
-      background: #e74c3c;
-      color: white;
+    .close-modal-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
       border: none;
-      padding: 0.6rem 1.2rem;
-      font-weight: 600;
-      border-radius: 6px;
+      font-size: 1.5rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      color: #888;
+      transition: color 0.2s ease;
     }
 
-    .logout-btn:hover {
-      background-color: #c0392b;
+    .close-modal-btn:hover {
+      color: #444;
     }
 
     @media (max-width: 480px) {
@@ -156,53 +208,112 @@
     <a href="dashboard4.html">Dashboard 4</a>
   </nav>
 
-  <section class="incident-form" aria-labelledby="incident-form-title">
-    <h2 id="incident-form-title">Incident Reporting</h2>
-    <form id="incidentForm" novalidate>
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" readonly aria-readonly="true" />
+  <button id="openModalBtn" aria-haspopup="dialog" aria-controls="incidentModal" aria-expanded="false">Report Incident</button>
 
-      <label for="area">Area</label>
-      <input type="text" id="area" name="area" placeholder="Enter area" required aria-required="true" />
+  <!-- Modal -->
+  <div class="modal-overlay" id="incidentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="modal">
+      <button class="close-modal-btn" aria-label="Close incident report form">&times;</button>
+      <h2 id="modalTitle">Incident Reporting</h2>
+      <form id="incidentForm" novalidate>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" readonly aria-readonly="true" />
 
-      <label for="description">Description</label>
-      <textarea id="description" name="description" rows="4" placeholder="Describe the incident" required aria-required="true"></textarea>
+        <label for="area">Area</label>
+        <input type="text" id="area" name="area" placeholder="Enter area" required aria-required="true" />
 
-      <label for="image">Upload Image (optional)</label>
-      <input type="file" id="image" name="image" accept="image/*" />
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" placeholder="Describe the incident" required aria-required="true"></textarea>
 
-      <button type="submit">Submit Incident</button>
-    </form>
-  </section>
+        <label for="image">Upload Image (optional)</label>
+        <input type="file" id="image" name="image" accept="image/*" />
+
+        <button type="submit">Submit Incident</button>
+      </form>
+    </div>
+  </div>
 
   <button class="logout-btn" id="logoutBtn" aria-label="Log out">Logout</button>
 
   <script>
-    // Redirect to login if not authenticated
+    // Redirect if not logged in
     if (localStorage.getItem("authenticated") !== "true") {
       window.location.href = "login.html";
     }
 
-    // Fill the username field from localStorage
     const usernameInput = document.getElementById("username");
     const loggedInUser = localStorage.getItem("username") || "";
     usernameInput.value = loggedInUser;
 
-    // Google Form URL and entries mapping
-    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse";
-    // Entry IDs:
-    // username: entry.2120015252
-    // description: entry.1887453304
-    // area: entry.1059382315
+    const modal = document.getElementById("incidentModal");
+    const openModalBtn = document.getElementById("openModalBtn");
+    const closeModalBtn = modal.querySelector(".close-modal-btn");
+    const firstFocusable = usernameInput; // first focusable inside modal
+    const lastFocusable = modal.querySelector("button[type='submit']");
 
-    // Incident form submit handler
+    // Open modal
+    openModalBtn.addEventListener("click", () => {
+      modal.classList.add("active");
+      openModalBtn.setAttribute("aria-expanded", "true");
+      modal.setAttribute("tabindex", "-1");
+      modal.focus();
+    });
+
+    // Close modal function
+    function closeModal() {
+      modal.classList.remove("active");
+      openModalBtn.setAttribute("aria-expanded", "false");
+      openModalBtn.focus();
+      clearForm();
+    }
+
+    // Close modal events
+    closeModalBtn.addEventListener("click", closeModal);
+
+    // Close modal on outside click
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close modal on ESC key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("active")) {
+        closeModal();
+      }
+    });
+
+    // Trap focus inside modal
+    modal.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") {
+        const focusableElements = modal.querySelectorAll("input, textarea, button");
+        const firstElem = focusableElements[0];
+        const lastElem = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) { // shift + tab
+          if (document.activeElement === firstElem) {
+            e.preventDefault();
+            lastElem.focus();
+          }
+        } else { // tab
+          if (document.activeElement === lastElem) {
+            e.preventDefault();
+            firstElem.focus();
+          }
+        }
+      }
+    });
+
+    // Google Form endpoint and entries
+    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse";
+
     document.getElementById("incidentForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
       const area = document.getElementById("area").value.trim();
       const description = document.getElementById("description").value.trim();
       const imageInput = document.getElementById("image");
-      // Username from readonly input
       const username = usernameInput.value.trim();
 
       if (!area || !description) {
@@ -210,20 +321,16 @@
         return;
       }
 
-      // We cannot upload files directly via GET or URL redirect to Google Forms.
-      // Google Forms does not support direct file upload via URL parameters.
-      // So we ignore the image for now or you can add instructions.
+      // As before: Google Forms does not support direct file upload via URL or POST.
+      // So image is not submitted to Google Forms.
 
-      // Construct form data for Google Form
-      // We'll submit via a hidden form POST to Google Form with target _blank
-
+      // Create form to submit to Google Forms
       const form = document.createElement("form");
       form.action = googleFormURL;
       form.method = "POST";
-      form.target = "_blank"; // open in new tab
+      form.target = "_blank";
       form.style.display = "none";
 
-      // Append inputs with the Google Form entries names
       const fields = {
         "entry.2120015252": username,
         "entry.1059382315": area,
@@ -242,15 +349,20 @@
       form.submit();
       document.body.removeChild(form);
 
-      // Reset form (except username)
-      document.getElementById("area").value = "";
-      document.getElementById("description").value = "";
-      imageInput.value = "";
-
       alert("Incident submitted! A new tab has been opened for confirmation.");
+
+      // Reset form and close modal
+      clearForm();
+      closeModal();
     });
 
-    // Logout button
+    function clearForm() {
+      document.getElementById("area").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("image").value = "";
+    }
+
+    // Logout button handler
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("authenticated");
       localStorage.removeItem("username");
