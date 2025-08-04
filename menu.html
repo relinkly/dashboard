@@ -398,6 +398,31 @@
       }
     }
 
+    async function submitIncident(data) {
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbwWQStAtLUwVK4AKIOy29u63OcnHhMgBJ6tbBFdWDpyNzJajCzoKitKQAY8kwWRJKNEwA/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      // Don't add 'mode: no-cors' if you want to read the response, but it might cause CORS errors.
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log('Success:', result);
+    return result;
+
+  } catch (error) {
+    console.error('Error submitting incident:', error);
+    throw error;
+  }
+}
+
     // Stop camera stream
     function stopCamera() {
       if (stream) {
@@ -484,4 +509,5 @@
   </script>
 </body>
 </html>
+
 
