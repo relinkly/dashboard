@@ -6,10 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    /* Global Reset */
+    :root {
+      --brand-green: #28a745;
+      --brand-fuchsia: #e91e63;
+      --brand-white: #ffffff;
+      --brand-dark: #1e1e1e;
+      --gradient: linear-gradient(135deg, #28a745, #e91e63);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -18,8 +25,8 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #f0f2f5;
+      background: var(--gradient);
+      color: var(--brand-white);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -29,102 +36,91 @@
 
     .container {
       background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-      max-width: 720px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      max-width: 760px;
       width: 100%;
-      padding: 48px 36px;
+      padding: 50px 40px;
       text-align: center;
-      color: #222;
-      user-select: none;
+      color: #2c2c2c;
     }
 
     .header {
-      margin-bottom: 30px;
+      margin-bottom: 32px;
       position: relative;
-      padding-bottom: 16px;
+      padding-bottom: 14px;
     }
 
     .header h1 {
-      font-weight: 700;
       font-size: 2.8rem;
-      letter-spacing: 1.2px;
-      color: #1e3c72;
+      font-weight: 700;
+      background: var(--gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
     .header::after {
       content: "";
       display: block;
-      width: 80px;
-      height: 3px;
-      background: #2a5298;
+      width: 90px;
+      height: 4px;
+      background: var(--gradient);
       margin: 16px auto 0;
       border-radius: 2px;
-      opacity: 0.7;
     }
 
     .buttons {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
     }
 
     .buttons a {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(145deg, #1e3c72, #254b8a);
-      color: #f0f2f5;
+      background: var(--gradient);
+      color: var(--brand-white);
       text-decoration: none;
-      padding: 28px 24px;
+      padding: 26px 20px;
       border-radius: 16px;
       font-weight: 600;
       font-size: 1.15rem;
-      box-shadow: 0 8px 18px rgba(30, 60, 114, 0.3);
-      transition: 
-        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-        box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-        background-color 0.35s ease;
-      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(233, 30, 99, 0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       min-height: 140px;
-      text-align: center;
-      user-select: none;
-    }
-
-    .buttons a:focus-visible {
-      outline: 3px solid #ffd700;
-      outline-offset: 4px;
     }
 
     .buttons a:hover {
-      background: linear-gradient(145deg, #2a5298, #3762b1);
-      box-shadow: 0 20px 40px rgba(42, 82, 152, 0.7);
       transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(40, 167, 69, 0.5);
     }
 
     .buttons a .icon {
-      font-size: 3.6rem;
-      margin-bottom: 16px;
-      user-select: none;
-      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+      font-size: 3.2rem;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15));
     }
 
-    /* Different icons for clarity */
-    .buttons a:nth-child(1) .icon { content: "📊"; }
-    .buttons a:nth-child(2) .icon { content: "📈"; }
-    .buttons a:nth-child(3) .icon { content: "🎯"; }
-    .buttons a:nth-child(4) .icon { content: "⚙️"; }
-
-    @media (max-width: 400px) {
-      .buttons a {
-        padding: 22px 18px;
-        font-size: 1rem;
-        min-height: 120px;
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .container {
+        padding: 32px 24px;
       }
+
+      .header h1 {
+        font-size: 2.2rem;
+      }
+
+      .buttons a {
+        font-size: 1rem;
+        padding: 20px 16px;
+      }
+
       .buttons a .icon {
-        font-size: 3rem;
-        margin-bottom: 12px;
+        font-size: 2.8rem;
       }
     }
   </style>
@@ -137,28 +133,22 @@
 
     <nav class="buttons" aria-label="Dashboard navigation">
       <a href="dashboard1.html" aria-label="ZL & BVS Active Retail Dashboard">
-        <span class="icon" aria-hidden="true">📊</span>
+        <span class="icon">📊</span>
         ZL & BVS Active Retail Dashboard
       </a>
       <a href="dashboard2.html" aria-label="Gross Addition Performance Dashboard">
-        <span class="icon" aria-hidden="true">📈</span>
+        <span class="icon">📈</span>
         Gross Addition Performance
       </a>
       <a href="dashboard3.html" aria-label="Enablers Dashboard">
-        <span class="icon" aria-hidden="true">🎯</span>
+        <span class="icon">🎯</span>
         Enablers Dashboard
       </a>
       <a href="dashboard4.html" aria-label="Discounted Bundles Dashboard">
-        <span class="icon" aria-hidden="true">⚙️</span>
+        <span class="icon">⚙️</span>
         Discounted Bundles Dashboard
       </a>
     </nav>
   </div>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
-    }
-  </script>
 </body>
 </html>
