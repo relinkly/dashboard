@@ -536,18 +536,16 @@
       });
 
       incidentForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        // Basic validation
-        if (!incidentForm.area.value.trim() || !incidentForm.description.value.trim()) {
-          alert("Please fill in all required fields.");
-          return;
-        }
-        // Here you could add your incident submission logic, e.g. send data to server
-        alert("Incident reported successfully.");
-        incidentForm.reset();
-        usernameInput.value = loggedInUser;
-        closeModal();
-      });
+  // Remove event.preventDefault() so form can submit
+  if (!incidentForm.area.value.trim() || !incidentForm.description.value.trim()) {
+    alert("Please fill in all required fields.");
+    event.preventDefault(); // only prevent if validation fails
+    return;
+  }
+  alert("Incident reported successfully."); // This will likely not show as form submission reloads
+  // No form reset or modal close here; form will submit and reload page (or iframe target)
+});
+
 
       logoutBtn.addEventListener("click", () => {
         localStorage.clear();
@@ -557,5 +555,6 @@
   </script>
 </body>
 </html>
+
 
 
