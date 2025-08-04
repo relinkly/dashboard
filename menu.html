@@ -401,38 +401,48 @@
 
         <h2 id="modalTitle">Incident Reporting</h2>
 
-        <form id="incidentForm" novalidate>
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            readonly
-            aria-readonly="true"
-          />
+        <form
+  id="incidentForm"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse"
+  method="POST"
+  target="hidden_iframe"
+  onsubmit="submitted=true;"
+  novalidate
+>
+  <label for="username">Username</label>
+  <input
+    type="text"
+    id="username"
+    name="entry.2120015252"
+    readonly
+    aria-readonly="true"
+  />
 
-          <label for="area">Area</label>
-          <input
-            type="text"
-            id="area"
-            name="area"
-            placeholder="Enter area"
-            required
-            aria-required="true"
-          />
+  <label for="area">Area</label>
+  <input
+    type="text"
+    id="area"
+    name="entry.1059382315"
+    placeholder="Enter area"
+    required
+    aria-required="true"
+  />
 
-          <label for="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            rows="5"
-            placeholder="Describe the incident"
-            required
-            aria-required="true"
-          ></textarea>
+  <label for="description">Description</label>
+  <textarea
+    id="description"
+    name="entry.1887453304"
+    rows="5"
+    placeholder="Describe the incident"
+    required
+    aria-required="true"
+  ></textarea>
 
-          <button type="submit">Submit Incident</button>
-        </form>
+  <button type="submit">Submit Incident</button>
+</form>
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
       </div>
     </div>
 
@@ -547,4 +557,5 @@
   </script>
 </body>
 </html>
+
 
