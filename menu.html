@@ -5,88 +5,139 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KPI Dashboards Menu</title>
   <style>
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f7fa;
+      background: #ffffff;
+      color: #333;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem 1rem;
+      padding: 3rem 1rem 4rem;
+      line-height: 1.6;
     }
 
     h1 {
-      color: #333;
-      margin-bottom: 2rem;
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: #27ae60; /* Brand green */
+      margin-bottom: 1rem;
+      text-align: center;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #c71585; /* Fuchsia */
+      margin-bottom: 3rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-align: center;
     }
 
     .dashboards {
       display: flex;
-      gap: 1.5rem;
+      gap: 2rem;
       flex-wrap: wrap;
       justify-content: center;
-      margin-bottom: 2rem;
+      max-width: 900px;
+      width: 100%;
+      margin-bottom: 3rem;
     }
 
     .dashboards a {
-      background: #4a90e2;
+      flex: 1 1 200px;
+      background: #27ae60; /* green */
       color: white;
-      padding: 1rem 1.5rem;
+      padding: 1.6rem 2rem;
       text-decoration: none;
-      font-weight: 600;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(74, 144, 226, 0.4);
-      transition: background-color 0.3s ease;
-      min-width: 140px;
-      text-align: center;
-      display: inline-block;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(39, 174, 96, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    .dashboards a:hover {
-      background-color: #357abd;
+    .dashboards a:hover,
+    .dashboards a:focus {
+      background-color: #c71585; /* fuchsia */
+      box-shadow: 0 8px 25px rgba(199, 21, 133, 0.6);
+      transform: translateY(-3px);
+      outline: none;
+      color: white;
     }
 
     #openModalBtn {
-      background: #27ae60;
+      background: #c71585; /* fuchsia */
       color: white;
-      padding: 1rem 2rem;
+      padding: 1.3rem 3rem;
       font-weight: 700;
+      font-size: 1.2rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(39, 174, 96, 0.5);
-      transition: background-color 0.3s ease;
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
+      box-shadow: 0 6px 15px rgba(199, 21, 133, 0.5);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      user-select: none;
+      margin-bottom: 3rem;
+      align-self: center;
+      max-width: 280px;
+      width: 100%;
     }
 
-    #openModalBtn:hover {
-      background-color: #1e8449;
+    #openModalBtn:hover,
+    #openModalBtn:focus {
+      background-color: #27ae60; /* green */
+      box-shadow: 0 8px 20px rgba(39, 174, 96, 0.7);
+      transform: translateY(-3px);
+      outline: none;
     }
 
     .logout-btn {
-      margin-top: auto;
       background: #e74c3c;
       color: white;
       border: none;
-      padding: 0.6rem 1.2rem;
-      font-weight: 600;
-      border-radius: 6px;
+      padding: 0.75rem 1.8rem;
+      font-weight: 700;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-size: 1rem;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      align-self: center;
+      max-width: 140px;
+      width: 100%;
+      box-shadow: 0 5px 15px rgba(231, 76, 60, 0.5);
     }
 
-    .logout-btn:hover {
+    .logout-btn:hover,
+    .logout-btn:focus {
       background-color: #c0392b;
+      transform: translateY(-2px);
+      outline: none;
     }
 
     /* Modal styles */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.55);
       display: none;
       justify-content: center;
       align-items: center;
@@ -100,29 +151,32 @@
 
     .modal {
       background: white;
-      border-radius: 8px;
+      border-radius: 14px;
       max-width: 480px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      padding: 1.5rem 2rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      padding: 2rem 2.5rem;
       position: relative;
+      font-size: 1rem;
     }
 
     .modal h2 {
       margin-top: 0;
-      margin-bottom: 1rem;
-      color: #333;
-      font-weight: 600;
-      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      color: #27ae60;
+      font-weight: 700;
+      font-size: 1.8rem;
       text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .modal form {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.2rem;
     }
 
     .modal label {
@@ -132,9 +186,9 @@
 
     .modal input[type="text"],
     .modal textarea {
-      padding: 0.65rem 1rem;
-      border-radius: 6px;
-      border: 1.5px solid #ccc;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border: 1.8px solid #ddd;
       font-size: 1rem;
       resize: vertical;
       transition: border-color 0.3s ease;
@@ -143,72 +197,103 @@
 
     .modal input[type="text"]:focus,
     .modal textarea:focus {
-      border-color: #4a90e2;
+      border-color: #c71585;
       outline: none;
-      box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+      box-shadow: 0 0 7px rgba(199, 21, 133, 0.6);
     }
 
     .modal input[readonly] {
-      background: #eee;
-      cursor: not-allowed;
+      background: #f9f9f9;
+      cursor: default;
+      color: #777;
     }
 
     .modal input[type="file"] {
       border: none;
       padding: 0;
+      font-size: 1rem;
+      color: #444;
     }
 
     .modal button[type="submit"] {
-      padding: 0.85rem;
-      background-color: #4a90e2;
+      padding: 1rem 0;
+      background-color: #27ae60;
       color: white;
       border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 1.1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.2rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      user-select: none;
     }
 
-    .modal button[type="submit"]:hover {
-      background-color: #357abd;
+    .modal button[type="submit"]:hover,
+    .modal button[type="submit"]:focus {
+      background-color: #c71585;
+      box-shadow: 0 0 15px rgba(199, 21, 133, 0.8);
+      outline: none;
     }
 
     .close-modal-btn {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 14px;
+      right: 14px;
       background: transparent;
       border: none;
-      font-size: 1.5rem;
+      font-size: 2rem;
       cursor: pointer;
-      color: #888;
+      color: #c71585;
+      font-weight: 700;
       transition: color 0.2s ease;
+      user-select: none;
+      line-height: 1;
     }
 
-    .close-modal-btn:hover {
-      color: #444;
+    .close-modal-btn:hover,
+    .close-modal-btn:focus {
+      color: #27ae60;
+      outline: none;
     }
 
-    @media (max-width: 480px) {
-      .dashboards {
-        flex-direction: column;
-        gap: 1rem;
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      .dashboards a {
+        flex: 1 1 100%;
+        font-size: 1.1rem;
+        padding: 1.3rem 1.5rem;
+      }
+      #openModalBtn {
+        max-width: 100%;
+        font-size: 1.1rem;
+      }
+      .logout-btn {
+        max-width: 100%;
+      }
+      .modal {
+        padding: 1.5rem 1.8rem;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to KPI Dashboards</h1>
+  <h1>KPI DASHBOARDS</h1>
+  <p class="subtitle">Select your dashboard or report an incident</p>
 
   <nav class="dashboards" aria-label="Dashboard links">
-    <a href="dashboard1.html">Dashboard 1</a>
-    <a href="dashboard2.html">Dashboard 2</a>
-    <a href="dashboard3.html">Dashboard 3</a>
-    <a href="dashboard4.html">Dashboard 4</a>
+    <a href="dashboard1.html" tabindex="0">Dashboard 1</a>
+    <a href="dashboard2.html" tabindex="0">Dashboard 2</a>
+    <a href="dashboard3.html" tabindex="0">Dashboard 3</a>
+    <a href="dashboard4.html" tabindex="0">Dashboard 4</a>
   </nav>
 
-  <button id="openModalBtn" aria-haspopup="dialog" aria-controls="incidentModal" aria-expanded="false">Report Incident</button>
+  <button id="openModalBtn" aria-haspopup="dialog" aria-controls="incidentModal" aria-expanded="false">
+    Report Incident
+  </button>
 
   <!-- Modal -->
   <div class="modal-overlay" id="incidentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
@@ -248,8 +333,6 @@
     const modal = document.getElementById("incidentModal");
     const openModalBtn = document.getElementById("openModalBtn");
     const closeModalBtn = modal.querySelector(".close-modal-btn");
-    const firstFocusable = usernameInput; // first focusable inside modal
-    const lastFocusable = modal.querySelector("button[type='submit']");
 
     // Open modal
     openModalBtn.addEventListener("click", () => {
@@ -269,19 +352,11 @@
 
     // Close modal events
     closeModalBtn.addEventListener("click", closeModal);
-
-    // Close modal on outside click
     modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        closeModal();
-      }
+      if (e.target === modal) closeModal();
     });
-
-    // Close modal on ESC key
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("active")) {
-        closeModal();
-      }
+      if (e.key === "Escape" && modal.classList.contains("active")) closeModal();
     });
 
     // Trap focus inside modal
@@ -291,12 +366,12 @@
         const firstElem = focusableElements[0];
         const lastElem = focusableElements[focusableElements.length - 1];
 
-        if (e.shiftKey) { // shift + tab
+        if (e.shiftKey) {
           if (document.activeElement === firstElem) {
             e.preventDefault();
             lastElem.focus();
           }
-        } else { // tab
+        } else {
           if (document.activeElement === lastElem) {
             e.preventDefault();
             firstElem.focus();
@@ -305,7 +380,6 @@
       }
     });
 
-    // Google Form endpoint and entries
     const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse";
 
     document.getElementById("incidentForm").addEventListener("submit", function(e) {
@@ -313,7 +387,6 @@
 
       const area = document.getElementById("area").value.trim();
       const description = document.getElementById("description").value.trim();
-      const imageInput = document.getElementById("image");
       const username = usernameInput.value.trim();
 
       if (!area || !description) {
@@ -321,10 +394,9 @@
         return;
       }
 
-      // As before: Google Forms does not support direct file upload via URL or POST.
-      // So image is not submitted to Google Forms.
+      // Google Forms does not accept file uploads via POST, so image is ignored here.
 
-      // Create form to submit to Google Forms
+      // Create form for Google Forms submission
       const form = document.createElement("form");
       form.action = googleFormURL;
       form.method = "POST";
@@ -351,7 +423,6 @@
 
       alert("Incident submitted! A new tab has been opened for confirmation.");
 
-      // Reset form and close modal
       clearForm();
       closeModal();
     });
@@ -362,7 +433,6 @@
       document.getElementById("image").value = "";
     }
 
-    // Logout button handler
     document.getElementById("logoutBtn").addEventListener("click", () => {
       localStorage.removeItem("authenticated");
       localStorage.removeItem("username");
