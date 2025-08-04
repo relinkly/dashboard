@@ -3,113 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KPI Dashboards Menu</title>
+  <title>KPI Dashboards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* Reset and base */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
+    /* Using your second page styling style and fonts */
 
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #ffffff;
+      font-family: 'Inter', sans-serif;
+      background: #fff;
       color: #333;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 3rem 1rem 4rem;
-      line-height: 1.6;
+      padding: 2rem 1rem 3rem;
     }
 
-    h1 {
+    .container {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header.header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header.header h1 {
       font-weight: 700;
       font-size: 2.8rem;
       color: #27ae60; /* Brand green */
-      margin-bottom: 1rem;
-      text-align: center;
-      letter-spacing: 1px;
       text-transform: uppercase;
+      letter-spacing: 1px;
       text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin: 0;
     }
 
-    .subtitle {
-      font-size: 1.1rem;
-      color: #c71585; /* Fuchsia */
-      margin-bottom: 3rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-align: center;
-    }
-
-    .dashboards {
+    nav.buttons {
       display: flex;
-      gap: 2rem;
       flex-wrap: wrap;
+      gap: 1.5rem;
       justify-content: center;
-      max-width: 900px;
-      width: 100%;
       margin-bottom: 3rem;
+      width: 100%;
     }
 
-    .dashboards a {
-      flex: 1 1 200px;
-      background: #27ae60; /* green */
-      color: white;
-      padding: 1.6rem 2rem;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.2rem;
+    .card {
+      background: #27ae60;
+      color: #fff;
       border-radius: 12px;
       box-shadow: 0 6px 15px rgba(39, 174, 96, 0.4);
+      flex: 1 1 200px;
+      max-width: 220px;
+      cursor: pointer;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-      user-select: none;
+      padding: 1.6rem 1.8rem;
+      font-weight: 700;
+      font-size: 1.2rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      user-select: none;
+      text-align: center;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      text-decoration: none;
     }
-
-    .dashboards a:hover,
-    .dashboards a:focus {
-      background-color: #c71585; /* fuchsia */
+    .card:hover,
+    .card:focus {
+      background-color: #c71585;
       box-shadow: 0 8px 25px rgba(199, 21, 133, 0.6);
       transform: translateY(-3px);
       outline: none;
       color: white;
     }
 
-    #openModalBtn {
-      background: #c71585; /* fuchsia */
-      color: white;
-      padding: 1.3rem 3rem;
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #c71585;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      fill: white;
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .card-title {
       font-weight: 700;
       font-size: 1.2rem;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 6px 15px rgba(199, 21, 133, 0.5);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      user-select: none;
-      margin-bottom: 3rem;
-      align-self: center;
-      max-width: 280px;
-      width: 100%;
+      line-height: 1.1;
+    }
+    .card-subtitle {
+      font-weight: 600;
+      font-size: 0.85rem;
+      opacity: 0.85;
     }
 
-    #openModalBtn:hover,
-    #openModalBtn:focus {
-      background-color: #27ae60; /* green */
-      box-shadow: 0 8px 20px rgba(39, 174, 96, 0.7);
-      transform: translateY(-3px);
-      outline: none;
-    }
-
-    .logout-btn {
+    button.logout-btn {
       background: #e74c3c;
       color: white;
       border: none;
@@ -120,36 +122,37 @@
       font-size: 1.1rem;
       transition: background-color 0.3s ease, transform 0.2s ease;
       user-select: none;
-      align-self: center;
+      margin-bottom: 2rem;
       max-width: 140px;
       width: 100%;
       box-shadow: 0 5px 15px rgba(231, 76, 60, 0.5);
+      align-self: center;
     }
 
-    .logout-btn:hover,
-    .logout-btn:focus {
+    button.logout-btn:hover,
+    button.logout-btn:focus {
       background-color: #c0392b;
       transform: translateY(-2px);
       outline: none;
     }
 
     /* Modal styles */
-    .modal-overlay {
+
+    #incidentModal {
+      display: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.55);
-      display: none;
       justify-content: center;
       align-items: center;
       z-index: 9999;
       padding: 1rem;
     }
-
-    .modal-overlay.active {
+    #incidentModal.active {
       display: flex;
     }
 
-    .modal {
+    .modal-content {
       background: white;
       border-radius: 14px;
       max-width: 480px;
@@ -160,11 +163,13 @@
       padding: 2rem 2.5rem;
       position: relative;
       font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    .modal h2 {
-      margin-top: 0;
-      margin-bottom: 1.5rem;
+    .modal-header {
+      margin: 0 0 1.5rem 0;
       color: #27ae60;
       font-weight: 700;
       font-size: 1.8rem;
@@ -173,19 +178,19 @@
       letter-spacing: 0.05em;
     }
 
-    .modal form {
+    form#incidentForm {
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
     }
 
-    .modal label {
+    label {
       font-weight: 600;
       color: #555;
     }
 
-    .modal input[type="text"],
-    .modal textarea {
+    input[type="text"],
+    textarea {
       padding: 0.8rem 1rem;
       border-radius: 8px;
       border: 1.8px solid #ddd;
@@ -195,49 +200,18 @@
       font-family: inherit;
     }
 
-    .modal input[type="text"]:focus,
-    .modal textarea:focus {
+    input[type="text"]:focus,
+    textarea:focus {
       border-color: #c71585;
       outline: none;
       box-shadow: 0 0 7px rgba(199, 21, 133, 0.6);
     }
 
-    .modal input[readonly] {
-      background: #f9f9f9;
-      cursor: default;
-      color: #777;
+    textarea {
+      min-height: 80px;
     }
 
-    .modal input[type="file"] {
-      border: none;
-      padding: 0;
-      font-size: 1rem;
-      color: #444;
-    }
-
-    .modal button[type="submit"] {
-      padding: 1rem 0;
-      background-color: #27ae60;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      user-select: none;
-    }
-
-    .modal button[type="submit"]:hover,
-    .modal button[type="submit"]:focus {
-      background-color: #c71585;
-      box-shadow: 0 0 15px rgba(199, 21, 133, 0.8);
-      outline: none;
-    }
-
-    .close-modal-btn {
+    .close-btn {
       position: absolute;
       top: 14px;
       right: 14px;
@@ -251,190 +225,288 @@
       user-select: none;
       line-height: 1;
     }
-
-    .close-modal-btn:hover,
-    .close-modal-btn:focus {
+    .close-btn:hover,
+    .close-btn:focus {
       color: #27ae60;
       outline: none;
     }
 
+    video#video {
+      width: 100%;
+      border-radius: 12px;
+      background: #000;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border: 1.8px solid #ddd;
+    }
+    canvas#canvas {
+      width: 100%;
+      border-radius: 12px;
+      border: 1.8px solid #ddd;
+      display: none;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    button.btn-capture,
+    button.btn-retake {
+      background-color: #c71585;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 0.8rem 1.5rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    button.btn-capture:hover,
+    button.btn-capture:focus,
+    button.btn-retake:hover,
+    button.btn-retake:focus {
+      background-color: #27ae60;
+      box-shadow: 0 0 15px rgba(39, 174, 96, 0.7);
+      outline: none;
+    }
+
+    button[type="submit"] {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 1rem 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      user-select: none;
+      margin-top: 0.5rem;
+    }
+
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      background-color: #c71585;
+      box-shadow: 0 0 15px rgba(199, 21, 133, 0.8);
+      outline: none;
+    }
+
     @media (max-width: 600px) {
-      h1 {
+      header.header h1 {
         font-size: 2.2rem;
       }
-      .dashboards a {
+      nav.buttons {
+        gap: 1rem;
+      }
+      .card {
         flex: 1 1 100%;
+        max-width: none;
         font-size: 1.1rem;
         padding: 1.3rem 1.5rem;
       }
-      #openModalBtn {
-        max-width: 100%;
-        font-size: 1.1rem;
+      .btn-group {
+        flex-direction: column;
       }
-      .logout-btn {
-        max-width: 100%;
-      }
-      .modal {
-        padding: 1.5rem 1.8rem;
+      button.btn-capture, button.btn-retake {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <main>
-    <header style="text-align:center; margin-bottom: 2rem;">
-      <img src="your-logo.svg" alt="Company Logo" style="height:48px; margin-bottom: 0.5rem;" />
-      <h1>KPI DASHBOARDS</h1>
-      <p class="subtitle">Select your dashboard or report an incident</p>
+  <div class="container" role="main" aria-label="Company KPI Dashboards">
+
+    <header class="header">
+      <img src="your-logo.svg" alt="Company Logo" style="height:60px; margin-bottom: 1rem;" />
+      <h1>KPI Dashboards</h1>
     </header>
 
-    <nav class="dashboards" aria-label="Dashboard links">
-      <a href="dashboard1.html" tabindex="0">Dashboard 1</a>
-      <a href="dashboard2.html" tabindex="0">Dashboard 2</a>
-      <a href="dashboard3.html" tabindex="0">Dashboard 3</a>
-      <a href="dashboard4.html" tabindex="0">Dashboard 4</a>
+    <nav class="buttons" role="navigation" aria-label="Dashboard Navigation">
+      <a href="dashboard.html" class="card" aria-label="View KPI Dashboard">
+        <div class="card-icon" aria-hidden="true">
+          <!-- You can replace this SVG with your own dashboard icon -->
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        </div>
+        <span class="card-title">Dashboard</span>
+        <span class="card-subtitle">View KPIs</span>
+      </a>
+
+      <button class="card" id="openModalBtn" aria-haspopup="dialog" aria-controls="incidentModal" aria-expanded="false" aria-label="Report Incident">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Camera icon -->
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="4"></circle><path d="M5 7h-1a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-1"></path></svg>
+        </div>
+        <span class="card-title">Report</span>
+        <span class="card-subtitle">Incident</span>
+      </button>
     </nav>
 
-    <button id="openModalBtn" aria-haspopup="dialog" aria-controls="incidentModal" aria-expanded="false">
-      Report Incident
-    </button>
+    <button class="logout-btn" id="logoutBtn" aria-label="Log out">Log Out</button>
 
-  <!-- Modal -->
-  <div class="modal-overlay" id="incidentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
-    <div class="modal">
-      <button class="close-modal-btn" aria-label="Close incident report form">&times;</button>
-      <h2 id="modalTitle">Incident Reporting</h2>
-      <form id="incidentForm" novalidate>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" readonly aria-readonly="true" />
-
-        <label for="area">Area</label>
-        <input type="text" id="area" name="area" placeholder="Enter area" required aria-required="true" />
-
-        <label for="description">Description</label>
-        <textarea id="description" name="description" rows="4" placeholder="Describe the incident" required aria-required="true"></textarea>
-
-        <label for="image">Upload Image (optional)</label>
-<input type="file" id="image" name="image" accept="image/*" capture="environment" />
-
-        <button type="submit">Submit Incident</button>
-      </form>
-    </div>
   </div>
 
-  <button class="logout-btn" id="logoutBtn" aria-label="Log out">Logout</button>
+  <!-- Modal for incident reporting -->
+  <section id="incidentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="modal-content">
+      <button class="close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
+      <h2 class="modal-header" id="modalTitle">Report Incident</h2>
+
+      <form id="incidentForm">
+        <label for="username">User Name</label>
+        <input type="text" id="username" name="username" placeholder="Your Name" required autocomplete="name" />
+
+        <label for="description">Incident Description</label>
+        <textarea id="description" name="description" placeholder="Describe the incident..." required></textarea>
+
+        <label for="area">Area</label>
+        <input type="text" id="area" name="area" placeholder="Location or area" required autocomplete="off" />
+
+        <label for="video">Capture Image</label>
+        <video id="video" autoplay playsinline aria-label="Camera preview"></video>
+        <canvas id="canvas" aria-hidden="true"></canvas>
+
+        <div class="btn-group">
+          <button type="button" class="btn-capture" id="captureBtn" aria-label="Capture photo">Capture</button>
+          <button type="button" class="btn-retake" id="retakeBtn" aria-label="Retake photo" style="display:none;">Retake</button>
+        </div>
+
+        <button type="submit" aria-label="Submit incident report">Submit</button>
+      </form>
+    </div>
+  </section>
 
   <script>
-    // Redirect if not logged in
-    if (localStorage.getItem("authenticated") !== "true") {
-      window.location.href = "login.html";
-    }
+    // Modal open/close & aria-expanded toggling
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const incidentModal = document.getElementById('incidentModal');
+    const body = document.body;
 
-    const usernameInput = document.getElementById("username");
-    const loggedInUser = localStorage.getItem("username") || "";
-    usernameInput.value = loggedInUser;
-
-    const modal = document.getElementById("incidentModal");
-    const openModalBtn = document.getElementById("openModalBtn");
-    const closeModalBtn = modal.querySelector(".close-modal-btn");
-
-    // Open modal
-    openModalBtn.addEventListener("click", () => {
-      modal.classList.add("active");
-      openModalBtn.setAttribute("aria-expanded", "true");
-      modal.setAttribute("tabindex", "-1");
-      modal.focus();
+    openModalBtn.addEventListener('click', () => {
+      incidentModal.classList.add('active');
+      openModalBtn.setAttribute('aria-expanded', 'true');
+      incidentModal.focus();
+      startCamera();
     });
 
-    // Close modal function
+    closeModalBtn.addEventListener('click', closeModal);
+    incidentModal.addEventListener('click', (e) => {
+      if (e.target === incidentModal) closeModal();
+    });
+
     function closeModal() {
-      modal.classList.remove("active");
-      openModalBtn.setAttribute("aria-expanded", "false");
+      incidentModal.classList.remove('active');
+      openModalBtn.setAttribute('aria-expanded', 'false');
+      stopCamera();
+      resetForm();
       openModalBtn.focus();
-      clearForm();
     }
 
-    // Close modal events
-    closeModalBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("active")) closeModal();
-    });
+    // Camera setup
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureBtn = document.getElementById('captureBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
+    let stream;
 
-    // Trap focus inside modal
-    modal.addEventListener("keydown", (e) => {
-      if (e.key === "Tab") {
-        const focusableElements = modal.querySelectorAll("input, textarea, button");
-        const firstElem = focusableElements[0];
-        const lastElem = focusableElements[focusableElements.length - 1];
-
-        if (e.shiftKey) {
-          if (document.activeElement === firstElem) {
-            e.preventDefault();
-            lastElem.focus();
-          }
-        } else {
-          if (document.activeElement === lastElem) {
-            e.preventDefault();
-            firstElem.focus();
-          }
-        }
+    async function startCamera() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+        video.srcObject = stream;
+        video.style.display = 'block';
+        canvas.style.display = 'none';
+        captureBtn.style.display = 'inline-block';
+        retakeBtn.style.display = 'none';
+      } catch (err) {
+        alert('Camera not accessible: ' + err.message);
       }
-    });
-
-    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse";
-
-    document.getElementById("incidentForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const area = document.getElementById("area").value.trim();
-  const description = document.getElementById("description").value.trim();
-  const username = usernameInput.value.trim();
-
-  if (!area || !description) {
-    alert("Please fill in all required fields.");
-    return;
-  }
-
-  // Google Forms does not accept file uploads via POST, so image is ignored here.
-
-  const formData = new FormData();
-  formData.append("entry.2120015252", username);
-  formData.append("entry.1059382315", area);
-  formData.append("entry.1887453304", description);
-
-  fetch(googleFormURL, {
-    method: "POST",
-    mode: "no-cors",  // important to prevent CORS errors
-    body: formData
-  })
-  .then(() => {
-    alert("Incident submitted successfully!");
-    clearForm();
-    closeModal();
-  })
-  .catch(() => {
-    alert("There was an issue submitting the incident. Please try again.");
-  });
-});
-
-
-    function clearForm() {
-      document.getElementById("area").value = "";
-      document.getElementById("description").value = "";
-      document.getElementById("image").value = "";
     }
 
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      localStorage.removeItem("authenticated");
-      localStorage.removeItem("username");
-      window.location.href = "login.html";
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+      video.srcObject = null;
+    }
+
+    captureBtn.addEventListener('click', () => {
+      const context = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.style.display = 'block';
+      video.style.display = 'none';
+      captureBtn.style.display = 'none';
+      retakeBtn.style.display = 'inline-block';
+    });
+
+    retakeBtn.addEventListener('click', () => {
+      canvas.style.display = 'none';
+      video.style.display = 'block';
+      captureBtn.style.display = 'inline-block';
+      retakeBtn.style.display = 'none';
+    });
+
+    // Form submit handling
+    const incidentForm = document.getElementById('incidentForm');
+    incidentForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Extract form data
+      const username = incidentForm.username.value.trim();
+      const description = incidentForm.description.value.trim();
+      const area = incidentForm.area.value.trim();
+
+      // Ensure a photo is captured
+      if (canvas.style.display === 'none') {
+        alert('Please capture a photo before submitting.');
+        return;
+      }
+
+      // Get the image data as Base64 string
+      const imageData = canvas.toDataURL('image/png');
+
+      // Prepare your payload for backend or logging
+      const reportData = {
+        username,
+        description,
+        area,
+        image: imageData,
+        timestamp: new Date().toISOString()
+      };
+
+      // Here you can send the data via fetch() or any API you have
+      // For demo, just log it and close modal
+      console.log('Submitting incident report:', reportData);
+
+      alert('Incident report submitted successfully!');
+
+      closeModal();
+    });
+
+    // Reset form to default state
+    function resetForm() {
+      incidentForm.reset();
+      canvas.style.display = 'none';
+      video.style.display = 'block';
+      captureBtn.style.display = 'inline-block';
+      retakeBtn.style.display = 'none';
+    }
+
+    // Logout button event (example)
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      alert('Logging out...');
+      // Redirect or clear session here
+      window.location.href = '/login.html'; // example
     });
   </script>
 </body>
 </html>
-
-
-
