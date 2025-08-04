@@ -536,14 +536,16 @@
       });
 
       incidentForm.addEventListener("submit", (event) => {
-  // Remove event.preventDefault() so form can submit
   if (!incidentForm.area.value.trim() || !incidentForm.description.value.trim()) {
     alert("Please fill in all required fields.");
-    event.preventDefault(); // only prevent if validation fails
+    event.preventDefault();
     return;
   }
-  alert("Incident reported successfully."); // This will likely not show as form submission reloads
-  // No form reset or modal close here; form will submit and reload page (or iframe target)
+  alert("Incident reported successfully.");
+  // Let the form submit normally to Google Forms and reload via hidden iframe.
+  incidentForm.reset();
+  usernameInput.value = loggedInUser;
+  closeModal();
 });
 
 
@@ -555,6 +557,7 @@
   </script>
 </body>
 </html>
+
 
 
 
