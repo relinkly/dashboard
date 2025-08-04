@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>KPI Dashboards</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KPI Dashboards</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --brand-green: #28a745;
-      --brand-fuchsia: #d63384;
+      --brand-fuchsia: #c2185b;
       --neutral-white: #ffffff;
-      --neutral-gray: #f8f9fa;
-      --text-dark: #212529;
+      --neutral-gray: #f5f7fa;
+      --border-gray: #e0e0e0;
+      --text-dark: #2c2c2c;
+      --text-light: #6c757d;
     }
 
     * {
@@ -26,37 +28,31 @@
       color: var(--text-dark);
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
-      padding: 40px 20px;
+      padding: 60px 20px;
     }
 
     .container {
       background-color: var(--neutral-white);
       border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-      max-width: 820px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      max-width: 900px;
       width: 100%;
       padding: 48px 40px;
     }
 
     .header {
-      text-align: center;
-      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border-gray);
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      text-align: left;
     }
 
     .header h1 {
-      font-size: 2.4rem;
-      font-weight: 700;
+      font-size: 2rem;
+      font-weight: 600;
       color: var(--text-dark);
-    }
-
-    .divider {
-      width: 60px;
-      height: 4px;
-      background: var(--brand-fuchsia);
-      margin: 16px auto 0;
-      border-radius: 2px;
     }
 
     .buttons {
@@ -65,45 +61,58 @@
       gap: 24px;
     }
 
-    .buttons a {
-      display: block;
-      background: var(--neutral-white);
-      border: 1px solid #dee2e6;
-      border-left: 5px solid var(--brand-green);
-      border-radius: 8px;
-      padding: 24px 20px;
+    .card {
+      background-color: #fff;
+      border: 1px solid var(--border-gray);
+      border-radius: 10px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
       text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 600;
+      color: inherit;
       transition: box-shadow 0.3s ease, transform 0.2s ease;
     }
 
-    .buttons a:hover {
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-      transform: translateY(-4px);
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
     }
 
-    .buttons a .title {
-      font-size: 1.1rem;
-      margin-top: 8px;
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--brand-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .buttons a .icon {
-      font-size: 2rem;
-      color: var(--brand-fuchsia);
+    .card-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+    }
+
+    .card-content {
+      flex: 1;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .card-subtitle {
+      font-size: 0.875rem;
+      color: var(--text-light);
     }
 
     @media (max-width: 480px) {
       .container {
-        padding: 32px 24px;
-      }
-
-      .header h1 {
-        font-size: 2rem;
-      }
-
-      .buttons a {
-        padding: 20px 16px;
+        padding: 32px 20px;
       }
     }
   </style>
@@ -112,25 +121,47 @@
   <div class="container" role="main" aria-label="Company KPI Dashboards">
     <header class="header">
       <h1>KPI Dashboards</h1>
-      <div class="divider"></div>
     </header>
 
     <nav class="buttons" aria-label="Dashboard navigation">
-      <a href="dashboard1.html" aria-label="ZL & BVS Active Retail Dashboard">
-        <div class="icon">📊</div>
-        <div class="title">ZL & BVS Active Retail Dashboard</div>
+      <a class="card" href="dashboard1.html" aria-label="ZL & BVS Active Retail Dashboard">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 13h4v-2H3v2zm6 4h4v-6h-4v6zm6-10v10h4V7h-4z"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">ZL & BVS Active Retail</div>
+          <div class="card-subtitle">Retail performance overview</div>
+        </div>
       </a>
-      <a href="dashboard2.html" aria-label="Gross Addition Performance Dashboard">
-        <div class="icon">📈</div>
-        <div class="title">Gross Addition Performance</div>
+
+      <a class="card" href="dashboard2.html" aria-label="Gross Addition Performance Dashboard">
+        <div class="card-icon" style="background-color: var(--brand-fuchsia);">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4V6zm0 6h10v2H4v-2zm0 6h7v2H4v-2z"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">Gross Additions</div>
+          <div class="card-subtitle">SIM & subscriber acquisition</div>
+        </div>
       </a>
-      <a href="dashboard3.html" aria-label="Enablers Dashboard">
-        <div class="icon">🎯</div>
-        <div class="title">Enablers Dashboard</div>
+
+      <a class="card" href="dashboard3.html" aria-label="Enablers Dashboard">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9a9 9 0 009 9c4.97 0 9-4.03 9-9s-4.03-9-9-9zm1 13h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">Enablers</div>
+          <div class="card-subtitle">Operational drivers</div>
+        </div>
       </a>
-      <a href="dashboard4.html" aria-label="Discounted Bundles Dashboard">
-        <div class="icon">⚙️</div>
-        <div class="title">Discounted Bundles Dashboard</div>
+
+      <a class="card" href="dashboard4.html" aria-label="Discounted Bundles Dashboard">
+        <div class="card-icon" style="background-color: var(--brand-fuchsia);">
+          <svg viewBox="0 0 24 24"><path d="M21 7L9 19l-5.5-5.5L7 12l3 3L19.5 7H21z"/></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">Discounted Bundles</div>
+          <div class="card-subtitle">Promo & bundle analytics</div>
+        </div>
       </a>
     </nav>
   </div>
