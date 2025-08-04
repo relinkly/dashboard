@@ -11,310 +11,283 @@
   }
   body {
     margin: 0;
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #fff; /* clean white background */
-    color: #1f2937; /* dark slate */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    color: #2d2d2d;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 64px 24px 80px;
+    padding: 48px 24px;
   }
   main {
-    max-width: 960px;
+    max-width: 900px;
     width: 100%;
   }
 
   /* Header */
   header {
     text-align: center;
-    margin-bottom: 64px;
+    margin-bottom: 48px;
   }
   h1 {
-    font-weight: 900;
-    font-size: 3.6rem;
-    color: #047857; /* brand green */
-    margin-bottom: 12px;
-    letter-spacing: 0.16em;
+    font-weight: 700;
+    font-size: 2.8rem;
+    color: #154734; /* Dark green */
+    margin-bottom: 6px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     user-select: none;
-    text-shadow: 0 1px 3px rgb(4 120 87 / 0.25);
   }
   .subtitle {
-    font-weight: 600;
-    font-size: 1.375rem;
-    color: #a21caf; /* brand fuchsia */
-    letter-spacing: 0.12em;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #5a5a5a;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     user-select: none;
-    font-style: italic;
   }
 
   /* Navigation Dashboards */
   nav.dashboards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 32px;
-    margin-bottom: 64px;
+    gap: 24px;
+    margin-bottom: 48px;
   }
   nav.dashboards a {
-    background-color: #e0f2f1; /* soft mint green */
-    border-radius: 14px;
-    padding: 32px 24px;
-    color: #047857; /* brand green */
-    font-weight: 700;
-    font-size: 1.4rem;
+    background-color: #fafafa;
+    border-radius: 10px;
+    padding: 22px 18px;
+    color: #154734; /* dark green */
+    font-weight: 600;
+    font-size: 1.2rem;
     text-align: center;
     text-decoration: none;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;
     cursor: pointer;
-    box-shadow:
-      0 2px 8px rgb(4 120 87 / 0.15),
-      inset 0 -3px 6px rgb(162 28 175 / 0.12);
-    transition:
-      background-color 0.35s ease,
-      color 0.35s ease,
-      box-shadow 0.35s ease,
-      transform 0.25s ease;
+    box-shadow: 0 2px 5px rgba(21, 71, 52, 0.1);
+    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.3s ease, transform 0.15s ease;
     position: relative;
   }
   nav.dashboards a::before {
-    content: "📊";
-    font-size: 2.0rem;
-    margin-right: 14px;
-    filter: drop-shadow(0 1px 1px rgb(4 120 87 / 0.25));
+    content: "📈";
+    font-size: 1.6rem;
+    margin-right: 10px;
   }
   nav.dashboards a:hover,
   nav.dashboards a:focus {
-    background-color: #a21caf; /* brand fuchsia */
-    color: #fff;
+    background-color: #d6f5e3; /* very light green */
+    color: #0b3d23; /* darker green */
+    box-shadow: 0 8px 14px rgba(21, 71, 52, 0.15);
+    transform: translateY(-2px);
     outline: none;
-    box-shadow:
-      0 8px 22px rgb(162 28 175 / 0.5),
-      inset 0 -3px 6px rgb(255 255 255 / 0.2);
-    transform: translateY(-4px) scale(1.03);
   }
 
   /* Buttons */
   #openModalBtn {
     display: block;
-    margin: 0 auto 64px;
-    background: linear-gradient(135deg, #a21caf, #047857);
+    margin: 0 auto 48px;
+    background: #bc3a6d; /* muted fuchsia */
     border: none;
-    padding: 18px 48px;
-    border-radius: 32px;
+    padding: 14px 40px;
+    border-radius: 24px;
     color: #fff;
-    font-weight: 800;
-    font-size: 1.35rem;
-    letter-spacing: 0.14em;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
     user-select: none;
-    box-shadow:
-      0 8px 20px rgb(162 28 175 / 0.45),
-      0 0 18px 4px rgb(4 120 87 / 0.3);
-    transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.25s ease;
+    box-shadow: 0 5px 12px rgba(188, 58, 109, 0.35);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
   }
   #openModalBtn:hover,
   #openModalBtn:focus {
-    background: linear-gradient(135deg, #6d0e78, #035d43);
-    box-shadow:
-      0 10px 30px rgb(109 14 120 / 0.7),
-      0 0 24px 6px rgb(3 93 67 / 0.5);
+    background: #9e2e5d; /* darker fuchsia */
+    box-shadow: 0 8px 20px rgba(158, 46, 93, 0.55);
     outline: none;
-    transform: scale(1.05);
   }
 
   .logout-btn {
     display: block;
     margin: 0 auto;
-    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    background: #154734; /* dark green */
     border: none;
-    padding: 14px 52px;
-    border-radius: 28px;
-    font-weight: 700;
-    font-size: 1.1rem;
+    padding: 12px 44px;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 1rem;
     color: #fff;
     cursor: pointer;
     user-select: none;
-    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.5);
-    transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+    box-shadow: 0 5px 12px rgba(21, 71, 52, 0.35);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
   }
   .logout-btn:hover,
   .logout-btn:focus {
-    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
-    box-shadow: 0 9px 24px rgba(185, 28, 28, 0.7);
+    background: #0b3d23; /* darker green */
+    box-shadow: 0 7px 18px rgba(11, 61, 35, 0.6);
     outline: none;
-    transform: scale(1.05);
   }
 
   /* Modal Styles */
   .modal-overlay {
     position: fixed;
     inset: 0;
-    background-color: rgba(31, 41, 55, 0.75);
+    background-color: rgba(21, 71, 52, 0.6);
     display: none;
     justify-content: center;
     align-items: center;
     padding: 24px;
     z-index: 1000;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(5px);
   }
   .modal-overlay.active {
     display: flex;
   }
   .modal {
     background-color: #fff;
-    border-radius: 20px;
+    border-radius: 14px;
     width: 100%;
-    max-width: 520px;
+    max-width: 480px;
     max-height: 90vh;
     overflow-y: auto;
-    padding: 40px 48px;
+    padding: 36px 44px;
     position: relative;
-    color: #1f2937;
-    font-size: 1.1rem;
-    box-shadow: 0 18px 56px rgb(0 0 0 / 0.18);
-    border: 1px solid #a21caf; /* subtle border with fuchsia */
+    color: #2d2d2d;
+    font-size: 1rem;
+    box-shadow: 0 16px 42px rgba(0,0,0,0.12);
   }
   .modal h2 {
     margin-top: 0;
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: #047857; /* green */
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #bc3a6d; /* fuchsia */
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
-    margin-bottom: 36px;
+    letter-spacing: 0.1em;
+    margin-bottom: 32px;
     user-select: none;
-    text-shadow: 0 1px 2px rgb(4 120 87 / 0.3);
   }
   .close-modal-btn {
     position: absolute;
-    top: 20px;
-    right: 24px;
+    top: 18px;
+    right: 22px;
     background: transparent;
     border: none;
-    font-size: 2.6rem;
-    font-weight: 900;
-    color: #a21caf;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #bc3a6d;
     cursor: pointer;
     user-select: none;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: color 0.3s ease;
   }
   .close-modal-btn:hover,
   .close-modal-btn:focus {
-    color: #047857;
+    color: #154734;
     outline: none;
-    transform: rotate(90deg);
   }
 
   /* Form Elements */
   form {
     display: flex;
     flex-direction: column;
-    gap: 26px;
+    gap: 20px;
   }
   label {
-    font-weight: 700;
-    color: #374151;
-    letter-spacing: 0.06em;
+    font-weight: 600;
+    color: #555;
+    letter-spacing: 0.04em;
     user-select: none;
-    font-size: 1.05rem;
   }
   input[type="text"],
   textarea {
-    padding: 16px 18px;
-    border-radius: 14px;
-    border: 2px solid #d1d5db;
-    font-size: 1.1rem;
-    font-family: 'Inter', sans-serif;
-    color: #111827;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1.6px solid #cbd5d1;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #2d2d2d;
     resize: vertical;
-    min-height: 48px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    box-shadow: inset 0 2px 6px rgb(0 0 0 / 0.06);
-    background-color: #fefefe;
+    min-height: 42px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
   }
   input[type="text"]:focus,
   textarea:focus {
-    border-color: #a21caf;
+    border-color: #154734;
     outline: none;
     background-color: #fff;
-    box-shadow: 0 0 14px rgb(162 28 175 / 0.5);
+    box-shadow: 0 0 12px rgba(21, 71, 52, 0.25);
   }
   input[readonly] {
-    background-color: #f3f4f6;
-    border-color: #9ca3af;
+    background-color: #f5f7f6;
+    border-color: #a3b5a8;
     cursor: default;
-    color: #6b7280;
+    color: #71806d;
   }
   button[type="submit"] {
-    background: linear-gradient(135deg, #a21caf, #047857);
+    background: #154734;
     border: none;
-    padding: 18px 0;
-    border-radius: 32px;
-    font-weight: 800;
-    font-size: 1.25rem;
+    padding: 14px 0;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 1.1rem;
     color: #fff;
     cursor: pointer;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     user-select: none;
-    transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.3s ease;
-    margin-top: 16px;
-    box-shadow:
-      0 10px 28px rgb(162 28 175 / 0.6),
-      0 0 20px 5px rgb(4 120 87 / 0.4);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 8px;
+    box-shadow: 0 7px 18px rgba(21, 71, 52, 0.35);
   }
   button[type="submit"]:hover,
   button[type="submit"]:focus {
-    background: linear-gradient(135deg, #6d0e78, #035d43);
-    box-shadow:
-      0 14px 38px rgb(109 14 120 / 0.85),
-      0 0 28px 8px rgb(3 93 67 / 0.6);
+    background: #0b3d23;
+    box-shadow: 0 10px 24px rgba(11, 61, 35, 0.55);
     outline: none;
-    transform: scale(1.06);
   }
 
   /* Responsive */
   @media (max-width: 600px) {
     h1 {
-      font-size: 2.6rem;
+      font-size: 2.2rem;
     }
     .subtitle {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
     nav.dashboards {
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: 20px;
     }
     nav.dashboards a {
-      font-size: 1.2rem;
-      padding: 26px 20px;
+      font-size: 1.1rem;
+      padding: 18px 14px;
     }
     nav.dashboards a::before {
-      font-size: 1.8rem;
-      margin-right: 10px;
+      font-size: 1.4rem;
+      margin-right: 8px;
     }
     #openModalBtn {
-      padding: 16px 40px;
-      font-size: 1.2rem;
+      padding: 12px 32px;
+      font-size: 1rem;
     }
     .logout-btn {
-      font-size: 1.05rem;
-      padding: 14px 40px;
+      font-size: 0.95rem;
+      padding: 10px 32px;
     }
     .modal {
-      padding: 32px 32px;
+      padding: 28px 28px;
     }
     .modal h2 {
-      font-size: 2rem;
+      font-size: 1.6rem;
     }
   }
 </style>
@@ -360,7 +333,108 @@
 </main>
 
 <script>
-  // Your existing script (unchanged)
+  // Redirect if not authenticated
+  if (localStorage.getItem("authenticated") !== "true") {
+    window.location.href = "login.html";
+  }
+
+  // Populate username readonly input
+  const usernameInput = document.getElementById("username");
+  const loggedInUser = localStorage.getItem("username") || "";
+  usernameInput.value = loggedInUser;
+
+  // Modal logic
+  const modal = document.getElementById("incidentModal");
+  const openModalBtn = document.getElementById("openModalBtn");
+  const closeModalBtn = modal.querySelector(".close-modal-btn");
+
+  openModalBtn.addEventListener("click", () => {
+    modal.classList.add("active");
+    openModalBtn.setAttribute("aria-expanded", "true");
+    modal.setAttribute("tabindex", "-1");
+    modal.focus();
+  });
+
+  function closeModal() {
+    modal.classList.remove("active");
+    openModalBtn.setAttribute("aria-expanded", "false");
+    openModalBtn.focus();
+    clearForm();
+  }
+
+  closeModalBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("active")) closeModal();
+  });
+
+  // Trap focus inside modal
+  modal.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      const focusable = modal.querySelectorAll("input, textarea, button");
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+  });
+
+  const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse";
+
+  document.getElementById("incidentForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const area = document.getElementById("area").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const username = usernameInput.value.trim();
+
+    if (!area || !description) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("entry.2120015252", username);
+    formData.append("entry.1887453304", description);
+    formData.append("entry.1059382315", area);
+
+    fetch(googleFormURL, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    })
+    .then(() => {
+      alert("Incident submitted successfully!");
+      clearForm();
+      closeModal();
+    })
+    .catch(() => {
+      alert("There was an issue submitting the incident. Please try again.");
+    });
+  });
+
+  function clearForm() {
+    document.getElementById("area").value = "";
+    document.getElementById("description").value = "";
+  }
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("authenticated");
+    localStorage.removeItem("username");
+    window.location.href = "login.html";
+  });
 </script>
 </body>
 </html>
