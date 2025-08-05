@@ -554,6 +554,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.classList.add("active");
     modal.setAttribute("aria-hidden", "false");
     openModalBtn.setAttribute("aria-expanded", "true");
+
     const focusableElements = modal.querySelectorAll(focusableSelectors.join(","));
     if (focusableElements.length) {
       focusableElements[0].focus();
@@ -606,67 +607,72 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "login.html";
   });
 
- captureBtn.addEventListener("click", async () => {
-  const context = canvas.getContext("2d");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  captureBtn.addEventListener("click", async () => {
+    const context = canvas.getContext("2d");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-  imageDataURL = canvas.toDataURL("image/png");
-  video.style.display = "none";
-  canvas.style.display = "block";
-  captureBtn.style.display = "none";
-  retakeBtn.style.display = "inline-block";
+    imageDataURL = canvas.toDataURL("image/png");
+    video.style.display = "none";
+    canvas.style.display = "block";
+    captureBtn.style.display = "none";
+    retakeBtn.style.display = "inline-block";
 
-  // Stop camera preview after capturing photo
-  stopCamera();
+    stopCamera();
 
-  // Upload image to Imgbb
-  const uploadedImageUrl = await uploadToImgbb(imageDataURL);
-  if (uploadedImageUrl) {
-    console.log("Image uploaded to Imgbb:", uploadedImageUrl);
-    // Optionally, store this URL somewhere or add it to your form data
-    // For example, store in a hidden input:
-    const imgUrlInput = document.getElementById("imgUrlInput");
-    if (imgUrlInput) imgUrlInput.value = uploadedImageUrl;
+    const uploadedImageUrl = await uploadToImgbb(imageDataURL);
+    if (uploadedImageUrl) {
+      console.log("Image uploaded to Imgbb:", uploadedImageUrl);
+      const imgUrlInput = document.getElementById("imgUrlInput");
+      if (imgUrlInput) imgUrlInput.value = uploadedImageUrl;
 
-    alert("Image uploaded successfully!");
-  }
-});
+      alert("Image uploaded successfully!");
+    }
+  });
 
+  retakeBtn.addEventListener("click", () => {
+    imageDataURL = null;
+    video.style.display = "block";
+    canvas.style.display = "none";
+    captureBtn.style.display = "inline-block";
+    retakeBtn.style.display = "none";
+
+    startCamera();
+  });
 
   async function uploadToImgbb(base64Image) {
-  const apiKey = '14e51e0636e117beac224a32711adc49';
-  const url = `https://api.imgbb.com/1/upload?key=${apiKey}`;
+    const apiKey = '14e51e0636e117beac224a32711adc49';
+    const url = `https://api.imgbb.com/1/upload?key=${apiKey}`;
 
-  // Remove the data URL prefix if present
-  const base64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
+    const base64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
 
-  const formData = new FormData();
-  formData.append('image', base64);
+    const formData = new FormData();
+    formData.append('image', base64);
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      body: formData
-    });
-    const result = await response.json();
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
 
-    if (result.success) {
-      return result.data.url;  // The URL of the uploaded image
-    } else {
-      throw new Error('Upload failed');
+      if (result.success) {
+        return result.data.url;
+      } else {
+        throw new Error('Upload failed');
+      }
+    } catch (error) {
+      alert("Failed to upload image: " + error.message);
+      return null;
     }
-  } catch (error) {
-    alert("Failed to upload image: " + error.message);
-    return null;
   }
-}
-
+});
 </script>
 
 </body>
 </html>
+
 
 
 
