@@ -606,33 +606,34 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "login.html";
   });
 
-  // Capture photo button
-  captureBtn.addEventListener("click", () => {
-    const context = canvas.getContext("2d");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+ captureBtn.addEventListener("click", async () => {
+  const context = canvas.getContext("2d");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    imageDataURL = canvas.toDataURL("image/png");
-    video.style.display = "none";
-    canvas.style.display = "block";
-    captureBtn.style.display = "none";
-    retakeBtn.style.display = "inline-block";
+  imageDataURL = canvas.toDataURL("image/png");
+  video.style.display = "none";
+  canvas.style.display = "block";
+  captureBtn.style.display = "none";
+  retakeBtn.style.display = "inline-block";
 
-    stopCamera();
-  });
+  // Stop camera preview after capturing photo
+  stopCamera();
 
-  // Retake photo button
-  retakeBtn.addEventListener("click", () => {
-    imageDataURL = null;
-    video.style.display = "block";
-    canvas.style.display = "none";
-    captureBtn.style.display = "inline-block";
-    retakeBtn.style.display = "none";
+  // Upload image to Imgbb
+  const uploadedImageUrl = await uploadToImgbb(imageDataURL);
+  if (uploadedImageUrl) {
+    console.log("Image uploaded to Imgbb:", uploadedImageUrl);
+    // Optionally, store this URL somewhere or add it to your form data
+    // For example, store in a hidden input:
+    const imgUrlInput = document.getElementById("imgUrlInput");
+    if (imgUrlInput) imgUrlInput.value = uploadedImageUrl;
 
-    startCamera();
-  });
+    alert("Image uploaded successfully!");
+  }
 });
+
 
   async function uploadToImgbb(base64Image) {
   const apiKey = '14e51e0636e117beac224a32711adc49';
@@ -666,6 +667,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
 
