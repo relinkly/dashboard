@@ -359,6 +359,12 @@
         gap: 20px;
       }
     }
+
+    video, img {
+      max-width: 300px;
+      display: block;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -438,16 +444,16 @@
     aria-required="true"
   ></textarea>
 
-          <!-- Add these inside your modal form (for image capture) -->
+          <h2>Capture Photo</h2>
 
-<label for="camera">Incident Image</label>
-<video id="camera" width="320" height="240" autoplay playsinline></video>
-<canvas id="snapshot" width="320" height="240" style="display:none; border:1px solid #ccc;"></canvas>
+  <video id="video" autoplay playsinline></video>
+  <canvas id="canvas" style="display:none;"></canvas>
+  <img id="photo" style="display:none;" alt="Captured photo" />
 
-<div style="margin-top: 10px;">
-  <button type="button" id="captureBtn">Take Photo</button>
-  <button type="button" id="retakeBtn" style="display:none;">Retake Photo</button>
-</div>
+  <button id="captureBtn">Take Photo</button>
+  <button id="retakeBtn" style="display:none;">Retake</button>
+  <button id="submitBtn" style="display:none;">Submit Photo</button>
+
 
   <button type="submit">Submit Incident</button>
 </form>
@@ -678,6 +684,7 @@
   </script>
 </body>
 </html>
+
 
 
 
