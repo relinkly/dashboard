@@ -532,15 +532,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
- async function startCamera() {
-  try {
-    // Use back camera
-    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-    video.srcObject = stream;
-  } catch (err) {
-    alert("Could not access the camera. Please allow camera permissions.");
+  async function startCamera() {
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      video.srcObject = stream;
+    } catch (err) {
+      alert("Could not access the camera. Please allow camera permissions.");
+    }
   }
-}
 
   function stopCamera() {
     if (stream) {
@@ -609,28 +608,28 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   captureBtn.addEventListener("click", async () => {
-  const context = canvas.getContext("2d");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const context = canvas.getContext("2d");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-  imageDataURL = canvas.toDataURL("image/png");
-  video.style.display = "none";
-  canvas.style.display = "block";
-  captureBtn.style.display = "none";
-  retakeBtn.style.display = "inline-block";
+    imageDataURL = canvas.toDataURL("image/png");
+    video.style.display = "none";
+    canvas.style.display = "block";
+    captureBtn.style.display = "none";
+    retakeBtn.style.display = "inline-block";
 
-  stopCamera();
+    stopCamera();
 
-  const uploadedImageUrl = await uploadToImgbb(imageDataURL);
-  if (uploadedImageUrl) {
-    console.log("Image uploaded to Imgbb:", uploadedImageUrl);
-    const imgUrlInput = document.getElementById("imgUrlInput");
-    if (imgUrlInput) imgUrlInput.value = uploadedImageUrl;
+    const uploadedImageUrl = await uploadToImgbb(imageDataURL);
+    if (uploadedImageUrl) {
+      console.log("Image uploaded to Imgbb:", uploadedImageUrl);
+      const imgUrlInput = document.getElementById("imgUrlInput");
+      if (imgUrlInput) imgUrlInput.value = uploadedImageUrl;
 
-    // Removed alert("Image uploaded successfully!");
-  }
-});
+      alert("Image uploaded successfully!");
+    }
+  });
 
   retakeBtn.addEventListener("click", () => {
     imageDataURL = null;
@@ -644,7 +643,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function uploadToImgbb(base64Image) {
     const apiKey = '14e51e0636e117beac224a32711adc49';
-    const url = `https://api.imgbb.com/1/upload?key=${apiKey}`;
+    const url = https://api.imgbb.com/1/upload?key=${apiKey};
 
     const base64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
 
@@ -673,4 +672,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
