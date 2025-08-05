@@ -533,13 +533,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function startCamera() {
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = stream;
-    } catch (err) {
-      alert("Could not access the camera. Please allow camera permissions.");
-    }
+  try {
+    // Use back camera:
+    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+    video.srcObject = stream;
+  } catch (err) {
+    alert("Could not access the camera. Please allow camera permissions.");
   }
+}
+
 
   function stopCamera() {
     if (stream) {
@@ -642,34 +644,36 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   async function uploadToImgbb(base64Image) {
-    const apiKey = '14e51e0636e117beac224a32711adc49';
-    const url = `https://api.imgbb.com/1/upload?key=${apiKey}`;
+  const apiKey = '14e51e0636e117beac224a32711adc49';
+  // Fix URL string quotes:
+  const url = `https://api.imgbb.com/1/upload?key=${apiKey}`;
 
+  const base64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
 
-    const base64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
+  const formData = new FormData();
+  formData.append('image', base64);
 
-    const formData = new FormData();
-    formData.append('image', base64);
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData
+    });
+    const result = await response.json();
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        body: formData
-      });
-      const result = await response.json();
-
-      if (result.success) {
-        return result.data.url;
-      } else {
-        throw new Error('Upload failed');
-      }
-    } catch (error) {
-      alert("Failed to upload image: " + error.message);
-      return null;
+    if (result.success) {
+      return result.data.url;
+    } else {
+      throw new Error('Upload failed');
     }
+  } catch (error) {
+    alert("Failed to upload image: " + error.message);
+    return null;
   }
+}
+
 });
 </script>
 
 </body>
 </html>
+
