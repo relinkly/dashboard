@@ -627,6 +627,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const imgUrlInput = document.getElementById("imgUrlInput");
       if (imgUrlInput) imgUrlInput.value = uploadedImageUrl;
 
+      alert("Image uploaded successfully!");
     }
   });
 
@@ -643,6 +644,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function uploadToImgbb(base64Image) {
     const apiKey = '14e51e0636e117beac224a32711adc49';
     const url = `https://api.imgbb.com/1/upload?key=${apiKey}`;
+
 
     const base64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
 
@@ -671,13 +673,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
