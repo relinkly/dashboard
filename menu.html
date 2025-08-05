@@ -577,39 +577,40 @@
   }
 
   // Form submit handler
-  incidentForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+ incidentForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    // Basic validation
-    if (!incidentForm.area.value.trim() || !incidentForm.description.value.trim()) {
-      alert("Please fill in all required fields.");
-      return;
-    }
+  // Validate
+  if (!incidentForm.area.value.trim() || !incidentForm.description.value.trim()) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+  if (!imageBlob) {
+    alert('Please take a photo before submitting.');
+    return;
+  }
 
-    if (!imageBlob) {
-      alert('Please take a photo before submitting.');
-      return;
-    }
+  submitBtn.disabled = true;
 
-    submitBtn.disabled = true;
+  const url = await uploadPhoto();
 
-    const url = await uploadPhoto();
+  submitBtn.disabled = false;
 
-    submitBtn.disabled = false;
+  if (!url) {
+    alert("Failed to upload photo.");
+    return;
+  }
 
-    if (!url) {
-      return; // upload failed
-    }
+  photoInput.value = url;
 
-    uploadedPhotoURL = url;
-    photoInput.value = uploadedPhotoURL;
+  // Remove this listener before submit to avoid loop:
+  incidentForm.removeEventListener('submit', arguments.callee);
 
-    alert("Incident reported successfully.");
+  // Submit form normally
+  incidentForm.submit();
 
-    // Submit the form normally
-    incidentForm.submit();
-
-    // Reset UI
+  // Reset UI after a short delay (optional)
+  setTimeout(() => {
     incidentForm.reset();
     photo.style.display = 'none';
     video.style.display = 'block';
@@ -619,7 +620,7 @@
     uploadedPhotoURL = null;
     photoInput.value = '';
 
-    // Close modal if applicable
+    // Close modal
     const modal = document.getElementById('incidentModal');
     if (modal) {
       modal.classList.remove('active');
@@ -627,7 +628,9 @@
     }
     const openBtn = document.getElementById('openModalBtn');
     if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
-  });
+  }, 1000);
+});
+
 
   // Event listeners
   captureBtn.addEventListener('click', capturePhoto);
@@ -746,6 +749,7 @@
   </script>
 </body>
 </html>
+
 
 
 
