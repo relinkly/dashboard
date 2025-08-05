@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KPI Dashboards Menu</title>
   <style>
-/* Reset */
+/* Reset and base */
 *,
 *::before,
 *::after {
@@ -14,134 +14,154 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #f9fafb; /* very light gray */
-  color: #2a4d3a; /* dark green */
-  line-height: 1.6;
-  font-weight: 400;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f5f7f9; /* subtle light gray */
+  color: #2c3e50; /* deep slate blue-green for text */
   font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 64px 24px;
+  align-items: flex-start;
+  padding: 60px 20px 80px;
 }
 
+/* Container */
 main {
-  max-width: 720px;
+  max-width: 960px;
   width: 100%;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 48px 36px;
-  box-shadow: 0 4px 12px rgb(42 77 58 / 0.1);
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(44, 62, 80, 0.12);
+  padding: 48px 48px 56px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 48px;
+  user-select: none;
 }
 
 /* Header */
 header {
-  margin-bottom: 56px;
   text-align: center;
-  user-select: none;
 }
 
 h1 {
-  font-weight: 700;
-  font-size: 2.25rem;
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  font-size: 2.8rem;
+  letter-spacing: 0.12em;
+  color: #1d2733; /* very dark */
   text-transform: uppercase;
-  color: #2a4d3a;
   margin: 0;
+  line-height: 1.1;
+  user-select: none;
 }
 
 /* Dashboard links grid */
 .dashboards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
   width: 100%;
-  margin-bottom: 56px;
 }
 
 .dashboards a {
+  background: #ecf0f3;
+  border-radius: 14px;
+  padding: 26px 20px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #34495e;
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 16px;
-  background: #f3f6f4;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.04em;
-  color: #2a4d3a;
-  border: 1px solid transparent;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 6px 12px rgba(52, 73, 94, 0.06);
+  border: 1.5px solid transparent;
+  transition:
+    box-shadow 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease;
+  cursor: pointer;
   user-select: none;
+  border-radius: 14px;
+  letter-spacing: 0.04em;
 }
 
 .dashboards a:hover,
 .dashboards a:focus-visible {
-  background-color: #e6f0ea;
-  border-color: #2a4d3a;
+  background-color: #d4e3f0;
+  border-color: #3a7d44; /* your green */
+  box-shadow: 0 8px 20px rgba(58, 125, 68, 0.2);
   outline: none;
-  cursor: pointer;
+  transform: translateY(-4px);
 }
 
-/* Buttons */
+/* Buttons base */
 button,
 #openModalBtn,
 .logout-btn {
-  font-family: inherit;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 1rem;
-  padding: 14px 40px;
-  border-radius: 24px;
+  font-size: 1.1rem;
+  border-radius: 28px;
   cursor: pointer;
   border: none;
-  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  padding: 14px 48px;
   user-select: none;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.15s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
+/* Primary action button - fuchsia */
 #openModalBtn {
-  background-color: #b24e9e; /* soft fuchsia */
+  background-color: #a3438d; /* muted fuchsia */
   color: white;
-  box-shadow: 0 4px 12px rgb(178 78 158 / 0.3);
+  box-shadow: 0 8px 22px rgba(163, 67, 141, 0.35);
 }
 
 #openModalBtn:hover,
 #openModalBtn:focus-visible {
-  background-color: #993d86;
-  box-shadow: 0 6px 20px rgb(153 61 134 / 0.45);
+  background-color: #7b2d6a;
+  box-shadow: 0 10px 28px rgba(123, 45, 106, 0.5);
   outline: none;
+  transform: translateY(-2px);
 }
 
+/* Logout button - dark green */
 .logout-btn {
-  background-color: #2a4d3a; /* dark green */
+  background-color: #2e5d3c;
   color: white;
-  box-shadow: 0 4px 12px rgb(42 77 58 / 0.25);
+  box-shadow: 0 8px 22px rgba(46, 93, 60, 0.35);
 }
 
 .logout-btn:hover,
 .logout-btn:focus-visible {
-  background-color: #224029;
-  box-shadow: 0 6px 20px rgb(34 64 41 / 0.45);
+  background-color: #244a30;
+  box-shadow: 0 10px 28px rgba(36, 74, 48, 0.5);
   outline: none;
+  transform: translateY(-2px);
 }
 
 /* Modal overlay */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(42, 77, 58, 0.45);
+  background-color: rgba(28, 44, 57, 0.55);
+  backdrop-filter: blur(4px);
   display: none;
   justify-content: center;
   align-items: center;
   padding: 32px;
-  z-index: 1000;
-  backdrop-filter: blur(3px);
+  z-index: 10000;
 }
 
 .modal-overlay.active {
@@ -150,15 +170,144 @@ button,
 
 /* Modal window */
 .modal {
-  background: white;
-  border-radius: 14px;
-  padding: 40px 36px;
-  max-width: 480px;
+  background: #fff;
+  border-radius: 18px;
+  max-width: 520px;
   width: 100%;
-  box-shadow: 0 10px 30px rgb(42 77 58 / 0.12);
-  color: #2a4d3a;
-  font-size: 1rem;
+  padding: 48px 44px 56px;
+  box-shadow: 0 14px 48px rgba(28, 44, 57, 0.15);
+  color: #2c3e50;
   position: relative;
+  font-size: 1.05rem;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Modal heading */
+.modal h2 {
+  font-weight: 900;
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+  color: #a3438d;
+  text-align: center;
+  margin: 0 0 30px;
+  user-select: none;
+}
+
+/* Close button */
+.close-modal-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 1.9rem;
+  color: #a3438d;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.close-modal-btn:hover,
+.close-modal-btn:focus-visible {
+  color: #7b2d6a;
+  outline: none;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+label {
+  font-weight: 700;
+  color: #34495e;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  user-select: none;
+}
+
+input[type="text"],
+textarea {
+  padding: 16px 20px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  color: #2c3e50;
+  border-radius: 14px;
+  border: 1.8px solid #ccd6e0;
+  background-color: #fdfdfd;
+  resize: vertical;
+  min-height: 50px;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #a3438d;
+  box-shadow: 0 0 12px rgba(163, 67, 141, 0.35);
+  outline: none;
+  background-color: #fff;
+}
+
+input[readonly] {
+  background-color: #f2f4f7;
+  border-color: #b0bacf;
+  color: #7a869a;
+}
+
+/* Submit Button */
+.submit-btn {
+  align-self: flex-start;
+  padding: 16px 48px;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #2e5d3c;
+  border-radius: 28px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(46, 93, 60, 0.4);
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.15s ease;
+}
+
+.submit-btn:hover,
+.submit-btn:focus-visible {
+  background-color: #244a30;
+  box-shadow: 0 14px 34px rgba(36, 74, 48, 0.55);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  main {
+    padding: 36px 24px 48px;
+  }
+  .dashboards {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  #openModalBtn,
+  .logout-btn,
+  .submit-btn {
+    width: 100%;
+    padding: 16px 0;
+  }
+  .modal {
+    padding: 36px 24px 40px;
+  }
 }
 
 /* Modal heading */
@@ -659,6 +808,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
