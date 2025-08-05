@@ -669,7 +669,7 @@ if (imgUrlInput) imgUrlInput.value = "";
   const imgFilenameInput = document.getElementById("imgFilenameInput");
   if (imgFilenameInput) imgFilenameInput.value = filename;
 
-  const uploadedImageUrl = await uploadToImgbb(imageDataURL);
+  const uploadedImageUrl = await uploadToImgbb(imageDataURL, loggedInUser);
   if (uploadedImageUrl) {
     console.log("Image uploaded to Imgbb:", uploadedImageUrl);
     const imgUrlInput = document.getElementById("imgUrlInput");
@@ -691,15 +691,22 @@ if (imgUrlInput) imgUrlInput.value = "";
 });
 
 
-  async function uploadToImgbb(base64Image) {
+  async function uploadToImgbb(base64Image, username) {
   const apiKey = '14e51e0636e117beac224a32711adc49';
-  // Fix URL string quotes:
   const url = `https://api.imgbb.com/1/upload?key=${apiKey}`;
 
   const base64 = base64Image.replace(/^data:image\/\w+;base64,/, '');
 
+  // Prepare timestamp
+  const now = new Date();
+  const timestamp = now.toISOString().replace(/:/g, '-'); // replace : to avoid issues
+
+  // Compose filename like username_timestamp.png
+  const fileName = `${username}_${timestamp}.png`;
+
   const formData = new FormData();
   formData.append('image', base64);
+  formData.append('name', fileName); // Note: ImgBB may ignore this
 
   try {
     const response = await fetch(url, {
@@ -719,11 +726,13 @@ if (imgUrlInput) imgUrlInput.value = "";
   }
 }
 
+
 });
 </script>
 
 </body>
 </html>
+
 
 
 
