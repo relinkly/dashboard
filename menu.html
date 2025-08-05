@@ -446,13 +446,17 @@
 
           <h2>Capture Photo</h2>
 
+   <!-- Video stream & captured photo -->
   <video id="video" autoplay playsinline></video>
   <canvas id="canvas" style="display:none;"></canvas>
   <img id="photo" style="display:none;" alt="Captured photo" />
 
-  <button id="captureBtn">Take Photo</button>
-  <button id="retakeBtn" style="display:none;">Retake</button>
-  <button id="submitBtn" style="display:none;">Submit Photo</button>
+  <!-- Buttons for camera control -->
+  <button id="captureBtn" type="button">Take Photo</button>
+  <button id="retakeBtn" type="button" style="display:none;">Retake</button>
+
+           <!-- Hidden input to store the uploaded photo URL -->
+  <input type="hidden" id="photoURL" name="entry.1179564217" />
 
 
   <button type="submit">Submit Incident</button>
@@ -468,116 +472,174 @@
     </button>
   </main>
 
-   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js";
+  <!-- Add this hidden input inside your <form id="incidentForm"> -->
+<input type="hidden" id="photoURL" name="entry.1179564217" />
 
-    // Your Firebase configuration (replace with your actual config)
-    const firebaseConfig = {
-      apiKey: "AIzaSyBFIHFxu80w6ETlzE8tq8583bOzixAn6lk",
-      authDomain: "incident-0072.firebaseapp.com",
-      projectId: "incident-0072",
-      storageBucket: "incident-0072.firebasestorage.app",
-      messagingSenderId: "631311421392",
-      appId: "1:631311392:web:5c1c1f2fb55639b776f3d5",
-      measurementId: "G-12NKDVJVP2"
-    };
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-storage.js";
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const storage = getStorage(app);
+  // Firebase config - fixed storageBucket
+  const firebaseConfig = {
+    apiKey: "AIzaSyBFIHFxu80w6ETlzE8tq8583bOzixAn6lk",
+    authDomain: "incident-0072.firebaseapp.com",
+    projectId: "incident-0072",
+    storageBucket: "incident-0072.appspot.com",
+    messagingSenderId: "631311421392",
+    appId: "1:631311392:web:5c1c1f2fb55639b776f3d5",
+    measurementId: "G-12NKDVJVP2"
+  };
 
-    // Elements
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const photo = document.getElementById('photo');
-    const captureBtn = document.getElementById('captureBtn');
-    const retakeBtn = document.getElementById('retakeBtn');
-    const submitBtn = document.getElementById('submitBtn');
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const storage = getStorage(app);
 
-    let stream;
-    let imageBlob;
+  // Elements
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const photo = document.getElementById('photo');
+  const captureBtn = document.getElementById('captureBtn');
+  const retakeBtn = document.getElementById('retakeBtn');
+  const submitBtn = document.querySelector('button[type="submit"]');
+  const incidentForm = document.getElementById('incidentForm');
+  const photoInput = document.getElementById('photoURL');
 
-    // Start camera stream
-    async function startCamera() {
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-        video.srcObject = stream;
-      } catch (err) {
-        alert('Error accessing camera: ' + err.message);
-      }
-    }
+  let stream;
+  let imageBlob = null;
+  let uploadedPhotoURL = null;
 
-    // Capture photo from video stream
-    function capturePhoto() {
-      const width = video.videoWidth;
-      const height = video.videoHeight;
-
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, width, height);
-
-      // Convert canvas to blob for upload
-      canvas.toBlob((blob) => {
-        imageBlob = blob;
-        // Show photo preview
-        const url = URL.createObjectURL(blob);
-        photo.src = url;
-        photo.style.display = 'block';
-
-        // Hide video and capture button, show retake and submit buttons
-        video.style.display = 'none';
-        captureBtn.style.display = 'none';
-        retakeBtn.style.display = 'inline-block';
-        submitBtn.style.display = 'inline-block';
-      }, 'image/jpeg', 0.95);
-    }
-
-    // Retake photo: reset UI and resume video
-    function retakePhoto() {
-      photo.style.display = 'none';
+  // Start camera stream
+  async function startCamera() {
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+      video.srcObject = stream;
       video.style.display = 'block';
+      photo.style.display = 'none';
       captureBtn.style.display = 'inline-block';
       retakeBtn.style.display = 'none';
-      submitBtn.style.display = 'none';
+    } catch (err) {
+      alert('Error accessing camera: ' + err.message);
+    }
+  }
 
-      imageBlob = null;
+  // Capture photo from video stream
+  function capturePhoto(event) {
+    event.preventDefault();
+
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, width, height);
+
+    canvas.toBlob((blob) => {
+      imageBlob = blob;
+      const url = URL.createObjectURL(blob);
+      photo.src = url;
+      photo.style.display = 'block';
+
+      video.style.display = 'none';
+      captureBtn.style.display = 'none';
+      retakeBtn.style.display = 'inline-block';
+    }, 'image/jpeg', 0.95);
+  }
+
+  // Retake photo
+  function retakePhoto(event) {
+    event.preventDefault();
+    photo.style.display = 'none';
+    video.style.display = 'block';
+    captureBtn.style.display = 'inline-block';
+    retakeBtn.style.display = 'none';
+    imageBlob = null;
+    uploadedPhotoURL = null;
+    photoInput.value = '';
+  }
+
+  // Upload photo to Firebase Storage and return URL
+  async function uploadPhoto() {
+    if (!imageBlob) return null;
+
+    const filename = `photos/${Date.now()}.jpg`;
+    const storageRef = ref(storage, filename);
+
+    try {
+      await uploadBytes(storageRef, imageBlob);
+      const downloadURL = await getDownloadURL(storageRef);
+      return downloadURL;
+    } catch (error) {
+      alert('Photo upload failed: ' + error.message);
+      return null;
+    }
+  }
+
+  // Form submit handler
+  incidentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!incidentForm.area.value.trim() || !incidentForm.description.value.trim()) {
+      alert("Please fill in all required fields.");
+      return;
     }
 
-    // Upload photo to Firebase Storage and get URL
-    async function uploadPhoto() {
-      if (!imageBlob) {
-        alert('No photo to upload!');
-        return;
-      }
-
-      const filename = `photos/${Date.now()}.jpg`;
-      const storageRef = ref(storage, filename);
-
-      try {
-        await uploadBytes(storageRef, imageBlob);
-        const downloadURL = await getDownloadURL(storageRef);
-        alert('Photo uploaded successfully!\nURL: ' + downloadURL);
-        console.log('Firebase Storage URL:', downloadURL);
-
-        // Here you can submit this URL along with the rest of your form data
-        // For example: send it via fetch() to your backend or Google Forms
-
-      } catch (error) {
-        alert('Upload failed: ' + error.message);
-      }
+    if (!imageBlob) {
+      alert('Please take a photo before submitting.');
+      return;
     }
 
-    // Event listeners
-    captureBtn.addEventListener('click', capturePhoto);
-    retakeBtn.addEventListener('click', retakePhoto);
-    submitBtn.addEventListener('click', uploadPhoto);
+    submitBtn.disabled = true;
 
-    // Start the camera on page load
-    startCamera();
+    const url = await uploadPhoto();
 
-  </script>
+    submitBtn.disabled = false;
+
+    if (!url) {
+      return; // upload failed
+    }
+
+    uploadedPhotoURL = url;
+    photoInput.value = uploadedPhotoURL;
+
+    alert("Incident reported successfully.");
+
+    // Submit the form normally
+    incidentForm.submit();
+
+    // Reset UI
+    incidentForm.reset();
+    photo.style.display = 'none';
+    video.style.display = 'block';
+    captureBtn.style.display = 'inline-block';
+    retakeBtn.style.display = 'none';
+    imageBlob = null;
+    uploadedPhotoURL = null;
+    photoInput.value = '';
+
+    // Close modal if applicable
+    const modal = document.getElementById('incidentModal');
+    if (modal) {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+    const openBtn = document.getElementById('openModalBtn');
+    if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+  });
+
+  // Event listeners
+  captureBtn.addEventListener('click', capturePhoto);
+  retakeBtn.addEventListener('click', retakePhoto);
+
+  // Start camera on modal open button click
+  const openModalBtn = document.getElementById('openModalBtn');
+  if (openModalBtn) {
+    openModalBtn.addEventListener('click', startCamera);
+  }
+</script>
+
   <script>
     (() => {
       if (localStorage.getItem("authenticated") !== "true") {
@@ -684,6 +746,7 @@
   </script>
 </body>
 </html>
+
 
 
 
