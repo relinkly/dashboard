@@ -549,56 +549,55 @@
     </header>
 
     <!-- New combined grid for dashboards and KPI cards -->
-  <section class="dashboard-grid">
+<section class="dashboard-grid" style="display: flex; flex-direction: column; gap: 2rem; padding: 2rem; background-color: #f9f9f9; border-radius: 8px;">
 
-    <!-- Dashboard navigation links -->
-<nav class="dashboards" aria-label="Dashboard navigation">
-  <a href="channelmenu.html">Channel</a>
-  <a href="marketingmenu.html">Marketing</a>
-  <a href="networkmenu.html">Network</a>
-</nav>
+  <!-- Dashboard navigation links -->
+  <nav class="dashboards" aria-label="Dashboard navigation" style="display: flex; gap: 1.5rem; justify-content: center; background-color: #ffffff; padding: 1rem; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+    <a href="channelmenu.html" style="text-decoration: none; color: #1a202c; font-weight: 600; padding: 0.5rem 1rem; border-radius: 4px; transition: background-color 0.3s;">Channel</a>
+    <a href="marketingmenu.html" style="text-decoration: none; color: #1a202c; font-weight: 600; padding: 0.5rem 1rem; border-radius: 4px; transition: background-color 0.3s;">Marketing</a>
+    <a href="networkmenu.html" style="text-decoration: none; color: #1a202c; font-weight: 600; padding: 0.5rem 1rem; border-radius: 4px; transition: background-color 0.3s;">Network</a>
+  </nav>
 
+  <!-- KPI Cards -->
+  <div class="kpi-cards" aria-label="Key Performance Indicators" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
+    <div class="kpi-card" role="region" aria-labelledby="kpi1-label" style="background-color: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); text-align: center;">
+      <div class="kpi-number" id="kpi1-number" style="font-size: 2rem; font-weight: bold; color: #2d3748;">1,234</div>
+      <div class="kpi-label" id="kpi1-label" style="margin-top: 0.5rem; font-size: 1rem; color: #4a5568; font-weight: 600;">Total Users</div>
+      <div class="kpi-growth" style="margin-top: 0.75rem; color: #48bb78; font-size: 0.875rem;">
+        <div class="growth-month">+4.5% last month</div>
+        <div class="growth-year" style="color: #38a169;">+22.1% last year</div>
+      </div>
+    </div>
 
-   <div class="kpi-cards" aria-label="Key Performance Indicators">
-  <div class="kpi-card" role="region" aria-labelledby="kpi1-label">
-    <div class="kpi-number" id="kpi1-number">1,234</div>
-    <div class="kpi-label" id="kpi1-label">Total Users</div>
-    <div class="kpi-growth">
-      <div class="growth-month">+4.5% last month</div>
-      <div class="growth-year">+22.1% last year</div>
+    <div class="kpi-card" role="region" aria-labelledby="kpi2-label" style="background-color: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); text-align: center;">
+      <div class="kpi-number" id="kpi2-number" style="font-size: 2rem; font-weight: bold; color: #2d3748;">567</div>
+      <div class="kpi-label" id="kpi2-label" style="margin-top: 0.5rem; font-size: 1rem; color: #4a5568; font-weight: 600;">New Signups</div>
+      <div class="kpi-growth" style="margin-top: 0.75rem; color: #48bb78; font-size: 0.875rem;">
+        <div class="growth-month">+3.2% last month</div>
+        <div class="growth-year" style="color: #38a169;">+15.7% last year</div>
+      </div>
+    </div>
+
+    <div class="kpi-card" role="region" aria-labelledby="kpi3-label" style="background-color: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); text-align: center;">
+      <div class="kpi-number" id="kpi3-number" style="font-size: 2rem; font-weight: bold; color: #2d3748;">89%</div>
+      <div class="kpi-label" id="kpi3-label" style="margin-top: 0.5rem; font-size: 1rem; color: #4a5568; font-weight: 600;">Customer Retention</div>
+      <div class="kpi-growth" style="margin-top: 0.75rem; color: #48bb78; font-size: 0.875rem;">
+        <div class="growth-month">+0.8% last month</div>
+        <div class="growth-year" style="color: #38a169;">+5.4% last year</div>
+      </div>
+    </div>
+
+    <div class="kpi-card" role="region" aria-labelledby="kpi4-label" style="background-color: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); text-align: center;">
+      <div class="kpi-number" id="kpi4-number" style="font-size: 2rem; font-weight: bold; color: #2d3748;">$345K</div>
+      <div class="kpi-label" id="kpi4-label" style="margin-top: 0.5rem; font-size: 1rem; color: #4a5568; font-weight: 600;">Revenue</div>
+      <div class="kpi-growth" style="margin-top: 0.75rem; color: #48bb78; font-size: 0.875rem;">
+        <div class="growth-month">+6.3% last month</div>
+        <div class="growth-year" style="color: #38a169;">+28.9% last year</div>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="kpi-card" role="region" aria-labelledby="kpi2-label">
-    <div class="kpi-number" id="kpi2-number">567</div>
-    <div class="kpi-label" id="kpi2-label">New Signups</div>
-    <div class="kpi-growth">
-      <div class="growth-month">+3.2% last month</div>
-      <div class="growth-year">+15.7% last year</div>
-    </div>
-  </div>
-
-  <div class="kpi-card" role="region" aria-labelledby="kpi3-label">
-    <div class="kpi-number" id="kpi3-number">89%</div>
-    <div class="kpi-label" id="kpi3-label">Customer Retention</div>
-    <div class="kpi-growth">
-      <div class="growth-month">+0.8% last month</div>
-      <div class="growth-year">+5.4% last year</div>
-    </div>
-  </div>
-
-  <div class="kpi-card" role="region" aria-labelledby="kpi4-label">
-    <div class="kpi-number" id="kpi4-number">$345K</div>
-    <div class="kpi-label" id="kpi4-label">Revenue</div>
-    <div class="kpi-growth">
-      <div class="growth-month">+6.3% last month</div>
-      <div class="growth-year">+28.9% last year</div>
-    </div>
-  </div>
-</div>
-
-
-  </section>
 
   <!-- Space for graphs -->
   <section class="graphs">
@@ -928,6 +927,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
