@@ -401,7 +401,7 @@
 <body>
   <main>
     <header>
-      <h1>CHANNEL DASHBOARDS</h1>
+      <h1>MARKETING DASHBOARDS</h1>
     </header>
 
     <nav class="dashboards" aria-label="Dashboard navigation">
@@ -411,25 +411,8 @@
 
   </main>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("authenticated") !== "true") {
-    window.location.href = "login.html";
-    return;
-  }
 
-  
-
-  logoutBtn.addEventListener("click", () => {
-    localStorage.clear();
-    window.location.href = "login.html";
-  });
-
- 
-
-
-});
-</script>
 
 </body>
+
 </html>
