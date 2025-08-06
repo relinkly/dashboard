@@ -497,25 +497,47 @@
   border: 2px solid #c9d6ca;
 }
 
-/* Responsive tweaks */
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .dashboards {
-    flex-direction: row;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     gap: 24px;
   }
 
+  .dashboards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .dashboards a,
+  .kpi-card {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 18px 22px;
+  }
+
   .kpi-cards {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .graphs {
     flex-direction: column;
+    gap: 20px;
   }
+
+  .graph {
+    min-height: 200px;
+    width: 100%;
+  }
+}
+
+.dashboards a,
+.kpi-card {
+  min-height: 80px;
 }
 
   </style>
@@ -530,11 +552,12 @@
   <section class="dashboard-grid">
 
     <!-- Dashboard navigation links -->
-    <nav class="dashboards" aria-label="Dashboard navigation">
-      <a href="channelmenu.html" tabindex="0">Channel</a>
-      <a href="marketingmenu.html" tabindex="0">Marketing</a>
-      <a href="networkmenu.html" tabindex="0">Network</a>
-    </nav>
+<nav class="dashboards" aria-label="Dashboard navigation">
+  <a href="channelmenu.html">Channel</a>
+  <a href="marketingmenu.html">Marketing</a>
+  <a href="networkmenu.html">Network</a>
+</nav>
+
 
     <!-- KPI cards -->
     <div class="kpi-cards">
@@ -898,6 +921,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
