@@ -487,56 +487,57 @@
       <h1>KPI DASHBOARDS</h1>
     </header>
 
-    <!-- New KPI Cards Section -->
-    <section class="kpi-cards" aria-label="Key Performance Indicators">
-      <div class="kpi-card" role="region" aria-labelledby="kpi1-label">
-        <div class="kpi-number" id="kpi1-number">1,234</div>
-        <div class="kpi-label" id="kpi1-label">Total Users</div>
-        <div class="kpi-growth">
-          <div class="growth-month">+4.5% last month</div>
-          <div class="growth-year">+22.1% last year</div>
-        </div>
-      </div>
+    <!-- New combined grid for dashboards and KPI cards -->
+  <section class="dashboard-grid">
 
-      <div class="kpi-card" role="region" aria-labelledby="kpi2-label">
-        <div class="kpi-number" id="kpi2-number">567</div>
-        <div class="kpi-label" id="kpi2-label">New Signups</div>
-        <div class="kpi-growth">
-          <div class="growth-month">+3.2% last month</div>
-          <div class="growth-year">+15.7% last year</div>
-        </div>
-      </div>
-
-      <div class="kpi-card" role="region" aria-labelledby="kpi3-label">
-        <div class="kpi-number" id="kpi3-number">89%</div>
-        <div class="kpi-label" id="kpi3-label">Customer Retention</div>
-        <div class="kpi-growth">
-          <div class="growth-month">+0.8% last month</div>
-          <div class="growth-year">+5.4% last year</div>
-        </div>
-      </div>
-
-      <div class="kpi-card" role="region" aria-labelledby="kpi4-label">
-        <div class="kpi-number" id="kpi4-number">$345K</div>
-        <div class="kpi-label" id="kpi4-label">Revenue</div>
-        <div class="kpi-growth">
-          <div class="growth-month">+6.3% last month</div>
-          <div class="growth-year">+28.9% last year</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Existing navigation, buttons, modals, etc... -->
+    <!-- Dashboard navigation links -->
     <nav class="dashboards" aria-label="Dashboard navigation">
       <a href="channelmenu.html" tabindex="0">Channel</a>
       <a href="marketingmenu.html" tabindex="0">Marketing</a>
       <a href="networkmenu.html" tabindex="0">Network</a>
     </nav>
 
-    <!-- Space reserved for graphs -->
-    <section class="graphs-container" aria-label="Graphs and charts">
-      Graphs will appear here
-    </section>
+    <!-- KPI cards -->
+    <div class="kpi-cards">
+      <div class="kpi-card">
+        <div class="kpi-number">1,234</div>
+        <div class="kpi-growth">
+          <span class="growth-month">+4.5%</span>
+          <span class="growth-year">+18.2%</span>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number">567</div>
+        <div class="kpi-growth">
+          <span class="growth-month">+2.8%</span>
+          <span class="growth-year">+12.1%</span>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number">3,789</div>
+        <div class="kpi-growth">
+          <span class="growth-month">+6.0%</span>
+          <span class="growth-year">+22.4%</span>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number">1,002</div>
+        <div class="kpi-growth">
+          <span class="growth-month">+1.9%</span>
+          <span class="growth-year">+9.3%</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Space for graphs -->
+  <section class="graphs">
+    <!-- Placeholder divs for graphs -->
+    <div class="graph" aria-label="Graph 1"></div>
+    <div class="graph" aria-label="Graph 2"></div>
+  </section>
+
     <button
       id="openModalBtn"
       aria-haspopup="dialog"
@@ -858,6 +859,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
