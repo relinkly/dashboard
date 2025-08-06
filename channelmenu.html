@@ -414,25 +414,7 @@
 
   </main>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("authenticated") !== "true") {
-    window.location.href = "login.html";
-    return;
-  }
-
-  
-
-  logoutBtn.addEventListener("click", () => {
-    localStorage.clear();
-    window.location.href = "login.html";
-  });
-
- 
-
-
-});
-</script>
 
 </body>
+
 </html>
