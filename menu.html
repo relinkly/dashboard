@@ -503,8 +503,8 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("authenticated") !== "true") {
-    window.location.href = "login.html";
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
     return;
   }
 
@@ -731,6 +731,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
