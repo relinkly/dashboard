@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>KPI Dashboards Menu</title>
+  <title>Channel Dashboards</title>
   <style>
-    /* Reset and Global Styles */
+        /* Reset and Global Styles */
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -334,87 +334,69 @@
         margin-right: 10px;
       }
 
-      #openModalBtn {
-        padding: 14px 48px;
-        font-size: 1.1rem;
-        margin-bottom: 40px;
-      }
+   
 
-      .logout-btn {
-        font-size: 1rem;
-        padding: 14px 48px;
-      }
-
-      .modal {
-        padding: 36px 32px 40px;
-        max-height: 85vh;
-      }
-
-      .modal h2 {
-        font-size: 1.7rem;
-        margin-bottom: 30px;
-      }
-
-      form {
-        gap: 20px;
-      }
-    }
-
-    video, img {
-      max-width: 300px;
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    #captureBtn, #retakeBtn {
-  background: #3a7d44;
-  border: none;
-  padding: 12px 36px;
-  border-radius: 28px;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
-  box-shadow: 0 4px 12px rgba(58, 125, 68, 0.4);
-  margin-right: 10px;
-}
-
-#captureBtn:hover, #retakeBtn:hover,
-#captureBtn:focus, #retakeBtn:focus {
-  background: #2a5931;
-  box-shadow: 0 6px 16px rgba(42, 89, 49, 0.5);
-  outline: none;
-  transform: translateY(-3px);
-}
-
-#captureBtn:focus-visible, #retakeBtn:focus-visible {
-  outline: 3px solid #2a5931;
-  outline-offset: 3px;
-}
 
   </style>
+
+  <script>
+    // Redirect immediately if not logged in
+    if (!localStorage.getItem('loggedIn')) {
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body>
+
+  <button
+    id="backBtn"
+    type="button"
+    aria-label="Go back to menu"
+    style="
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #2a4d3a;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 28px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 4px 12px rgba(42, 77, 58, 0.4);
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+      z-index: 9999;
+    "
+    onmouseover="this.style.background='#1f3a2a'; this.style.boxShadow='0 6px 16px rgba(31, 58, 42, 0.5)';"
+    onmouseout="this.style.background='#2a4d3a'; this.style.boxShadow='0 4px 12px rgba(42, 77, 58, 0.4)';"
+  >
+    Back
+  </button>
+
   <main>
     <header>
       <h1>CHANNEL DASHBOARDS</h1>
     </header>
-
     <nav class="dashboards" aria-label="Dashboard navigation">
       <a href="dashboard1.html" tabindex="0">ZL & BVS Report</a>
       <a href="dashboard2.html" tabindex="0">Gross Addition Performance</a>
       <a href="dashboard3.html" tabindex="0">Enablers</a>
       <a href="dashboard4.html" tabindex="0">BVS Performance</a>
     </nav>
-
-
   </main>
 
-
+  <script>
+    document.getElementById('backBtn').addEventListener('click', () => {
+      if (localStorage.getItem('loggedIn')) {
+        window.location.href = 'menu.html';
+      } else {
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
 </body>
-
 </html>
