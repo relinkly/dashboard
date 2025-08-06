@@ -399,16 +399,14 @@
   </style>
 </head>
 <body>
-  <main>
-  <header>
-    <h1>NETWORK DASHBOARDS</h1>
-  </header>
-
-  <!-- Back button -->
   <button
     type="button"
     onclick="window.location.href='menu.html'"
+    aria-label="Go back to menu"
     style="
+      position: fixed;
+      top: 20px;
+      left: 20px;
       background: #2a4d3a;
       border: none;
       padding: 12px 28px;
@@ -420,9 +418,9 @@
       text-transform: uppercase;
       cursor: pointer;
       user-select: none;
-      margin-bottom: 24px;
       box-shadow: 0 4px 12px rgba(42, 77, 58, 0.4);
       transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+      z-index: 9999;
     "
     onmouseover="this.style.background='#1f3a2a'; this.style.boxShadow='0 6px 16px rgba(31, 58, 42, 0.5)';"
     onmouseout="this.style.background='#2a4d3a'; this.style.boxShadow='0 4px 12px rgba(42, 77, 58, 0.4)';"
@@ -430,15 +428,14 @@
     Back
   </button>
 
-  <nav class="dashboards" aria-label="Dashboard navigation">
-    <a href="sitewisereport.html" tabindex="0">Site Wise Gross Add</a>
-  </nav>
-</main>
-
-
-
-
+  <main>
+    <header>
+      <h1>NETWORK DASHBOARDS</h1>
+    </header>
+    <!-- rest of your content -->
+  </main>
 </body>
 
 </html>
+
 
