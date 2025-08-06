@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Network Dashboards</title>
   <style>
-    /* Reset and Global Styles */
+        /* Reset and Global Styles */
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -337,13 +337,20 @@
    
 
 
-
   </style>
+
+  <script>
+    // Redirect immediately if not logged in
+    if (!localStorage.getItem('loggedIn')) {
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body>
+
   <button
+    id="backBtn"
     type="button"
-    onclick="window.location.href='menu.html'"
     aria-label="Go back to menu"
     style="
       position: fixed;
@@ -370,19 +377,23 @@
     Back
   </button>
 
-   
   <main>
     <header>
       <h1>NETWORK DASHBOARDS</h1>
     </header>
-     <nav class="dashboards" aria-label="Dashboard navigation">
-    <a href="sitewisereport.html" tabindex="0">Site Wise Gross Add</a>
-  </nav>
+    <nav class="dashboards" aria-label="Dashboard navigation">
+      <a href="sitewisereport.html" tabindex="0">Site Wise Gross Add</a>
+    </nav>
   </main>
+
+  <script>
+    document.getElementById('backBtn').addEventListener('click', () => {
+      if (localStorage.getItem('loggedIn')) {
+        window.location.href = 'menu.html';
+      } else {
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
 </body>
-
 </html>
-
-
-
-
