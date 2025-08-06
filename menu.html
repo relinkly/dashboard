@@ -4,367 +4,267 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KPI Dashboards Menu</title>
-  <style>
-    /* Reset and Global Styles */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
+<style>
+  /* Base Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f2f5f3;
-      color: #2e3e2f;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 60px 20px 40px;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f3f6f4;
+    color: #2e3e2f;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px 40px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
+  main {
+    background: #ffffff;
+    max-width: 960px;
+    width: 100%;
+    padding: 48px 40px 56px;
+    border-radius: 16px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  h1 {
+    font-size: 2.6rem;
+    color: #24543c;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0;
+  }
+
+  /* Dashboards Grid */
+  .dashboards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 48px;
+  }
+
+  .dashboards a {
+    background: #fefefe;
+    border: 2px solid #c9d6ca;
+    border-radius: 12px;
+    padding: 20px;
+    color: #24543c;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  .dashboards a:hover,
+  .dashboards a:focus {
+    background: #e3f1e9;
+    border-color: #2f7544;
+    box-shadow: 0 4px 12px rgba(47, 117, 68, 0.15);
+    transform: translateY(-3px);
+    outline: none;
+  }
+
+  .dashboards a:focus-visible {
+    outline: 3px solid #2f7544;
+    outline-offset: 3px;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    border: none;
+    padding: 16px 48px;
+    border-radius: 32px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #fff;
+    background: #3a7d44;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    box-shadow: 0 4px 12px rgba(58, 125, 68, 0.4);
+  }
+
+  .btn:hover,
+  .btn:focus {
+    background: #2a5931;
+    box-shadow: 0 6px 18px rgba(42, 89, 49, 0.5);
+    transform: translateY(-3px);
+    outline: none;
+  }
+
+  .btn:focus-visible {
+    outline: 3px solid #2a5931;
+    outline-offset: 3px;
+  }
+
+  #openModalBtn, .logout-btn {
+    margin-bottom: 40px;
+    align-self: center;
+  }
+
+  .logout-btn {
+    background: #2a4d3a;
+  }
+
+  /* Modal Overlay */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(42, 77, 58, 0.45);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 20px;
+    z-index: 1000;
+    backdrop-filter: blur(6px);
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  /* Modal Window */
+  .modal {
+    background: #fff;
+    border-radius: 14px;
+    max-width: 480px;
+    width: 100%;
+    padding: 44px 40px;
+    color: #2e3e2f;
+    box-shadow: 0 12px 32px rgba(46, 62, 47, 0.15);
+    overflow-y: auto;
+  }
+
+  .modal h2 {
+    font-size: 2rem;
+    color: #3a7d44;
+    margin-bottom: 32px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .close-modal-btn {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    font-size: 2rem;
+    background: transparent;
+    border: none;
+    color: #3a7d44;
+    cursor: pointer;
+  }
+
+  .close-modal-btn:hover,
+  .close-modal-btn:focus {
+    color: #1f3a2a;
+  }
+
+  /* Form Styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  label {
+    font-weight: 600;
+    color: #4b5c4a;
+    letter-spacing: 0.06em;
+  }
+
+  input[type="text"],
+  textarea {
+    padding: 14px 16px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 1.5px solid #cbd5d1;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+    resize: vertical;
+    transition: 0.3s ease;
+  }
+
+  input[type="text"]:focus,
+  textarea:focus {
+    border-color: #3a7d44;
+    box-shadow: 0 0 12px rgba(58, 125, 68, 0.25);
+    outline: none;
+  }
+
+  input[readonly] {
+    background: #f6f8f6;
+    border-color: #a3b5a8;
+    color: #71806d;
+  }
+
+  button[type="submit"] {
+    @extend .btn;
+    background: #2a4d3a;
+    width: 100%;
+  }
+
+  /* Camera Button Styles */
+  #captureBtn, #retakeBtn {
+    @extend .btn;
+    padding: 12px 36px;
+    font-size: 1rem;
+    margin-right: 12px;
+  }
+
+  /* Media Queries */
+  @media (max-width: 600px) {
     main {
-      background: #fff;
-      max-width: 900px;
-      width: 100%;
-      padding: 48px 40px 56px;
-      border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(46, 62, 47, 0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 48px;
-      user-select: none;
+      padding: 32px 24px;
     }
 
     h1 {
-      font-weight: 700;
-      font-size: 2.4rem;
-      color: #2a4d3a;
-      margin: 0;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      line-height: 1.2;
+      font-size: 2rem;
     }
 
-    /* Navigation Grid */
     .dashboards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      width: 100%;
-      margin-bottom: 56px;
+      grid-template-columns: 1fr;
     }
 
-    .dashboards a {
-      background-color: #fefefe;
-      border-radius: 12px;
-      padding: 20px 24px;
-      color: #2a4d3a;
-      font-weight: 600;
-      font-size: 1.2rem;
-      text-align: center;
-      text-decoration: none;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      border: 2px solid #c9d6ca;
-      user-select: none;
-      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.25s ease, transform 0.15s ease;
-      position: relative;
-      box-shadow: inset 0 0 0 rgba(0,0,0,0);
-    }
-
-    .dashboards a:hover,
-    .dashboards a:focus {
-      background-color: #e9f2e7;
-      border-color: #3a7d44;
-      box-shadow: 0 4px 10px rgba(58, 125, 68, 0.15);
-      outline: none;
-      transform: translateY(-3px);
-    }
-
-    .dashboards a:focus-visible {
-      outline: 3px solid #3a7d44;
-      outline-offset: 3px;
-    }
-
-    /* Buttons */
-    #openModalBtn {
-      background: #3a7d44;
-      border: none;
-      padding: 16px 56px;
-      border-radius: 28px;
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.2rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
-      box-shadow: 0 4px 12px rgba(58, 125, 68, 0.4);
-      margin-bottom: 56px;
-      align-self: center;
-    }
-
-    #openModalBtn:hover,
-    #openModalBtn:focus {
-      background: #2a5931;
-      box-shadow: 0 6px 16px rgba(42, 89, 49, 0.5);
-      outline: none;
-      transform: translateY(-3px);
-    }
-
-    #openModalBtn:focus-visible {
-      outline: 3px solid #2a5931;
-      outline-offset: 3px;
-    }
-
-    .logout-btn {
-      background: #2a4d3a;
-      border: none;
-      padding: 16px 56px;
-      border-radius: 28px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #fff;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
-      align-self: center;
-      box-shadow: 0 3px 9px rgba(42, 77, 58, 0.35);
-    }
-
-    .logout-btn:hover,
-    .logout-btn:focus {
-      background: #1f3a2a;
-      box-shadow: 0 5px 14px rgba(31, 58, 42, 0.5);
-      outline: none;
-      transform: translateY(-3px);
-    }
-
-    .logout-btn:focus-visible {
-      outline: 3px solid #1f3a2a;
-      outline-offset: 3px;
-    }
-
-    /* Modal Overlay */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background-color: rgba(42, 77, 58, 0.45);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 32px 20px;
-      z-index: 1100;
-      backdrop-filter: blur(6px);
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    /* Modal Window */
     .modal {
-      background-color: #fff;
-      border-radius: 14px;
-      width: 100%;
-      max-width: 480px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 48px 44px 56px;
-      position: relative;
-      color: #2e3e2f;
-      font-size: 1rem;
-      box-shadow: 0 12px 32px rgba(46, 62, 47, 0.15);
-      scroll-behavior: smooth;
+      padding: 32px 24px;
     }
 
     .modal h2 {
-      margin: 0 0 36px;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #3a7d44;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      user-select: none;
+      font-size: 1.6rem;
     }
 
-    .close-modal-btn {
-      position: absolute;
-      top: 18px;
-      right: 22px;
-      background: transparent;
-      border: none;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #3a7d44;
-      cursor: pointer;
-      user-select: none;
-      transition: color 0.25s ease;
-      line-height: 1;
-    }
-
-    .close-modal-btn:hover,
-    .close-modal-btn:focus {
-      color: #1f3a2a;
-      outline: none;
-    }
-
-    .close-modal-btn:focus-visible {
-      outline: 3px solid #1f3a2a;
-      outline-offset: 3px;
-    }
-
-    /* Form */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    label {
-      font-weight: 600;
-      color: #4b5c4a;
-      letter-spacing: 0.06em;
-      user-select: none;
+    .btn {
+      padding: 14px 36px;
       font-size: 1rem;
     }
+  }
 
-    input[type="text"],
-    textarea {
-      padding: 16px 18px;
-      border-radius: 12px;
-      border: 1.5px solid #cbd5d1;
-      font-size: 1rem;
-      font-family: inherit;
-      color: #2e3e2f;
-      resize: vertical;
-      min-height: 48px;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.07);
-      outline-offset: 2px;
-    }
+  video, img {
+    max-width: 100%;
+    display: block;
+    margin-bottom: 10px;
+  }
 
-    input[type="text"]:focus,
-    textarea:focus {
-      border-color: #3a7d44;
-      outline: none;
-      box-shadow: 0 0 16px rgba(58, 125, 68, 0.35);
-      background-color: #fff;
-    }
-
-    input[readonly] {
-      background-color: #f6f8f6;
-      border-color: #a3b5a8;
-      cursor: default;
-      color: #71806d;
-      box-shadow: none;
-    }
-
-    button[type="submit"] {
-      background: #2a4d3a;
-      border: none;
-      padding: 18px 0;
-      border-radius: 28px;
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #fff;
-      cursor: pointer;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      user-select: none;
-      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
-      margin-top: 4px;
-      box-shadow: 0 6px 16px rgba(42, 77, 58, 0.35);
-      align-self: stretch;
-    }
-
-    button[type="submit"]:hover,
-    button[type="submit"]:focus {
-      background: #1f3a2a;
-      box-shadow: 0 8px 20px rgba(31, 58, 42, 0.5);
-      transform: translateY(-3px);
-      outline: none;
-    }
-
-    button[type="submit"]:focus-visible {
-      outline: 3px solid #1f3a2a;
-      outline-offset: 3px;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      main {
-        padding: 36px 24px 40px;
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(46, 62, 47, 0.08);
-      }
-
-      h1 {
-        font-size: 2rem;
-        letter-spacing: 0.1em;
-      }
-
-      .dashboards {
-        grid-template-columns: 1fr;
-        gap: 22px;
-      }
-
-      .dashboards a {
-        font-size: 1.1rem;
-        padding: 18px 22px;
-      }
-
-      .dashboards a::before {
-        font-size: 1.4rem;
-        margin-right: 10px;
-      }
-
-      #openModalBtn {
-        padding: 14px 48px;
-        font-size: 1.1rem;
-        margin-bottom: 40px;
-      }
-
-      .logout-btn {
-        font-size: 1rem;
-        padding: 14px 48px;
-      }
-
-      .modal {
-        padding: 36px 32px 40px;
-        max-height: 85vh;
-      }
-
-      .modal h2 {
-        font-size: 1.7rem;
-        margin-bottom: 30px;
-      }
-
-      form {
-        gap: 20px;
-      }
-    }
-
-    video, img {
-      max-width: 300px;
-      display: block;
-      margin-bottom: 10px;
-    }
 
     #captureBtn, #retakeBtn {
   background: #3a7d44;
@@ -732,6 +632,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
