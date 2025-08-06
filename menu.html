@@ -396,6 +396,89 @@
   outline-offset: 3px;
 }
 
+
+     /* New KPI Cards Container */
+    .kpi-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      width: 100%;
+      margin-bottom: 48px;
+    }
+
+    .kpi-card {
+      background: #fefefe;
+      border-radius: 12px;
+      padding: 24px 28px 36px;
+      box-shadow: 0 4px 12px rgba(46, 62, 47, 0.07);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #2a4d3a;
+      position: relative;
+    }
+
+    .kpi-number {
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+
+    .kpi-label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+      letter-spacing: 0.05em;
+      user-select: none;
+    }
+
+    .kpi-growth {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #4b5c4a;
+      user-select: none;
+      border-top: 1px solid #c9d6ca;
+      padding-top: 12px;
+    }
+
+    .kpi-growth .growth-month {
+      text-align: left;
+    }
+
+    .kpi-growth .growth-year {
+      text-align: right;
+    }
+
+    /* Space for graphs below KPI cards */
+    .graphs-container {
+      width: 100%;
+      min-height: 300px; /* You can adjust this height */
+      background: #e9f2e7;
+      border-radius: 12px;
+      box-shadow: inset 0 0 12px rgba(58, 125, 68, 0.1);
+      padding: 24px;
+      margin-bottom: 48px;
+      user-select: none;
+      color: #3a7d44;
+      font-weight: 600;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* Responsive tweaks for KPI cards */
+    @media (max-width: 600px) {
+      .kpi-cards {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -404,12 +487,56 @@
       <h1>KPI DASHBOARDS</h1>
     </header>
 
+    <!-- New KPI Cards Section -->
+    <section class="kpi-cards" aria-label="Key Performance Indicators">
+      <div class="kpi-card" role="region" aria-labelledby="kpi1-label">
+        <div class="kpi-number" id="kpi1-number">1,234</div>
+        <div class="kpi-label" id="kpi1-label">Total Users</div>
+        <div class="kpi-growth">
+          <div class="growth-month">+4.5% last month</div>
+          <div class="growth-year">+22.1% last year</div>
+        </div>
+      </div>
+
+      <div class="kpi-card" role="region" aria-labelledby="kpi2-label">
+        <div class="kpi-number" id="kpi2-number">567</div>
+        <div class="kpi-label" id="kpi2-label">New Signups</div>
+        <div class="kpi-growth">
+          <div class="growth-month">+3.2% last month</div>
+          <div class="growth-year">+15.7% last year</div>
+        </div>
+      </div>
+
+      <div class="kpi-card" role="region" aria-labelledby="kpi3-label">
+        <div class="kpi-number" id="kpi3-number">89%</div>
+        <div class="kpi-label" id="kpi3-label">Customer Retention</div>
+        <div class="kpi-growth">
+          <div class="growth-month">+0.8% last month</div>
+          <div class="growth-year">+5.4% last year</div>
+        </div>
+      </div>
+
+      <div class="kpi-card" role="region" aria-labelledby="kpi4-label">
+        <div class="kpi-number" id="kpi4-number">$345K</div>
+        <div class="kpi-label" id="kpi4-label">Revenue</div>
+        <div class="kpi-growth">
+          <div class="growth-month">+6.3% last month</div>
+          <div class="growth-year">+28.9% last year</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Existing navigation, buttons, modals, etc... -->
     <nav class="dashboards" aria-label="Dashboard navigation">
       <a href="channelmenu.html" tabindex="0">Channel</a>
       <a href="marketingmenu.html" tabindex="0">Marketing</a>
       <a href="networkmenu.html" tabindex="0">Network</a>
     </nav>
 
+    <!-- Space reserved for graphs -->
+    <section class="graphs-container" aria-label="Graphs and charts">
+      Graphs will appear here
+    </section>
     <button
       id="openModalBtn"
       aria-haspopup="dialog"
@@ -731,6 +858,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
