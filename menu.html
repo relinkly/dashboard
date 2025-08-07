@@ -397,28 +397,45 @@
 }
 
 
-/* Container for dashboards and KPI cards side by side or stacked */
+/* Adjusted dashboard + KPI grid */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr 2fr;
+  gap: 32px;
   width: 100%;
   margin-bottom: 56px;
-  align-items: start;
 }
 
-/* Keep dashboard nav links as is */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Center buttons in a section */
+.button-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+/* Make dashboard nav look more like a section */
 .dashboards {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
+  width: 100%;
 }
 
-/* KPI cards container grid */
+/* KPI Cards - now take up full space of their grid area */
 .kpi-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
+  width: 100%;
 }
 
 /* Style KPI cards to match dashboard buttons */
@@ -600,13 +617,15 @@
   </section>
 
 
-  <!-- Space for graphs -->
-  <section class="graphs">
-    <!-- Placeholder divs for graphs -->
-    <div class="graph" aria-label="Graph 1"></div>
-    <div class="graph" aria-label="Graph 2"></div>
-  </section>
+ <!-- Graphs section (same as before) -->
+<section class="graphs">
+  <div class="graph" aria-label="Graph 1"></div>
+  <div class="graph" aria-label="Graph 2"></div>
+</section>
 
+    
+<!-- Button group -->
+<section class="button-group">
     <button
       id="openModalBtn"
       aria-haspopup="dialog"
@@ -696,6 +715,8 @@
     <button class="logout-btn" id="logoutBtn" aria-label="Log out" type="button">
       Logout
     </button>
+
+  </section>
   </main>
 
 <script>
@@ -928,6 +949,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
