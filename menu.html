@@ -412,15 +412,7 @@
   }
 }
 
-/* Center buttons in a section */
-.button-group {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 56px;
-}
+
 
 /* Make dashboard nav look more like a section */
 .dashboards {
@@ -626,7 +618,39 @@
     font-size: 0.85rem;
   }
 }
+ /* Flex column layout for the buttons */
+  .button-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start; /* Change to center if you want them centered */
+    margin: 20px;
+  }
 
+  /* Shared styling for both buttons */
+  .action-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .action-btn:hover {
+    background-color: #0056b3;
+  }
+
+  .logout-btn {
+    background-color: #dc3545;
+  }
+
+  .logout-btn:hover {
+    background-color: #a71d2a;
+  }
   </style>
 </head>
 <body>
@@ -694,15 +718,29 @@
 </section>
 
     
-    <button
-      id="openModalBtn"
-      aria-haspopup="dialog"
-      aria-controls="incidentModal"
-      aria-expanded="false"
-      type="button"
-    >
-      Report Incident
-    </button>
+<div class="button-column">
+  <button
+    id="openModalBtn"
+    class="action-btn"
+    aria-haspopup="dialog"
+    aria-controls="incidentModal"
+    aria-expanded="false"
+    type="button"
+  >
+    Report Incident
+  </button>
+
+  <button
+    class="logout-btn action-btn"
+    id="logoutBtn"
+    aria-label="Log out"
+    type="button"
+  >
+    Logout
+  </button>
+</div>
+
+
 
     <div
       class="modal-overlay"
@@ -780,9 +818,6 @@
       </div>
     </div>
 
-    <button class="logout-btn" id="logoutBtn" aria-label="Log out" type="button">
-      Logout
-    </button>
 
   </main>
 <script>
@@ -1015,6 +1050,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
