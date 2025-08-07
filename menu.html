@@ -557,25 +557,81 @@
   min-height: 80px;
 }
 
+    /* Section headings */
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2a4d3a;
+  margin-bottom: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  width: 100%;
+  border-bottom: 2px solid #e0e7e3;
+  padding-bottom: 8px;
+}
+
+/* Add spacing between dashboard section and KPI */
+.dashboard-grid {
+  margin-bottom: 40px;
+}
+
+/* Better visual separation */
+.kpi-cards {
+  margin-top: 8px;
+}
+
+.kpi-card:hover {
+  background-color: #f6faf7;
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
+/* Improve text visibility on small screens */
+.kpi-label {
+  font-size: 1.1rem;
+  color: #2a4d3a;
+  margin-bottom: 4px;
+}
+
+.kpi-growth {
+  font-size: 0.95rem;
+  color: #556e5b;
+}
+
+/* Section title for graphs */
+.graphs::before {
+  content: "Performance Graphs";
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2a4d3a;
+  margin-bottom: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 2px solid #e0e7e3;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
   </style>
 </head>
 <body>
   <main>
-    <header>
-      <h1>KPI DASHBOARDS</h1>
-    </header>
+  
+<header>
+  <h1>KPI DASHBOARDS</h1>
+</header>
 
-  <section class="dashboard-grid">
+<section class="dashboard-grid">
 
-    <!-- Dashboard navigation links -->
-<nav class="dashboards" aria-label="Dashboard navigation">
-  <a href="channelmenu.html">Channel</a>
-  <a href="marketingmenu.html">Marketing</a>
-  <a href="networkmenu.html">Network</a>
-</nav>
+  <h2 class="section-title">Dashboards</h2>
+  <nav class="dashboards" aria-label="Dashboard navigation">
+    <a href="channelmenu.html">Channel</a>
+    <a href="marketingmenu.html">Marketing</a>
+    <a href="networkmenu.html">Network</a>
+  </nav>
 
-
-   <div class="kpi-cards" aria-label="Key Performance Indicators">
+  <h2 class="section-title">Key Performance Indicators</h2>
   <div class="kpi-card" role="region" aria-labelledby="kpi1-label">
     <div class="kpi-number" id="kpi1-number">1,234</div>
     <div class="kpi-label" id="kpi1-label">Base</div>
@@ -949,6 +1005,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
