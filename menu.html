@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KPI Dashboards Menu</title>
   <style>
-      /* Reset and Global Styles */
+    /* Reset and Global Styles */
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -25,7 +25,7 @@
 
     main {
       background: #fff;
-      max-width: 900px;
+      max-width: 960px;
       width: 100%;
       padding: 48px 40px 56px;
       border-radius: 14px;
@@ -40,6 +40,7 @@
       text-align: center;
       margin-bottom: 48px;
       user-select: none;
+      width: 100%;
     }
 
     h1 {
@@ -52,22 +53,40 @@
       line-height: 1.2;
     }
 
-    /* Navigation Grid */
-    .dashboards {
+    /* New two-column layout container for dashboards + KPI cards */
+    .content-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
+      grid-template-columns: 1.3fr 2fr;
+      gap: 40px;
       width: 100%;
+      align-items: start;
       margin-bottom: 56px;
     }
 
-    .dashboards a {
+    /* Left side: Dashboards section */
+    .dashboards-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .dashboards-section .section-title {
+      margin-bottom: 16px;
+    }
+
+    nav.dashboards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    nav.dashboards a {
       background-color: #fefefe;
       border-radius: 12px;
       padding: 20px 24px;
       color: #2a4d3a;
       font-weight: 600;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       text-align: center;
       text-decoration: none;
       letter-spacing: 0.1em;
@@ -79,12 +98,11 @@
       border: 2px solid #c9d6ca;
       user-select: none;
       transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.25s ease, transform 0.15s ease;
-      position: relative;
       box-shadow: inset 0 0 0 rgba(0,0,0,0);
     }
 
-    .dashboards a:hover,
-    .dashboards a:focus {
+    nav.dashboards a:hover,
+    nav.dashboards a:focus {
       background-color: #e9f2e7;
       border-color: #3a7d44;
       box-shadow: 0 4px 10px rgba(58, 125, 68, 0.15);
@@ -92,12 +110,135 @@
       transform: translateY(-3px);
     }
 
-    .dashboards a:focus-visible {
+    nav.dashboards a:focus-visible {
       outline: 3px solid #3a7d44;
       outline-offset: 3px;
     }
 
-    /* Buttons */
+    /* Right side: KPI cards section */
+    .kpi-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .kpi-section .section-title {
+      margin-bottom: 16px;
+    }
+
+    .kpi-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      width: 100%;
+    }
+
+    .kpi-card {
+      background-color: #fefefe;
+      border-radius: 12px;
+      padding: 28px 32px;
+      border: 2px solid #c9d6ca;
+      box-shadow: inset 0 0 0 rgba(0,0,0,0);
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+      transition: border-color 0.3s ease, box-shadow 0.25s ease, background-color 0.2s ease, transform 0.2s ease;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #2a4d3a;
+      min-height: 110px;
+    }
+
+    .kpi-card:hover,
+    .kpi-card:focus {
+      border-color: #3a7d44;
+      box-shadow: 0 6px 14px rgba(58, 125, 68, 0.2);
+      background-color: #f6faf7;
+      outline: none;
+      transform: translateY(-4px);
+    }
+
+    .kpi-number {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      color: #2a4d3a;
+    }
+
+    .kpi-label {
+      font-size: 1.2rem;
+      color: #2a4d3a;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .kpi-growth {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1rem;
+      color: #4b5c4a;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .growth-month {
+      text-align: left;
+    }
+
+    .growth-year {
+      text-align: right;
+    }
+
+    /* Graphs section */
+    .graphs {
+      display: flex;
+      gap: 24px;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 56px;
+      justify-content: center;
+    }
+
+    .graphs::before {
+      content: "Performance Graphs";
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2a4d3a;
+      margin-bottom: 16px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-bottom: 2px solid #e0e7e3;
+      padding-bottom: 8px;
+      width: 100%;
+    }
+
+    .graph {
+      background: #e9f2e7;
+      border-radius: 12px;
+      flex: 1 1 400px;
+      min-height: 250px;
+      box-shadow: inset 0 0 0 rgba(0,0,0,0);
+      border: 2px solid #c9d6ca;
+    }
+
+    /* Button group */
+    .button-group {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 56px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /* Buttons styling */
     #openModalBtn {
       background: #3a7d44;
       border: none;
@@ -112,8 +253,6 @@
       user-select: none;
       transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
       box-shadow: 0 4px 12px rgba(58, 125, 68, 0.4);
-      margin-bottom: 56px;
-      align-self: center;
     }
 
     #openModalBtn:hover,
@@ -129,666 +268,119 @@
       outline-offset: 3px;
     }
 
-    .logout-btn {
-      background: #2a4d3a;
-      border: none;
-      padding: 16px 56px;
-      border-radius: 28px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: #fff;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
-      align-self: center;
-      box-shadow: 0 3px 9px rgba(42, 77, 58, 0.35);
-    }
-
-    .logout-btn:hover,
-    .logout-btn:focus {
-      background: #1f3a2a;
-      box-shadow: 0 5px 14px rgba(31, 58, 42, 0.5);
-      outline: none;
-      transform: translateY(-3px);
-    }
-
-    .logout-btn:focus-visible {
-      outline: 3px solid #1f3a2a;
-      outline-offset: 3px;
-    }
-
-    /* Modal Overlay */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background-color: rgba(42, 77, 58, 0.45);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 32px 20px;
-      z-index: 1100;
-      backdrop-filter: blur(6px);
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    /* Modal Window */
-    .modal {
-      background-color: #fff;
-      border-radius: 14px;
-      width: 100%;
-      max-width: 480px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 48px 44px 56px;
-      position: relative;
-      color: #2e3e2f;
-      font-size: 1rem;
-      box-shadow: 0 12px 32px rgba(46, 62, 47, 0.15);
-      scroll-behavior: smooth;
-    }
-
-    .modal h2 {
-      margin: 0 0 36px;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #3a7d44;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      user-select: none;
-    }
-
-    .close-modal-btn {
-      position: absolute;
-      top: 18px;
-      right: 22px;
-      background: transparent;
-      border: none;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #3a7d44;
-      cursor: pointer;
-      user-select: none;
-      transition: color 0.25s ease;
-      line-height: 1;
-    }
-
-    .close-modal-btn:hover,
-    .close-modal-btn:focus {
-      color: #1f3a2a;
-      outline: none;
-    }
-
-    .close-modal-btn:focus-visible {
-      outline: 3px solid #1f3a2a;
-      outline-offset: 3px;
-    }
-
-    /* Form */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    label {
-      font-weight: 600;
-      color: #4b5c4a;
-      letter-spacing: 0.06em;
-      user-select: none;
-      font-size: 1rem;
-    }
-
-    input[type="text"],
-    textarea {
-      padding: 16px 18px;
-      border-radius: 12px;
-      border: 1.5px solid #cbd5d1;
-      font-size: 1rem;
-      font-family: inherit;
-      color: #2e3e2f;
-      resize: vertical;
-      min-height: 48px;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.07);
-      outline-offset: 2px;
-    }
-
-    input[type="text"]:focus,
-    textarea:focus {
-      border-color: #3a7d44;
-      outline: none;
-      box-shadow: 0 0 16px rgba(58, 125, 68, 0.35);
-      background-color: #fff;
-    }
-
-    input[readonly] {
-      background-color: #f6f8f6;
-      border-color: #a3b5a8;
-      cursor: default;
-      color: #71806d;
-      box-shadow: none;
-    }
-
-    button[type="submit"] {
-      background: #2a4d3a;
-      border: none;
-      padding: 18px 0;
-      border-radius: 28px;
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #fff;
-      cursor: pointer;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      user-select: none;
-      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
-      margin-top: 4px;
-      box-shadow: 0 6px 16px rgba(42, 77, 58, 0.35);
-      align-self: stretch;
-    }
-
-    button[type="submit"]:hover,
-    button[type="submit"]:focus {
-      background: #1f3a2a;
-      box-shadow: 0 8px 20px rgba(31, 58, 42, 0.5);
-      transform: translateY(-3px);
-      outline: none;
-    }
-
-    button[type="submit"]:focus-visible {
-      outline: 3px solid #1f3a2a;
-      outline-offset: 3px;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
+    /* Responsive for smaller screens */
+    @media (max-width: 800px) {
       main {
-        padding: 36px 24px 40px;
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(46, 62, 47, 0.08);
+        padding: 32px 20px 40px;
       }
 
-      h1 {
-        font-size: 2rem;
-        letter-spacing: 0.1em;
-      }
-
-      .dashboards {
+      .content-grid {
         grid-template-columns: 1fr;
-        gap: 22px;
+        gap: 32px;
       }
 
-      .dashboards a {
+      /* Show KPI cards first on mobile */
+      .content-grid {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Reverse order so KPI cards appear first */
+      .kpi-section {
+        order: -1;
+      }
+
+      nav.dashboards a {
         font-size: 1.1rem;
-        padding: 18px 22px;
+        padding: 18px 20px;
       }
 
-      .dashboards a::before {
-        font-size: 1.4rem;
-        margin-right: 10px;
+      .kpi-card {
+        font-size: 1.1rem;
+        padding: 20px 24px;
+        min-height: 100px;
+      }
+
+      .kpi-number {
+        font-size: 2rem;
       }
 
       #openModalBtn {
-        padding: 14px 48px;
-        font-size: 1.1rem;
-        margin-bottom: 40px;
-      }
-
-      .logout-btn {
-        font-size: 1rem;
-        padding: 14px 48px;
-      }
-
-      .modal {
-        padding: 36px 32px 40px;
-        max-height: 85vh;
-      }
-
-      .modal h2 {
-        font-size: 1.7rem;
-        margin-bottom: 30px;
-      }
-
-      form {
-        gap: 20px;
+        width: 100%;
+        max-width: 400px;
+        padding: 14px 24px;
       }
     }
-
-    video, img {
-      max-width: 300px;
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    #captureBtn, #retakeBtn {
-  background: #3a7d44;
-  border: none;
-  padding: 12px 36px;
-  border-radius: 28px;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
-  box-shadow: 0 4px 12px rgba(58, 125, 68, 0.4);
-  margin-right: 10px;
-}
-
-#captureBtn:hover, #retakeBtn:hover,
-#captureBtn:focus, #retakeBtn:focus {
-  background: #2a5931;
-  box-shadow: 0 6px 16px rgba(42, 89, 49, 0.5);
-  outline: none;
-  transform: translateY(-3px);
-}
-
-#captureBtn:focus-visible, #retakeBtn:focus-visible {
-  outline: 3px solid #2a5931;
-  outline-offset: 3px;
-}
-
-
-/* Adjusted dashboard + KPI grid */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 32px;
-  width: 100%;
-  margin-bottom: 56px;
-}
-
-@media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Center buttons in a section */
-.button-group {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 56px;
-}
-
-/* Make dashboard nav look more like a section */
-.dashboards {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
-}
-
-/* KPI Cards - now take up full space of their grid area */
-.kpi-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  width: 100%;
-}
-
-/* Style KPI cards to match dashboard buttons */
-.kpi-card {
-  background-color: #fefefe;
-  border-radius: 12px;
-  padding: 20px 24px;
-  border: 2px solid #c9d6ca;
-  box-shadow: inset 0 0 0 rgba(0,0,0,0);
-  cursor: default;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  user-select: none;
-  transition: border-color 0.3s ease, box-shadow 0.25s ease;
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: #2a4d3a;
-  min-height: 80px; /* same as buttons approx */
-}
-
-.kpi-card:hover,
-.kpi-card:focus {
-  border-color: #3a7d44;
-  box-shadow: 0 4px 10px rgba(58, 125, 68, 0.15);
-  outline: none;
-}
-
-/* Big number on top */
-.kpi-number {
-  font-size: 2.4rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  color: #2a4d3a;
-}
-
-/* Bottom row: growth percentages aligned left and right */
-.kpi-growth {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  color: #4b5c4a;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-
-/* Growth percent styling */
-.growth-month {
-  text-align: left;
-}
-
-.growth-year {
-  text-align: right;
-}
-
-/* Graphs container */
-.graphs {
-  display: flex;
-  gap: 24px;
-  width: 100%;
-  max-width: 900px;
-  margin-bottom: 56px;
-  justify-content: center;
-}
-
-/* Placeholder for graphs */
-.graph {
-  background: #e9f2e7;
-  border-radius: 12px;
-  flex: 1 1 400px;
-  min-height: 250px;
-  box-shadow: inset 0 0 0 rgba(0,0,0,0);
-  /* Add a subtle border */
-  border: 2px solid #c9d6ca;
-}
-
-@media (max-width: 600px) {
-  .dashboard-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .dashboards {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-  }
-
-  .dashboards a,
-  .kpi-card {
-    width: 100%;
-    font-size: 1.1rem;
-    padding: 18px 22px;
-  }
-
-  .kpi-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .graphs {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .graph {
-    min-height: 200px;
-    width: 100%;
-  }
-}
-
-.dashboards a,
-.kpi-card {
-  min-height: 80px;
-}
-
-    /* Section headings */
-.section-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2a4d3a;
-  margin-bottom: 16px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  width: 100%;
-  border-bottom: 2px solid #e0e7e3;
-  padding-bottom: 8px;
-}
-
-/* Add spacing between dashboard section and KPI */
-.dashboard-grid {
-  margin-bottom: 40px;
-}
-
-/* Better visual separation */
-.kpi-cards {
-  margin-top: 8px;
-}
-
-.kpi-card:hover {
-  background-color: #f6faf7;
-  transform: translateY(-2px);
-  transition: all 0.2s ease;
-}
-
-/* Improve text visibility on small screens */
-.kpi-label {
-  font-size: 1.1rem;
-  color: #2a4d3a;
-  margin-bottom: 4px;
-}
-
-.kpi-growth {
-  font-size: 0.95rem;
-  color: #556e5b;
-}
-
-/* Section title for graphs */
-.graphs::before {
-  content: "Performance Graphs";
-  display: block;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2a4d3a;
-  margin-bottom: 16px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-bottom: 2px solid #e0e7e3;
-  padding-bottom: 8px;
-  width: 100%;
-}
-
-    @media (max-width: 480px) {
-  .section-title {
-    font-size: 1.3rem;
-  }
-
-  .kpi-number {
-    font-size: 2rem;
-  }
-
-  .kpi-growth {
-    font-size: 0.85rem;
-  }
-}
-
   </style>
 </head>
 <body>
   <main>
-  
-<header>
-  <h1>KPI DASHBOARDS</h1>
-</header>
+    <header>
+      <h1>KPIs / Dashboards</h1>
+    </header>
 
-<section class="dashboard-grid">
+    <div class="content-grid">
+      <!-- KPI Cards on right side for desktop, first on mobile -->
+      <section class="kpi-section" aria-label="Key Performance Indicators">
+        <h2 class="section-title">Key Performance Indicators</h2>
+        <div class="kpi-cards">
+          <div class="kpi-card" tabindex="0">
+            <div class="kpi-number">114</div>
+            <div class="kpi-label">Clients</div>
+            <div class="kpi-growth">
+              <span class="growth-month">-11% vs last month</span>
+              <span class="growth-year">+7% vs last year</span>
+            </div>
+          </div>
+          <div class="kpi-card" tabindex="0">
+            <div class="kpi-number">1414</div>
+            <div class="kpi-label">Samples</div>
+            <div class="kpi-growth">
+              <span class="growth-month">-11% vs last month</span>
+              <span class="growth-year">+7% vs last year</span>
+            </div>
+          </div>
+          <div class="kpi-card" tabindex="0">
+            <div class="kpi-number">12,245</div>
+            <div class="kpi-label">Tests</div>
+            <div class="kpi-growth">
+              <span class="growth-month">-11% vs last month</span>
+              <span class="growth-year">+7% vs last year</span>
+            </div>
+          </div>
+          <div class="kpi-card" tabindex="0">
+            <div class="kpi-number">5</div>
+            <div class="kpi-label">Employees</div>
+            <div class="kpi-growth">
+              <span class="growth-month">-11% vs last month</span>
+              <span class="growth-year">+7% vs last year</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <h2 class="section-title">Dashboards</h2>
-  <nav class="dashboards" aria-label="Dashboard navigation">
-    <a href="channelmenu.html">Channel</a>
-    <a href="marketingmenu.html">Marketing</a>
-    <a href="networkmenu.html">Network</a>
-  </nav>
-
-  <h2 class="section-title">Key Performance Indicators</h2>
-  <div class="kpi-card" role="region" aria-labelledby="kpi1-label">
-    <div class="kpi-number" id="kpi1-number">1,234</div>
-    <div class="kpi-label" id="kpi1-label">Base</div>
-    <div class="kpi-growth">
-      <div class="growth-month">+4.5% last month</div>
-      <div class="growth-year">+22.1% last year</div>
-    </div>
-  </div>
-
-  <div class="kpi-card" role="region" aria-labelledby="kpi2-label">
-    <div class="kpi-number" id="kpi2-number">567</div>
-    <div class="kpi-label" id="kpi2-label">Subscribers</div>
-    <div class="kpi-growth">
-      <div class="growth-month">+3.2% last month</div>
-      <div class="growth-year">+15.7% last year</div>
-    </div>
-  </div>
-
-  <div class="kpi-card" role="region" aria-labelledby="kpi3-label">
-    <div class="kpi-number" id="kpi3-number">44%</div>
-    <div class="kpi-label" id="kpi3-label">Penetration</div>
-    <div class="kpi-growth">
-      <div class="growth-month">+0.8% last month</div>
-      <div class="growth-year">+5.4% last year</div>
-    </div>
-  </div>
-
-  <div class="kpi-card" role="region" aria-labelledby="kpi4-label">
-    <div class="kpi-number" id="kpi4-number">$345K</div>
-    <div class="kpi-label" id="kpi4-label">Revenue</div>
-    <div class="kpi-growth">
-      <div class="growth-month">+6.3% last month</div>
-      <div class="growth-year">+28.9% last year</div>
-    </div>
-  </div>
-</div>
-
-
-  </section>
-
-
- <!-- Graphs section (same as before) -->
-<section class="graphs">
-  <div class="graph" aria-label="Graph 1"></div>
-  <div class="graph" aria-label="Graph 2"></div>
-</section>
-
-    
-<!-- Button group -->
-<section class="button-group">
-    <button
-      id="openModalBtn"
-      aria-haspopup="dialog"
-      aria-controls="incidentModal"
-      aria-expanded="false"
-      type="button"
-    >
-      Report Incident
-    </button>
-
-    <div
-      class="modal-overlay"
-      id="incidentModal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modalTitle"
-      tabindex="-1"
-    >
-      <div class="modal">
-        <button
-          class="close-modal-btn"
-          aria-label="Close incident report form"
-          type="button"
-        >&times;</button>
-
-        <h2 id="modalTitle">Incident Reporting</h2>
-
-        <form
-  id="incidentForm"
-  action="https://docs.google.com/forms/d/e/1FAIpQLSdrmFNeQAUEjYGOYgHWOZCmEgtGknaXroWTD0keUro6DHocMg/formResponse"
-  method="POST"
-  target="hidden_iframe"
-  onsubmit="submitted=true;"
-  novalidate
->
-  <label for="username">Username</label>
-  <input
-    type="text"
-    id="username"
-    name="entry.2120015252"
-    readonly
-    aria-readonly="true"
-  />
-
-  <label for="area">Area</label>
-  <input
-    type="text"
-    id="area"
-    name="entry.1059382315"
-    placeholder="Enter area"
-    required
-    aria-required="true"
-  />
-
-  <label for="description">Description</label>
-  <textarea
-    id="description"
-    name="entry.1887453304"
-    rows="5"
-    placeholder="Describe the incident"
-    required
-    aria-required="true"
-  ></textarea>
-
-<label for="camera">Capture Image</label>
-<video id="camera" autoplay playsinline></video>
-<canvas id="snapshot" style="display: none;"></canvas>
-
-<div id="preview-container" style="margin-top: 10px;">
-  <img id="preview" src="" alt="Image preview" style="display: none;" />
-</div>
-
-<button type="button" id="captureBtn">Capture Photo</button>
-<button type="button" id="retakeBtn" style="display:none;">Retake</button>
-<input type="hidden" id="imgFilenameInput" name="entry.1179564217" value="">
-
-
-
-  <button type="submit">Submit Incident</button>
-</form>
-
-<iframe name="hidden_iframe" style="display:none;"></iframe>
-
-      </div>
+      <!-- Dashboards navigation on left side for desktop, below KPI on mobile -->
+      <section class="dashboards-section" aria-label="Dashboards Navigation">
+        <h2 class="section-title">Dashboards</h2>
+        <nav class="dashboards" role="navigation" aria-label="Dashboards Menu">
+          <a href="#">Clients</a>
+          <a href="#">Samples</a>
+          <a href="#">Tests</a>
+          <a href="#">Employees</a>
+        </nav>
+      </section>
     </div>
 
-    <button class="logout-btn" id="logoutBtn" aria-label="Log out" type="button">
-      Logout
-    </button>
+    <!-- Optional Performance Graphs -->
+    <section class="graphs" aria-label="Performance Graphs">
+      <div class="graph" aria-hidden="true"></div>
+      <div class="graph" aria-hidden="true"></div>
+    </section>
 
-  </section>
+    <div class="button-group">
+      <button id="openModalBtn" aria-haspopup="dialog" aria-controls="modal">Open Modal</button>
+    </div>
   </main>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("loggedIn") !== "true") {
@@ -1019,6 +611,7 @@ if (imgUrlInput) imgUrlInput.value = "";
 
 </body>
 </html>
+
 
 
 
