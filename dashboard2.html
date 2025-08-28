@@ -353,6 +353,8 @@ $(table).on('click', 'tbody td', function () {
   }
 });
 
+console.log(`Table ${tableId} columns:`, columns);
+console.log(`Grid col index: ${gridColIndex}`);
 
         const gridColIndex = columns.findIndex(c => c.trim().toLowerCase().includes("Grid"));
         dataTables[tableId] = { dt, columns, gridColIndex };
@@ -384,6 +386,7 @@ $(table).on('click', 'tbody td', function () {
 
 </body>
 </html>
+
 
 
 
