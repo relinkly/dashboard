@@ -357,7 +357,10 @@ console.log(`Table ${tableId} columns:`, columns);
 console.log(`Grid col index: ${gridColIndex}`);
 
         const gridColIndex = columns.findIndex(c => c.trim().toLowerCase().includes("Grid"));
-        dataTables[tableId] = { dt, columns, gridColIndex };
+console.log(`Grid col index: ${gridColIndex}`);
+
+dataTables[tableId] = { dt, columns, gridColIndex };
+
 
         // Watermark for specific users
         const whitelist = ["sameenyaser", "naumanzaheer"];
@@ -386,10 +389,3 @@ console.log(`Grid col index: ${gridColIndex}`);
 
 </body>
 </html>
-
-
-
-
-
-
-
