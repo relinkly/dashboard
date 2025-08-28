@@ -218,12 +218,16 @@ table.dataTable {
   let loadedCount = 0;
 
   function applyGridFilter(value) {
-    if (!dataTables || Object.keys(dataTables).length === 0) return;
-    Object.values(dataTables).forEach(({ dt, gridColIndex }) => {
+  if (!dataTables || Object.keys(dataTables).length === 0) return;
+  Object.entries(dataTables).forEach(([tableId, { dt, gridColIndex }]) => {
+    // Only apply to gridTable and franchiseTable
+    if (tableId === 'gridTable' || tableId === 'franchiseTable') {
       if (gridColIndex === -1) return;
       dt.columns(gridColIndex).search(value, true, false, true).draw();
-    });
-  }
+    }
+  });
+}
+
 
   const gridIds = [
     "C1001", "C1005", "C1006", "C1002", "C1004", "C1003",
@@ -380,6 +384,7 @@ $(table).on('click', 'tbody td', function () {
 
 </body>
 </html>
+
 
 
 
