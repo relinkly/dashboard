@@ -171,33 +171,46 @@
     <div class="tab-button" data-tab="etop">BVS</div>
   </div>
 
-  <div id="etop" class="tab-content">
-    <h1>Grid Level</h1>
-    <table id="sheetTable7" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
+ <div id="etop" class="tab-content">
+  <h1>Subregion Level</h1>
+  <table id="sheetTableBvsSubregion" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
 
-    <h1>Franchise Level</h1>
-    <table id="sheetTable8" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
-  </div>
+  <h1>Grid Level</h1>
+  <table id="sheetTable7" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
 
-  <div id="zl" class="tab-content">
-    <h1>Grid Level</h1>
-    <table id="sheetTable3" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
+  <h1>Franchise Level</h1>
+  <table id="sheetTable8" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-    <h1>Franchise Level</h1>
-    <table id="sheetTable4" class="display" style="width:100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
-  </div>
+<div id="zl" class="tab-content">
+  <h1>Subregion Level</h1>
+  <table id="sheetTableZlSubregion" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <h1>Grid Level</h1>
+  <table id="sheetTable3" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <h1>Franchise Level</h1>
+  <table id="sheetTable4" class="display" style="width:100%">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
 
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -266,11 +279,38 @@
     }
 
     const sheets = [
-      { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=0", tableId: "sheetTable3" },
-      { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1196662913", tableId: "sheetTable4" },
-      { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1028097947", tableId: "sheetTable7" },
-      { url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1979603911", tableId: "sheetTable8" }
-    ];
+  // ZL Subregion Level
+  {
+    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=359174065",
+    tableId: "sheetTableZlSubregion"
+  },
+  // ZL Grid Level
+  {
+    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=0",
+    tableId: "sheetTable3"
+  },
+  // ZL Franchise Level
+  {
+    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1196662913",
+    tableId: "sheetTable4"
+  },
+  // BVS Subregion Level
+  {
+    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=23460060",
+    tableId: "sheetTableBvsSubregion"
+  },
+  // BVS Grid Level
+  {
+    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1028097947",
+    tableId: "sheetTable7"
+  },
+  // BVS Franchise Level
+  {
+    url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1979603911",
+    tableId: "sheetTable8"
+  }
+];
+
 
     sheets.forEach(({ url, tableId }) => {
       Papa.parse(url, {
@@ -348,3 +388,4 @@
   </script>
 </body>
 </html>
+
