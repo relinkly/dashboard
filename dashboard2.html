@@ -179,6 +179,15 @@ table.dataTable {
 </div>
 
 <!-- Tables -->
+
+ <h1>Subregion Level</h1>
+<div class="table-wrapper">
+  <table id="subregionTable" class="display" style="width: 100%;">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</div>
+  
 <h1>Grid Level</h1>
 <div class="table-wrapper">
   <table id="gridTable" class="display" style="width: 100%;">
@@ -267,6 +276,10 @@ table.dataTable {
   }
 
   const sheets = [
+    {
+      url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/edit?gid=1188822183#gid=1188822183",
+      tableId: "subregionTable"
+    },
     {
       url: "https://docs.google.com/spreadsheets/d/1GsuErz0oKGJSlk7aJ7hUUZi8dJ-tObZ1ll73AhqtNZY/export?format=csv&gid=1987045560",
       tableId: "gridTable"
@@ -367,4 +380,5 @@ $(table).on('click', 'tbody td', function () {
 
 </body>
 </html>
+
 
