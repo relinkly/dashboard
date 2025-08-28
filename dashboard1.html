@@ -187,19 +187,6 @@
 </div>
 
 
-  <!-- Chart Tab -->
-<div id="chart" class="tab-content">
-  <h1>Avg Ach% by Grid</h1>
-  <div style="display:flex; gap:30px; flex-wrap: wrap;">
-    <div style="flex:1; min-width: 300px; height: 400px;">
-  <h2>ZL Avg Ach% by Grid</h2>
-  <canvas id="bvsGridBarChart" style="height: 100%; width: 100%;"></canvas>
-</div>
-    <div style="flex:1; min-width: 300px; height: 400px;">
-  <h2>BVS Avg Ach% by Grid</h2>
-  <canvas id="zlGridBarChart" style="height: 100%; width: 100%;"></canvas>
-</div>
-
 
   </div>
 </div>
@@ -490,10 +477,11 @@
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
     document.querySelector('.tab-button[data-tab="chart"]').classList.add('active');
-    document.getElementById("chart").classList.add('active');
+    document.getElementById("zl").classList.add('active');
   });
 </script>
 
 </body>
 </html>
+
 
