@@ -425,10 +425,6 @@
           if (gridKey && avgAchKey) {
             const labels = data.map(r => r[gridKey]);
             const values = data.map(r => parseFloat(r[avgAchKey]) || 0);
-
-            const ctxBVS = document.getElementById('bvsGridBarChart').getContext('2d');
-            if (bvsChartInstance) bvsChartInstance.destroy();
-            bvsChartInstance = renderBarChart(ctxBVS, labels, values);
           }
         }
 
@@ -482,6 +478,3 @@
 
 </body>
 </html>
-
-
-
