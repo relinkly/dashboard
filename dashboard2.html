@@ -218,15 +218,17 @@ table.dataTable {
   let loadedCount = 0;
 
   function applyGridFilter(value) {
+  console.log("Filtering with regex:", value);
   if (!dataTables || Object.keys(dataTables).length === 0) return;
   Object.entries(dataTables).forEach(([tableId, { dt, gridColIndex }]) => {
-    // Only apply to gridTable and franchiseTable
     if (tableId === 'gridTable' || tableId === 'franchiseTable') {
       if (gridColIndex === -1) return;
+      console.log(`Applying filter on ${tableId}, column ${gridColIndex}`);
       dt.columns(gridColIndex).search(value, true, false, true).draw();
     }
   });
 }
+
 
 
   const gridIds = [
@@ -387,5 +389,6 @@ dataTables[tableId] = { dt, columns, gridColIndex };
 
 </body>
 </html>
+
 
 
