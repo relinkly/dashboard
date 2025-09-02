@@ -321,7 +321,6 @@ console.log("Date Labels:", dateLabels);
   function sumData(filtered) {
   return dateLabels.map(date => {
     const total = filtered.reduce((acc, cur) => acc + (cur[date] || 0), 0);
-    console.log(`Date: ${date}, Total: ${total}`);
     return total;
   });
 }
@@ -845,6 +844,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
