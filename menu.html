@@ -292,6 +292,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 console.log("All keys:", Object.keys(rawData[0]));
 
   const dateLabels = Object.keys(rawData[0]).filter(key => /\d{2}-[A-Za-z]{3}/.test(key));
+console.log("Date Labels:", dateLabels);
 
 
 
@@ -318,8 +319,13 @@ console.log("All keys:", Object.keys(rawData[0]));
   let trendChart;
 
   function sumData(filtered) {
-    return dateLabels.map(date => filtered.reduce((acc, cur) => acc + (cur[date] || 0), 0));
-  }
+  return dateLabels.map(date => {
+    const total = filtered.reduce((acc, cur) => acc + (cur[date] || 0), 0);
+    console.log(`Date: ${date}, Total: ${total}`);
+    return total;
+  });
+}
+
 
   function updateChart(filteredData) {
     const data = sumData(filteredData);
@@ -839,6 +845,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
