@@ -290,9 +290,11 @@ document.addEventListener('DOMContentLoaded', async function () {
   const csvText = await response.text();
   const rawData = csvToJson(csvText);
 
-  const dateLabels = Object.keys(rawData[0]).filter(key =>
-    /^\d{2}-[A-Za-z]{3}$/.test(key)
-  );
+  const dateLabels = Object.keys(rawData[0]).filter(key => {
+  const cleanKey = key.trim();
+  return /^\d{2}-[A-Za-z]{3}$/.test(cleanKey);
+});
+
 
   // ... rest of your original script goes here, using rawData
 
@@ -838,6 +840,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
