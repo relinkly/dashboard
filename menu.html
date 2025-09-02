@@ -445,6 +445,12 @@ console.log("Date Labels:", dateLabels);
 
 
 <script>
+  const sheetUrl1 = 'https://docs.google.com/spreadsheets/d/1rdCxYkKJFawq4W8_phFpwcGYCpZSrRTJSWkgxDr3tVU/export?format=csv&gid=1500078835';
+const sheetUrl2 = 'https://docs.google.com/spreadsheets/d/1rdCxYkKJFawq4W8_phFpwcGYCpZSrRTJSWkgxDr3tVU/export?format=csv&gid=1740560951';
+
+   let siteData = [];
+let siteData1 = [];
+  
   function csvToJson(csv) {
   const lines = csv.trim().split('\n');
   const headers = lines[0].split(',').map(h => h.replace(/[\r\n\t]/g, '').trim());
@@ -460,34 +466,25 @@ console.log("Date Labels:", dateLabels);
   });
 }
 
- document.addEventListener('DOMContentLoaded', async () => {
-  const regionFilter = document.getElementById('regionFilter');
-  const gridFilter = document.getElementById('gridFilter');
-  const franchiseFilter = document.getElementById('franchiseFilter');
 
-  // Initialize map here to ensure DOM is ready
-  const map = L.map('map').setView([30.98, 73.85], 5.5);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
 
+document.addEventListener('DOMContentLoaded', async () => {
   try {
     const [csv1, csv2] = await Promise.all([
       fetch(sheetUrl1).then(res => res.text()),
       fetch(sheetUrl2).then(res => res.text())
     ]);
-    const siteData = csvToJson(csv1);
-    const siteData1 = csvToJson(csv2);
+    siteData = csvToJson(csv1);
+    siteData1 = csvToJson(csv2);
 
-    // Your init functions here...
+    // Initialize map and filters
     initMapAndFilters(siteData, regionFilter, gridFilter, franchiseFilter, map);
     initKpiCards(siteData1, regionFilter, gridFilter, franchiseFilter);
-
   } catch (error) {
     console.error("Failed to load data", error);
   }
 });
+
 
    
 
@@ -876,6 +873,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
