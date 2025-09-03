@@ -113,62 +113,63 @@
 </aside>
 
       <main class="p-6 max-w-7xl w-full mx-auto space-y-6">
-          <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans text-sm">
-            <!-- Base -->
-            <article class="bg-white dark:bg-slate-800 rounded-xl shadow p-4 flex flex-col">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h4 class="text-[11px] font-medium text-gray-500 uppercase">Base</h4>
-                  <p id="kpi1-number" class="mt-1 text-xl font-bold text-emerald-700"></p>
-                </div>
-                <div class="text-emerald-100 bg-emerald-50 rounded-full p-2">
-                  <svg class="w-5 h-5 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M3 12l2-2m0 0l7-7 7 7" stroke-width="1.6" />
-                  </svg>
-                </div>
-              </div>
-              <div class="mt-3 flex justify-between text-[11px] text-green-600">
-                <span class="kpi-growth">0.0% last month</span>
-              </div>
-            </article>
+          <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-sans text-sm">
+  <!-- Base -->
+  <article class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 flex flex-col transition hover:shadow-md">
+    <div class="flex items-center justify-between">
+      <div>
+        <h4 class="text-[11px] font-medium text-gray-500 uppercase tracking-wide">Base</h4>
+        <p id="kpi1-number" class="mt-1 text-2xl font-bold text-emerald-700">--</p>
+      </div>
+      <div class="rounded-full p-2 bg-emerald-100">
+        <svg class="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M3 12l2-2m0 0l7-7 7 7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+    <div class="mt-2 text-[11px] text-green-600">
+      <span class="kpi-growth">0.0% last month</span>
+    </div>
+  </article>
 
-            <!-- Subscribers -->
-            <article class="bg-white dark:bg-slate-800 rounded-xl shadow p-4 flex flex-col">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h4 class="text-[11px] font-medium text-gray-500 uppercase">Subscribers</h4>
-                  <p id="kpi2-number" class="mt-1 text-xl font-bold text-emerald-700"></p>
-                </div>
-                <div class="text-emerald-100 bg-emerald-50 rounded-full p-2">
-                  <svg class="w-5 h-5 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M12 8v4l3 3" stroke-width="1.6" />
-                    <circle cx="12" cy="12" r="10" stroke-width="1.2" />
-                  </svg>
-                </div>
-              </div>
-              <div class="mt-3 flex justify-between text-[11px] text-green-600">
-                <span class="kpi-growth">0.0% last month</span>
-              </div>
-            </article>
+  <!-- Subscribers -->
+  <article class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 flex flex-col transition hover:shadow-md">
+    <div class="flex items-center justify-between">
+      <div>
+        <h4 class="text-[11px] font-medium text-gray-500 uppercase tracking-wide">Subscribers</h4>
+        <p id="kpi2-number" class="mt-1 text-2xl font-bold text-emerald-700">--</p>
+      </div>
+      <div class="rounded-full p-2 bg-emerald-100">
+        <svg class="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" stroke-width="1.2" />
+          <path d="M12 8v4l3 3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+    <div class="mt-2 text-[11px] text-green-600">
+      <span class="kpi-growth">0.0% last month</span>
+    </div>
+  </article>
 
-            <!-- Penetration -->
-            <article class="bg-white dark:bg-slate-800 rounded-xl shadow p-4 flex flex-col">
-              <div class="flex items-center justify-between">
-                <div>
-                  <h4 class="text-[11px] font-medium text-gray-500 uppercase">Penetration</h4>
-                  <p id="kpi3-number" class="mt-1 text-xl font-bold text-emerald-700"></p>
-                </div>
-                <div class="text-emerald-100 bg-emerald-50 rounded-full p-2">
-                  <svg class="w-5 h-5 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M5 13l4 4L19 7" stroke-width="1.6" />
-                  </svg>
-                </div>
-              </div>
-              <div class="mt-3 flex justify-between text-[11px] text-green-600">
-                <span class="kpi-growth">0.0% last month</span>
-              </div>
-            </article>
-          </section>
+  <!-- Penetration -->
+  <article class="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 flex flex-col transition hover:shadow-md">
+    <div class="flex items-center justify-between">
+      <div>
+        <h4 class="text-[11px] font-medium text-gray-500 uppercase tracking-wide">Penetration</h4>
+        <p id="kpi3-number" class="mt-1 text-2xl font-bold text-emerald-700">--</p>
+      </div>
+      <div class="rounded-full p-2 bg-emerald-100">
+        <svg class="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M5 13l4 4L19 7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+    <div class="mt-2 text-[11px] text-green-600">
+      <span class="kpi-growth">0.0% last month</span>
+    </div>
+  </article>
+</section>
+
 
 <div class="flex flex-col lg:flex-row gap-6 mt-6">
   <!-- Trend Chart (1x height) -->
@@ -785,6 +786,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
