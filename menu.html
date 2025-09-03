@@ -176,6 +176,11 @@
   <!-- Trend Chart (1x height) -->
   <div class="w-full lg:w-1/2 bg-white rounded-xl shadow p-4 h-48">
     <canvas id="trendChart" class="w-full h-full"></canvas>
+
+    <!-- Target vs Achievement Chart -->
+    <div class="mt-6 h-64">
+      <canvas id="targetAchievementChart" class="w-full h-full"></canvas>
+    </div>
   </div>
 
   <!-- Map and Stats Section (2x height) -->
@@ -220,6 +225,50 @@
 
 
 
+<script>
+  const ctx = document.getElementById('targetAchievementChart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['CFLHE00060', 'CFLHE00064', 'CFLHE00065', 'CFLHE00073'],
+      datasets: [
+        {
+          label: 'Target',
+          data: [48, 72, 68, 58],
+          backgroundColor: 'rgba(99, 102, 241, 0.7)', // indigo-500
+        },
+        {
+          label: 'Achieved',
+          data: [30, 49, 33, 43],
+          backgroundColor: 'rgba(16, 185, 129, 0.7)', // emerald-500
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Target vs Achievement (Dummy Data)',
+          font: { size: 14 }
+        },
+        legend: {
+          position: 'top'
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: 'MASTER_ID' }
+        },
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'Count' }
+        }
+      }
+    }
+  });
+</script>
 
 
 
@@ -787,6 +836,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
