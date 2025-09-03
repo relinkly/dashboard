@@ -228,17 +228,16 @@
             </article>
           </section>
 
-<div class="flex flex-col lg:flex-row gap-6 mt-6 h-64">
+<div class="flex flex-col lg:flex-row gap-6 mt-6">
   <!-- Trend Chart -->
-  <div class="w-full lg:w-1/2 bg-white rounded-xl shadow p-4 h-full">
+  <div class="w-full lg:w-1/2 bg-white rounded-xl shadow p-4 h-48">
     <canvas id="trendChart" class="w-full h-full"></canvas>
   </div>
 
   <!-- Map and Stats Section -->
-  <section class="w-full lg:w-1/2 mb-8 h-full">
-    <div class="bg-white rounded-xl shadow p-4 flex flex-col space-y-4 h-full">
+  <section class="w-full lg:w-1/2 mb-8">
+    <div class="bg-white rounded-xl shadow p-4 flex flex-col space-y-4 h-64">
       
-
       <!-- Map -->
       <div id="map" class="w-full h-full rounded-md overflow-hidden border border-gray-200"></div>
 
@@ -844,6 +843,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
