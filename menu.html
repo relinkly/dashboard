@@ -173,20 +173,23 @@
 
 
 <div class="flex flex-col lg:flex-row gap-6 mt-6">
-  <!-- Trend Chart (1x height) -->
-  <div class="w-full lg:w-1/2 bg-white rounded-xl shadow p-4 h-48">
-    <canvas id="trendChart" class="w-full h-full"></canvas>
+  <!-- Left Side (Trend + Target Achievement) -->
+  <div class="w-full lg:w-1/2 flex flex-col gap-6">
+    <!-- Trend Chart -->
+    <div class="bg-white rounded-xl shadow p-4 h-48">
+      <canvas id="trendChart" class="w-full h-full"></canvas>
+    </div>
 
     <!-- Target vs Achievement Chart -->
-    <div class="mt-6 h-64">
+    <div class="bg-white rounded-xl shadow p-4 h-64">
+      <div class="mb-2 text-sm font-semibold text-gray-700">Target vs Achievement</div>
       <canvas id="targetAchievementChart" class="w-full h-full"></canvas>
     </div>
   </div>
 
-  <!-- Map and Stats Section (2x height) -->
+  <!-- Map and Stats Section -->
   <section class="w-full lg:w-1/2 mb-8">
     <div class="bg-white rounded-xl shadow p-4 flex flex-col space-y-4 h-96">
-      
       <!-- Map -->
       <div id="map" class="w-full h-3/4 rounded-md overflow-hidden border border-gray-200"></div>
 
@@ -236,34 +239,59 @@
         {
           label: 'Target',
           data: [48, 72, 68, 58],
-          backgroundColor: 'rgba(99, 102, 241, 0.7)', // indigo-500
+          backgroundColor: 'rgba(79, 70, 229, 0.8)', // Indigo-600
+          borderRadius: 4,
+          barThickness: 20,
         },
         {
           label: 'Achieved',
           data: [30, 49, 33, 43],
-          backgroundColor: 'rgba(16, 185, 129, 0.7)', // emerald-500
+          backgroundColor: 'rgba(5, 150, 105, 0.8)', // Emerald-600
+          borderRadius: 4,
+          barThickness: 20,
         }
       ]
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         title: {
-          display: true,
-          text: 'Target vs Achievement (Dummy Data)',
-          font: { size: 14 }
+          display: false
         },
         legend: {
-          position: 'top'
+          display: true,
+          position: 'bottom',
+          labels: {
+            color: '#374151', // Tailwind gray-700
+            font: { size: 12 }
+          }
+        },
+        tooltip: {
+          backgroundColor: '#1f2937', // Tailwind gray-800
+          titleColor: '#fff',
+          bodyColor: '#d1d5db', // gray-300
         }
       },
       scales: {
         x: {
-          title: { display: true, text: 'MASTER_ID' }
+          ticks: {
+            color: '#6b7280', // gray-500
+            font: { size: 11 }
+          },
+          grid: {
+            display: false
+          }
         },
         y: {
           beginAtZero: true,
-          title: { display: true, text: 'Count' }
+          ticks: {
+            color: '#6b7280', // gray-500
+            font: { size: 11 }
+          },
+          grid: {
+            color: '#f3f4f6' // light gray background lines
+          }
         }
       }
     }
@@ -836,6 +864,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
