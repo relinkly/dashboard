@@ -28,23 +28,25 @@
 </head>
 
 <body class="h-full theme-transition" data-theme="light">
-  <div class="min-h-screen flex">
-  <aside id="sidebar" class="sidebar hidden lg:flex lg:flex-col w-72 bg-white border-r border-gray-200 shadow-md">
+ <div class="min-h-screen flex">
+  <aside id="sidebar" class="sidebar hidden lg:flex lg:flex-col w-72 bg-white border-r border-gray-200 shadow-sm">
 
     <!-- Sidebar Header -->
-    <div class="p-6 flex items-center gap-3 border-b border-gray-100">
-      <!-- Logo or Initials -->
-      <div
-        class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-fuchsia-500 flex items-center justify-center text-white font-extrabold shadow-sm">
+    <div class="p-5 flex items-center gap-4 border-b border-gray-100 bg-white">
+      <!-- Logo Block -->
+      <div class="w-11 h-11 rounded-md bg-green-600 flex items-center justify-center text-white text-base font-bold shadow-md">
         KPI
       </div>
 
-      <!-- Title + Subtitle -->
-      <div>
-        <h1 class="text-lg font-semibold text-green-700 leading-tight">
-          <span class="text-fuchsia-600">Dashboard</span>
+      <!-- Title & Subtitle -->
+      <div class="flex flex-col justify-center">
+        <h1 class="text-lg font-semibold text-gray-800 leading-tight">
+          Dashboard
         </h1>
-        <p class="text-xs text-gray-500">Commercial Planning & Business Support</p>
+        <p class="text-xs text-gray-500 mt-0.5">
+          <span class="text-green-600 font-medium">Commercial Planning</span>
+          <span class="text-fuchsia-500"> & Business Support</span>
+        </p>
       </div>
     </div>
 
@@ -869,6 +871,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
