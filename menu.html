@@ -29,16 +29,24 @@
 
 <body class="h-full theme-transition" data-theme="light">
   <div class="min-h-screen flex">
-    <aside id="sidebar" class="sidebar hidden lg:flex lg:flex-col w-72 bg-white border-r border-gray-200 shadow-md">
-      <div class="p-6 flex items-center gap-3 border-b border-gray-100">
-        <div
-          class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-400 flex items-center justify-center text-white font-extrabold">
-          KPI</div>
-        <div>
-          <h1 class="text-lg font-semibold text-slate-700"><span class="text-indigo-500">Dashboard</span></h1>
-          <p class="text-xs text-gray-400">Commercial Planning & Bussiness Support</p>
-        </div>
+  <aside id="sidebar" class="sidebar hidden lg:flex lg:flex-col w-72 bg-white border-r border-gray-200 shadow-md">
+
+    <!-- Sidebar Header -->
+    <div class="p-6 flex items-center gap-3 border-b border-gray-100">
+      <!-- Logo or Initials -->
+      <div
+        class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-fuchsia-500 flex items-center justify-center text-white font-extrabold shadow-sm">
+        KPI
       </div>
+
+      <!-- Title + Subtitle -->
+      <div>
+        <h1 class="text-lg font-semibold text-green-700 leading-tight">
+          <span class="text-fuchsia-600">Dashboard</span>
+        </h1>
+        <p class="text-xs text-gray-500">Commercial Planning & Business Support</p>
+      </div>
+    </div>
 
       <nav class="px-4 py-6 flex-1 overflow-y-auto">
   <ul class="space-y-4 text-sm">
@@ -147,20 +155,6 @@
 
   </ul>
 </nav>
-
-
-      <script>
-        // Get current page name from URL
-        const currentPage = window.location.pathname.split("/").pop();
-
-        // Loop through all nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
-          const linkPage = link.getAttribute('href');
-          if (linkPage === currentPage) {
-            link.classList.add('bg-indigo-50', 'text-indigo-700', 'shadow-sm');
-          }
-        });
-      </script>
 
 
       <div class="p-4 border-t border-gray-100">
@@ -858,12 +852,24 @@ gridFilter.addEventListener('change', () => {
 
   </script>
 
+      <script>
+        // Get current page name from URL
+        const currentPage = window.location.pathname.split("/").pop();
 
+        // Loop through all nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+          const linkPage = link.getAttribute('href');
+          if (linkPage === currentPage) {
+            link.classList.add('bg-indigo-50', 'text-indigo-700', 'shadow-sm');
+          }
+        });
+      </script>
 
 </body>
 
 
 </html>
+
 
 
 
