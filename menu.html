@@ -138,37 +138,43 @@
     </div>
   </aside>
     <div class="flex-1 flex flex-col">
-      <header class="flex items-center justify-between gap-4 px-4 py-3 bg-white border-b border-gray-100 top-0 z-20">
-        <div class="flex items-center gap-3">
-          <button id="mobileToggle" class="lg:hidden p-2 rounded-md hover:bg-slate-100">
-            <svg class="w-6 h-6 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M4 6h16M4 12h16M4 18h16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
+  <header class="sticky top-0 z-20 bg-white border-b border-gray-100 px-4 py-3 shadow-sm">
+    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
 
-          <div class="relative">
+      <!-- Left Section: Mobile Toggle & Optional Branding -->
+      <div class="flex items-center gap-3">
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileToggle" class="lg:hidden p-2 rounded-md hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <svg class="w-6 h-6 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
 
-          </div>
+        <!-- Optional Branding Placeholder -->
+        <div class="text-lg font-semibold text-gray-700 hidden sm:block">
+          <!-- Add logo or app name here -->
         </div>
+      </div>
 
+      <!-- Right Section: Filters -->
+      <div class="w-full lg:w-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <select id="regionFilter" class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="">Select Region</option>
+          </select>
+          <select id="gridFilter" class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" disabled>
+            <option value="">Select Grid</option>
+          </select>
+          <select id="franchiseFilter" class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" disabled>
+            <option value="">Select Franchise</option>
+          </select>
+        </div>
+      </div>
 
-        <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
-  <!-- Filters -->
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 self-start">
-    <select id="regionFilter" class="border border-gray-300 rounded-md p-2 text-sm">
-      <option value="">Select Region</option>
-    </select>
-    <select id="gridFilter" class="border border-gray-300 rounded-md p-2 text-sm" disabled>
-      <option value="">Select Grid</option>
-    </select>
-    <select id="franchiseFilter" class="border border-gray-300 rounded-md p-2 text-sm" disabled>
-      <option value="">Select Franchise</option>
-    </select>
-  </div>
+    </div>
+  </header>
 </div>
 
-
-      </header>
 
       <main class="p-6 max-w-7xl w-full mx-auto space-y-6">
           <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans text-sm">
@@ -843,6 +849,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
