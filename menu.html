@@ -180,11 +180,53 @@
       <canvas id="trendChart" class="w-full h-full"></canvas>
     </div>
 
-    <!-- Target vs Achievement Chart (Reduced Height) -->
-    <div class="bg-white rounded-xl shadow p-4 h-48">
-      <div class="mb-2 text-sm font-semibold text-gray-700">Target vs Achievement</div>
-      <canvas id="targetAchievementChart" class="w-full h-full"></canvas>
-    </div>
+    <!-- Target vs Achievement Card View -->
+<div class="bg-white rounded-xl shadow p-4">
+  <div class="mb-3 text-sm font-semibold text-gray-700">Target vs Achievement Summary (W1)</div>
+  
+  <div class="overflow-auto">
+    <table class="min-w-full text-sm text-gray-700">
+      <thead class="border-b border-gray-200 text-[13px] text-gray-600">
+        <tr>
+          <th class="text-left px-2 py-1">Subregion</th>
+          <th class="text-left px-2 py-1">Grid</th>
+          <th class="text-left px-2 py-1">Franchise</th>
+          <th class="text-right px-2 py-1">Target</th>
+          <th class="text-right px-2 py-1">Achievement</th>
+          <th class="text-right px-2 py-1">Avg Ach %</th>
+        </tr>
+      </thead>
+      <tbody class="text-[13px]">
+        <tr class="border-b border-gray-100">
+          <td class="px-2 py-1">C1</td>
+          <td class="px-2 py-1">Grid 101</td>
+          <td class="px-2 py-1">CFLHE00060</td>
+          <td class="text-right px-2 py-1">48</td>
+          <td class="text-right px-2 py-1">30</td>
+          <td class="text-right px-2 py-1 text-green-600 font-semibold">62.5%</td>
+        </tr>
+        <tr class="border-b border-gray-100">
+          <td class="px-2 py-1">C1</td>
+          <td class="px-2 py-1">Grid 101</td>
+          <td class="px-2 py-1">CFLHE00064</td>
+          <td class="text-right px-2 py-1">72</td>
+          <td class="text-right px-2 py-1">49</td>
+          <td class="text-right px-2 py-1 text-yellow-600 font-semibold">68.1%</td>
+        </tr>
+        <tr>
+          <td class="px-2 py-1">C1</td>
+          <td class="px-2 py-1">Grid 101</td>
+          <td class="px-2 py-1">CFLHE00065</td>
+          <td class="text-right px-2 py-1">68</td>
+          <td class="text-right px-2 py-1">33</td>
+          <td class="text-right px-2 py-1 text-red-600 font-semibold">48.5%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
   </div>
 
   <!-- Map and Stats Section (Increased Height) -->
@@ -229,76 +271,33 @@
 
 
 
-
 <script>
-  const ctx = document.getElementById('targetAchievementChart').getContext('2d');
+  const targetData = [
+    { subregion: 'C1', grid: 'Grid 101', franchise: 'CFLHE00060', target: 48, achieved: 30 },
+    { subregion: 'C1', grid: 'Grid 101', franchise: 'CFLHE00064', target: 72, achieved: 49 },
+    { subregion: 'C1', grid: 'Grid 101', franchise: 'CFLHE00065', target: 68, achieved: 33 },
+  ];
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['CFLHE00060', 'CFLHE00064', 'CFLHE00065', 'CFLHE00073'],
-      datasets: [
-        {
-          label: 'Target',
-          data: [48, 72, 68, 58],
-          backgroundColor: 'rgba(79, 70, 229, 0.8)', // Indigo-600
-          borderRadius: 4,
-          barThickness: 20,
-        },
-        {
-          label: 'Achieved',
-          data: [30, 49, 33, 43],
-          backgroundColor: 'rgba(5, 150, 105, 0.8)', // Emerald-600
-          borderRadius: 4,
-          barThickness: 20,
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        title: {
-          display: false
-        },
-        legend: {
-          display: true,
-          position: 'bottom',
-          labels: {
-            color: '#374151', // Tailwind gray-700
-            font: { size: 12 }
-          }
-        },
-        tooltip: {
-          backgroundColor: '#1f2937', // Tailwind gray-800
-          titleColor: '#fff',
-          bodyColor: '#d1d5db', // gray-300
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: '#6b7280', // gray-500
-            font: { size: 11 }
-          },
-          grid: {
-            display: false
-          }
-        },
-        y: {
-          beginAtZero: true,
-          ticks: {
-            color: '#6b7280', // gray-500
-            font: { size: 11 }
-          },
-          grid: {
-            color: '#f3f4f6' // light gray background lines
-          }
-        }
-      }
-    }
+  const tbody = document.querySelector('#achievementTableBody');
+
+  targetData.forEach(({ subregion, grid, franchise, target, achieved }) => {
+    const avgAch = ((achieved / target) * 100).toFixed(1);
+    const color = avgAch >= 80 ? 'text-green-600' : avgAch >= 60 ? 'text-yellow-600' : 'text-red-600';
+
+    const row = `
+      <tr class="border-b border-gray-100">
+        <td class="px-2 py-1">${subregion}</td>
+        <td class="px-2 py-1">${grid}</td>
+        <td class="px-2 py-1">${franchise}</td>
+        <td class="text-right px-2 py-1">${target}</td>
+        <td class="text-right px-2 py-1">${achieved}</td>
+        <td class="text-right px-2 py-1 font-semibold ${color}">${avgAch}%</td>
+      </tr>
+    `;
+    tbody.insertAdjacentHTML('beforeend', row);
   });
 </script>
+
 
 
 
@@ -866,6 +865,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
