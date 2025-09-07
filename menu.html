@@ -180,7 +180,50 @@
     <canvas id="trendChart" class="absolute inset-0 w-full h-full"></canvas>
   </div>
 </div>
-
+<div class="bg-white rounded-xl shadow p-4">
+  <div class="mb-3 text-sm font-semibold text-gray-700">Target vs Achievement Summary (W1)</div>
+  
+  <div class="overflow-auto">
+    <table class="min-w-full text-sm text-gray-700">
+      <thead class="border-b border-gray-200 text-[13px] text-gray-600">
+        <tr>
+          <th class="text-left px-2 py-1">Subregion</th>
+          <th class="text-left px-2 py-1">Grid</th>
+          <th class="text-left px-2 py-1">Franchise</th>
+          <th class="text-right px-2 py-1">Target</th>
+          <th class="text-right px-2 py-1">Achievement</th>
+          <th class="text-right px-2 py-1">Avg Ach %</th>
+        </tr>
+      </thead>
+      <tbody class="text-[13px]">
+        <tr class="border-b border-gray-100">
+          <td class="px-2 py-1">C1</td>
+          <td class="px-2 py-1">Grid 101</td>
+          <td class="px-2 py-1">CFLHE00060</td>
+          <td class="text-right px-2 py-1">48</td>
+          <td class="text-right px-2 py-1">30</td>
+          <td class="text-right px-2 py-1 text-green-600 font-semibold">62.5%</td>
+        </tr>
+        <tr class="border-b border-gray-100">
+          <td class="px-2 py-1">C1</td>
+          <td class="px-2 py-1">Grid 101</td>
+          <td class="px-2 py-1">CFLHE00064</td>
+          <td class="text-right px-2 py-1">72</td>
+          <td class="text-right px-2 py-1">49</td>
+          <td class="text-right px-2 py-1 text-yellow-600 font-semibold">68.1%</td>
+        </tr>
+        <tr>
+          <td class="px-2 py-1">C1</td>
+          <td class="px-2 py-1">Grid 101</td>
+          <td class="px-2 py-1">CFLHE00065</td>
+          <td class="text-right px-2 py-1">68</td>
+          <td class="text-right px-2 py-1">33</td>
+          <td class="text-right px-2 py-1 text-red-600 font-semibold">48.5%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 
 
@@ -226,50 +269,7 @@
     </div>
   </section>
 </div>
-<div class="bg-white rounded-xl shadow p-4">
-  <div class="mb-3 text-sm font-semibold text-gray-700">Target vs Achievement Summary (W1)</div>
-  
-  <div class="overflow-auto">
-    <table class="min-w-full text-sm text-gray-700">
-      <thead class="border-b border-gray-200 text-[13px] text-gray-600">
-        <tr>
-          <th class="text-left px-2 py-1">Subregion</th>
-          <th class="text-left px-2 py-1">Grid</th>
-          <th class="text-left px-2 py-1">Franchise</th>
-          <th class="text-right px-2 py-1">Target</th>
-          <th class="text-right px-2 py-1">Achievement</th>
-          <th class="text-right px-2 py-1">Avg Ach %</th>
-        </tr>
-      </thead>
-      <tbody class="text-[13px]">
-        <tr class="border-b border-gray-100">
-          <td class="px-2 py-1">C1</td>
-          <td class="px-2 py-1">Grid 101</td>
-          <td class="px-2 py-1">CFLHE00060</td>
-          <td class="text-right px-2 py-1">48</td>
-          <td class="text-right px-2 py-1">30</td>
-          <td class="text-right px-2 py-1 text-green-600 font-semibold">62.5%</td>
-        </tr>
-        <tr class="border-b border-gray-100">
-          <td class="px-2 py-1">C1</td>
-          <td class="px-2 py-1">Grid 101</td>
-          <td class="px-2 py-1">CFLHE00064</td>
-          <td class="text-right px-2 py-1">72</td>
-          <td class="text-right px-2 py-1">49</td>
-          <td class="text-right px-2 py-1 text-yellow-600 font-semibold">68.1%</td>
-        </tr>
-        <tr>
-          <td class="px-2 py-1">C1</td>
-          <td class="px-2 py-1">Grid 101</td>
-          <td class="px-2 py-1">CFLHE00065</td>
-          <td class="text-right px-2 py-1">68</td>
-          <td class="text-right px-2 py-1">33</td>
-          <td class="text-right px-2 py-1 text-red-600 font-semibold">48.5%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+
 
 
 <script>
@@ -887,6 +887,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
