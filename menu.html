@@ -182,6 +182,50 @@
 </div>
 
 
+
+
+
+  </div>
+
+  <!-- Map and Stats Section (Increased Height) -->
+  <section class="w-full lg:w-1/2 mb-8">
+    <div class="bg-white rounded-xl shadow p-4 flex flex-col space-y-4 h-[28rem]">
+      
+      <!-- Map (Taller) -->
+      <div id="map" class="w-full h-3/4 rounded-md overflow-hidden border border-gray-200"></div>
+
+      <!-- Stats Section -->
+      <div class="text-sm text-gray-700 space-y-2 overflow-auto h-2/4">
+        <div>
+          <strong>Sites:</strong> <span id="markerCount">0</span>,
+          <strong>GA CM:</strong> <span id="averageGaCm">0.00</span>,
+          <strong>GOLM:</strong> <span id="averageGolm">0.00%</span>
+        </div>
+        <div>
+          <strong>Category Breakdown:</strong><br />
+          <ul class="ml-4 list-disc">
+            <li>Plat: <span id="catPlat">0</span>
+              (<strong>GA CM:</strong> <span id="platGaCm">0.00</span>,
+              <strong>GOLM:</strong> <span id="platGolm">0.00%</span>)
+            </li>
+            <li>Gold: <span id="catGold">0</span>
+              (<strong>GA CM:</strong> <span id="goldGaCm">0.00</span>,
+              <strong>GOLM:</strong> <span id="goldGolm">0.00%</span>)
+            </li>
+            <li>Silver: <span id="catSilver">0</span>
+              (<strong>GA CM:</strong> <span id="silverGaCm">0.00</span>,
+              <strong>GOLM:</strong> <span id="silverGolm">0.00%</span>)
+            </li>
+            <li>Bronze: <span id="catBronze">0</span>
+              (<strong>GA CM:</strong> <span id="bronzeGaCm">0.00</span>,
+              <strong>GOLM:</strong> <span id="bronzeGolm">0.00%</span>)
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 <div class="bg-white rounded-xl shadow p-4">
   <div class="mb-3 text-sm font-semibold text-gray-700">Target vs Achievement Summary (W1)</div>
   
@@ -226,50 +270,6 @@
     </table>
   </div>
 </div>
-
-
-  </div>
-
-  <!-- Map and Stats Section (Increased Height) -->
-  <section class="w-full lg:w-1/2 mb-8">
-    <div class="bg-white rounded-xl shadow p-4 flex flex-col space-y-4 h-[28rem]">
-      
-      <!-- Map (Taller) -->
-      <div id="map" class="w-full h-3/4 rounded-md overflow-hidden border border-gray-200"></div>
-
-      <!-- Stats Section -->
-      <div class="text-sm text-gray-700 space-y-2 overflow-auto h-2/4">
-        <div>
-          <strong>Sites:</strong> <span id="markerCount">0</span>,
-          <strong>GA CM:</strong> <span id="averageGaCm">0.00</span>,
-          <strong>GOLM:</strong> <span id="averageGolm">0.00%</span>
-        </div>
-        <div>
-          <strong>Category Breakdown:</strong><br />
-          <ul class="ml-4 list-disc">
-            <li>Plat: <span id="catPlat">0</span>
-              (<strong>GA CM:</strong> <span id="platGaCm">0.00</span>,
-              <strong>GOLM:</strong> <span id="platGolm">0.00%</span>)
-            </li>
-            <li>Gold: <span id="catGold">0</span>
-              (<strong>GA CM:</strong> <span id="goldGaCm">0.00</span>,
-              <strong>GOLM:</strong> <span id="goldGolm">0.00%</span>)
-            </li>
-            <li>Silver: <span id="catSilver">0</span>
-              (<strong>GA CM:</strong> <span id="silverGaCm">0.00</span>,
-              <strong>GOLM:</strong> <span id="silverGolm">0.00%</span>)
-            </li>
-            <li>Bronze: <span id="catBronze">0</span>
-              (<strong>GA CM:</strong> <span id="bronzeGaCm">0.00</span>,
-              <strong>GOLM:</strong> <span id="bronzeGolm">0.00%</span>)
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
 
 
 <script>
@@ -887,6 +887,7 @@ gridFilter.addEventListener('change', () => {
 
 
 </html>
+
 
 
 
